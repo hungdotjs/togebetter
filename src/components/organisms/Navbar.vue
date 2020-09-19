@@ -59,14 +59,9 @@
     <div class="tb-navbar hidden-xs-only">
       <div class="tb-navbar__wrapper tb-navbar__wrapper--desktop">
         <div class="tb-navbar__item--desktop tb-navbar__logo">
-          <a class="tb-navbar__item__anchor" href="https://hinative.com/en-US">
-            <img
-              alt="logo"
-              src="https://cdn.hinative.com/assets/apple_touch_icon-fb23f9556e698db984c0d4fc9ba962f000a080e23a77384e44a760d7b527d574.png"
-              width="42"
-              height="42"
-            />
-          </a>
+          <router-link tag="div" class="tb-navbar__item__anchor" to="/">
+            Togebetter
+          </router-link>
         </div>
 
         <!-- search  -->
@@ -77,14 +72,14 @@
         <div class="tb-navbar__item--desktop">
           <ul class="tb-navbar__operations">
             <li class="tb-navbar__operations__item">
-              <a class="tb-navbar__operations__anchor" href="https://hinative.com/en-US">
+              <router-link class="tb-navbar__operations__anchor" to="/">
                 <i class="el-icon-s-home"></i>
-              </a>
+              </router-link>
             </li>
             <li class="tb-navbar__operations__item rspec-nav_activity">
-              <a class="tb-navbar__operations__anchor" href="/en-US/activities">
+              <router-link class="tb-navbar__operations__anchor" to="/notifications">
                 <i class="el-icon-message-solid"></i>
-              </a>
+              </router-link>
             </li>
             <li class="tb-navbar__operations__item">
               <div class="tb-navbar__operations__anchor">
@@ -120,9 +115,9 @@
               </div>
             </li>
             <li class="tb-navbar__operations__item">
-              <a href="#" class="tb-navbar__operations__anchor">
+              <router-link to="/questions/type" class="tb-navbar__operations__anchor">
                 <el-button type="primary" class="text-bold" round>Ask</el-button>
-              </a>
+              </router-link>
             </li>
           </ul>
         </div>

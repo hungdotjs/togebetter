@@ -1,7 +1,10 @@
-// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
-// module.exports = {
-//   configureWebpack: {
-//     plugins: [new BundleAnalyzerPlugin()],
-//   },
-// };
+let configureWebpack = {};
+if (process.env.NODE_ENV === 'development') {
+  configureWebpack = { plugins: [new BundleAnalyzerPlugin()] };
+}
+
+module.exports = {
+  configureWebpack,
+};
