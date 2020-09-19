@@ -5,7 +5,7 @@ module.exports = {
       'component',
       {
         libraryName: 'element-ui',
-        styleLibraryName: '~theme',
+        styleLibraryName: '~src/theme',
       },
     ],
   ],
