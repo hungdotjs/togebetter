@@ -1,7 +1,7 @@
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
-module.exports = {
-  configureWebpack: {
-    plugins: [new BundleAnalyzerPlugin()],
-  },
-};
+// module.exports = {
+//   configureWebpack: {
+//     plugins: [new BundleAnalyzerPlugin()],
+//   },
+// };
