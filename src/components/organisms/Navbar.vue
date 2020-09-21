@@ -1,12 +1,11 @@
 <template>
-  <div>
+  <div class="tb-navbar">
     <!-- Mobile  -->
-    <div class="tb-navbar hidden-sm-and-up">
+    <div class="hidden-sm-and-up">
       <ul class="tb-navbar__wrapper">
         <li class="tb-navbar__item">
           <router-link class="tb-navbar__item__anchor" to="/">
             <div>
-              <!-- <img :src="require('@/assets/icons/home.svg')" /> -->
               <i class="el-icon-s-home"></i>
             </div>
             <div class="tb-navbar__item__label">Home</div>
@@ -15,7 +14,6 @@
         <li class="tb-navbar__item">
           <router-link class="tb-navbar__item__anchor" to="/notifications">
             <div>
-              <!-- <img :src="require('@/assets/icons/notification.svg')" /> -->
               <i class="el-icon-message-solid"></i>
             </div>
             <div class="tb-navbar__item__label">Notifications</div>
@@ -24,7 +22,6 @@
         <li class="tb-navbar__item ">
           <router-link class="tb-navbar__item__anchor" to="/questions/type">
             <div>
-              <!-- <img :src="require('@/assets/icons/ask-question.svg')" /> -->
               <i class="el-icon-question"></i>
             </div>
             <div class="tb-navbar__item__label">Ask</div>
@@ -33,7 +30,6 @@
         <li class="tb-navbar__item">
           <router-link class="tb-navbar__item__anchor" to="/profile">
             <div>
-              <!-- <img :src="require('@/assets/icons/user.svg')" /> -->
               <i class="el-icon-user-solid"></i>
             </div>
             <div class="tb-navbar__item__label">Profile</div>
@@ -42,7 +38,6 @@
         <li class="tb-navbar__item">
           <router-link class="tb-navbar__item__anchor" to="/settings">
             <div>
-              <!-- <img :src="require('@/assets/icons/settings.svg')" /> -->
               <i class="el-icon-s-tools"></i>
             </div>
             <div class="tb-navbar__item__label">Settings</div>
@@ -56,7 +51,7 @@
     </div>
 
     <!-- Desktop  -->
-    <div class="tb-navbar hidden-xs-only">
+    <div class="hidden-xs-only">
       <div class="tb-navbar__wrapper tb-navbar__wrapper--desktop">
         <div class="tb-navbar__item--desktop tb-navbar__logo">
           <router-link tag="div" class="tb-navbar__item__anchor" to="/">
