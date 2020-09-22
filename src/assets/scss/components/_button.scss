@@ -1,0 +1,14 @@
+.btn {
+  &--facebook {
+    border: 1px solid #3b5998;
+    background-color: #3b5998;
+    color: #fff;
+
+    &:hover {
+      background-color: #38538b;
+      border: 1px solid #3b5998;
+      color: #fff;
+      opacity: 0.9;
+    }
+  }
+}

@@ -1,3 +1,98 @@
+// Text
 .text-bold {
   font-weight: bold !important;
+}
+
+.text-small {
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+// Layout
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center-y {
+  display: flex;
+  align-items: center;
+}
+
+.center-x {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 2rem;
+  margin-bottom: 32px;
+}
+
+.w-100 {
+  width: 100% !important;
+}
+
+.mr-8 {
+  margin-right: 8px !important;
+}
+
+.ml-8 {
+  margin-left: 8px !important;
+}
+
+.mb-8 {
+  margin-bottom: 8px !important;
+}
+
+.mb-16 {
+  margin-bottom: 16px !important;
+}
+
+.mr-16 {
+  margin-right: 16px !important;
+}
+
+.ml-16 {
+  margin-left: 16px !important;
+}
+
+.mt-16 {
+  margin-top: 16px !important;
+}
+
+.pt-16 {
+  padding-top: 16px !important;
+}
+
+.p-16 {
+  padding: 16px !important;
+}
+
+.line-height-rs {
+  line-height: 1.5;
+}
+
+.cursor {
+  cursor: pointer;
+  &:hover {
+    color: $--color-primary;
+    transition: all 0.3s;
+  }
 }

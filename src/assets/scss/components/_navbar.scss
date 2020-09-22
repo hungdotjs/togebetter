@@ -1,5 +1,5 @@
 .tb-navbar {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
@@ -33,6 +33,7 @@
       position: relative;
       color: #fff;
       text-align: center;
+      text-decoration: none;
     }
 
     i {

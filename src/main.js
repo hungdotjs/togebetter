@@ -1,6 +1,22 @@
 import Vue from 'vue';
-// eslint-disable-next-line object-curly-newline
-import { Button, Input, Select, Option, Dropdown, DropdownMenu, DropdownItem } from 'element-ui';
+import {
+  Button,
+  Input,
+  Select,
+  Option,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem,
+  FormItem,
+  Form,
+  Checkbox,
+  Divider,
+  Link,
+  Tag,
+  RadioGroup,
+  RadioButton,
+  Dialog,
+} from 'element-ui';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -16,6 +32,15 @@ Vue.use(Option);
 Vue.use(Dropdown);
 Vue.use(DropdownMenu);
 Vue.use(DropdownItem);
+Vue.use(Form);
+Vue.use(FormItem);
+Vue.use(Checkbox);
+Vue.use(Divider);
+Vue.use(Link);
+Vue.use(Tag);
+Vue.use(RadioGroup);
+Vue.use(RadioButton);
+Vue.use(Dialog);
 
 Vue.config.productionTip = false;
 
