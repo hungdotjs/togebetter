@@ -55,7 +55,7 @@
       <div class="tb-navbar__wrapper tb-navbar__wrapper--desktop">
         <div class="tb-navbar__item--desktop tb-navbar__logo">
           <router-link tag="div" class="tb-navbar__item__anchor" to="/">
-            Togebetter
+            LOGO
           </router-link>
         </div>
 

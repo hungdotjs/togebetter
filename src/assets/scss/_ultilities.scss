@@ -5,16 +5,31 @@
 
 .text-small {
   font-size: 0.7rem;
+  line-height: 1.5;
 }
 
 .text-center {
   text-align: center;
 }
 
+.text-right {
+  text-align: right;
+}
+
 // Layout
 .center {
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+.center-y {
+  display: flex;
+  align-items: center;
+}
+
+.center-x {
+  display: flex;
   justify-content: center;
 }
 
@@ -72,4 +87,12 @@
 
 .line-height-rs {
   line-height: 1.5;
+}
+
+.cursor {
+  cursor: pointer;
+  &:hover {
+    color: $--color-primary;
+    transition: all 0.3s;
+  }
 }
