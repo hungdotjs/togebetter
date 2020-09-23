@@ -23,6 +23,8 @@ import store from './store';
 
 // CSS
 import '@/assets/scss/all.scss';
+// iconfont
+import '@/assets/fonts/iconfont.css';
 
 Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 };
 Vue.use(Button);

@@ -36,13 +36,15 @@
 .container {
   padding-left: 16px;
   padding-right: 16px;
+  max-width: $screen-max-width;
+  margin: 0 auto;
 }
 
 .title {
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-size: 1.3em;
   line-height: 2rem;
-  margin-bottom: 32px;
+  margin-top: 32px;
+  margin-bottom: 16px;
 }
 
 .w-100 {
