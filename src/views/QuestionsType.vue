@@ -1,5 +1,5 @@
 <template>
-  <div class="questions-type">
+  <div class="page questions-type">
     <h1>Choose a question template.</h1>
     <h2 class="title">Ask about grammar/vocab</h2>
     <question-tag
@@ -76,9 +76,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.questions-type {
-  padding-top: 16px;
-}
-</style>

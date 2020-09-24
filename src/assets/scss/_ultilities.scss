@@ -16,6 +16,18 @@
   text-align: right;
 }
 
+.text-truncate {
+  overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+
+.color-secondary {
+  color: $--color-secondary;
+}
+
 // Layout
 .center {
   display: flex;
@@ -31,6 +43,10 @@
 .center-x {
   display: flex;
   justify-content: center;
+}
+
+.page {
+  padding-top: 16px;
 }
 
 .container {
@@ -49,6 +65,10 @@
 
 .w-100 {
   width: 100% !important;
+}
+
+.m-0 {
+  margin: 0 !important;
 }
 
 .mr-8 {
@@ -97,4 +117,17 @@
     color: $--color-primary;
     transition: all 0.3s;
   }
+}
+
+.bg-primary {
+  background-color: $--color-primary;
+  color: #fff;
+}
+
+.color-primary {
+  color: $--color-primary;
+}
+
+.circle {
+  border-radius: 50%;
 }

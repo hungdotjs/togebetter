@@ -1,17 +1,17 @@
 <template>
-  <div class="page home">
-    <question-bubble v-for="i in 3" :key="i" :totalAnswer="i - 1"></question-bubble>
+  <div class="page question-detail">
+    <chat-bubble></chat-bubble>
   </div>
 </template>
 
 <script>
 import LayoutDefault from '@/layouts/LayoutDefault.vue';
-import QuestionBubble from '@/components/molecules/QuestionBubble.vue';
+import ChatBubble from '@/components/molecules/ChatBubble.vue';
 
 export default {
   name: 'Home',
   components: {
-    QuestionBubble,
+    ChatBubble,
   },
 
   created() {

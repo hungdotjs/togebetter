@@ -2,7 +2,9 @@
   <div class="layout--default">
     <navbar></navbar>
     <main class="layout--default__main container">
-      <slot></slot>
+      <transition name="page-transition" mode="out-in">
+        <slot></slot>
+      </transition>
     </main>
     <tb-footer></tb-footer>
   </div>

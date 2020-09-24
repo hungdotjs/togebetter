@@ -6,6 +6,41 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1381362",
+      "name": "ellipsis",
+      "font_class": "ellipsis",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "959410",
+      "name": "share",
+      "font_class": "share",
+      "unicode": "e655",
+      "unicode_decimal": 58965
+    },
+    {
+      "icon_id": "1381351",
+      "name": "dislike1",
+      "font_class": "dislike",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "1381403",
+      "name": "like1",
+      "font_class": "like",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "13895901",
+      "name": "bookmark",
+      "font_class": "bookmark",
+      "unicode": "e761",
+      "unicode_decimal": 59233
+    },
+    {
       "icon_id": "702320",
       "name": "earth",
       "font_class": "earth",

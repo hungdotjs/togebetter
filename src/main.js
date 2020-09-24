@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import {
+  Avatar,
   Button,
   Input,
   Select,
@@ -27,6 +28,7 @@ import '@/assets/scss/all.scss';
 import '@/assets/fonts/iconfont.css';
 
 Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 };
+Vue.use(Avatar);
 Vue.use(Button);
 Vue.use(Input);
 Vue.use(Select);

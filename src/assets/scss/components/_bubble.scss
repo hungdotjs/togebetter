@@ -1,0 +1,29 @@
+.bubble {
+  display: flex;
+  margin-bottom: 16px;
+
+  &__avatar {
+    margin-top: 16px;
+    flex-shrink: 0;
+  }
+
+  &__content {
+    flex-grow: 1;
+    flex-shrink: 1;
+    padding: 8px;
+    cursor: pointer;
+  }
+
+  &__name {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  &__question {
+    border: 1px solid $--color-border;
+    padding: 8px 16px;
+    border-radius: 8px;
+  }
+}
