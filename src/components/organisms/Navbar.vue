@@ -28,7 +28,7 @@
           </router-link>
         </li>
         <li class="tb-navbar__item">
-          <router-link class="tb-navbar__item__anchor" to="/profile">
+          <router-link class="tb-navbar__item__anchor" to="/profile/12323">
             <div>
               <i class="el-icon-user-solid"></i>
             </div>
@@ -77,7 +77,7 @@
               </router-link>
             </li>
             <li class="tb-navbar__operations__item">
-              <div class="tb-navbar__operations__anchor">
+              <div class="tb-navbar__operations__anchor center-y">
                 <el-dropdown>
                   <img
                     alt="user image"
@@ -88,7 +88,7 @@
                   />
                   <el-dropdown-menu>
                     <el-dropdown-item>
-                      <router-link tag="span" to="/profile">
+                      <router-link tag="span" to="/profile/12321312">
                         <i class="el-icon-user"></i>
                         Profile
                       </router-link>
@@ -110,7 +110,7 @@
               </div>
             </li>
             <li class="tb-navbar__operations__item">
-              <router-link to="/questions/type" class="tb-navbar__operations__anchor">
+              <router-link to="/questions/type" class="tb-navbar__operations__anchor center-y">
                 <el-button type="primary" class="text-bold" round>Ask</el-button>
               </router-link>
             </li>

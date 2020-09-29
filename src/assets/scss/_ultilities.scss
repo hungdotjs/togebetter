@@ -36,7 +36,7 @@
 }
 
 .center-y {
-  display: flex;
+  display: flex !important;
   align-items: center;
 }
 
@@ -69,6 +69,11 @@
 
 .m-0 {
   margin: 0 !important;
+}
+
+.mx-8 {
+  margin-right: 8px !important;
+  margin-left: 8px !important;
 }
 
 .mr-8 {
@@ -105,6 +110,11 @@
 
 .p-16 {
   padding: 16px !important;
+}
+
+.px-8 {
+  padding-right: 8px !important;
+  padding-left: 8px !important;
 }
 
 .line-height-rs {

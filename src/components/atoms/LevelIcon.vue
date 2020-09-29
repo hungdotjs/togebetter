@@ -1,6 +1,7 @@
 <template>
   <div class="center-y">
-    <img :src="require(`@/assets/icons/${iconPath}.svg`)" alt="#" :width="width" class="mr-8" />
+    <slot name="prefix"></slot>
+    <img :src="require(`@/assets/icons/${iconPath}.svg`)" alt="#" :width="width" class="mx-8" />
     <slot></slot>
   </div>
 </template>

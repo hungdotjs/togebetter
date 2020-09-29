@@ -1,0 +1,55 @@
+.profile {
+  margin-top: 16px;
+  padding: 16px;
+  // background-color: $background-color;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+
+    &__username {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+  }
+
+  &__points {
+    &__title {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+  }
+
+  &__point-box {
+    background-color: $background-color;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 16px;
+
+    &--native {
+      color: #ff47aa;
+    }
+
+    &__header {
+      padding: 8px 16px;
+      background-color: #e0f7fa;
+
+      &--native {
+        background-color: #fdf1f7;
+      }
+    }
+
+    &__content {
+      padding: 8px 16px;
+      font-size: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      i {
+        font-size: 2rem;
+      }
+    }
+  }
+}
