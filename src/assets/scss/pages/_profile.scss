@@ -1,12 +1,28 @@
 .profile {
-  margin-top: 16px;
-  padding: 16px;
-  // background-color: $background-color;
+  max-width: 700px;
+  margin: 0 auto;
+  background: $background-color;
+
+  &__overview {
+    padding: 16px;
+    // background-color: #241c17;
+    background-image: url('~@/assets/img/profile-bg.jpg');
+    background-position: top;
+    background-size: cover;
+    margin-bottom: 16px;
+  }
+
+  &__detail {
+    &__title {
+      color: $--color-secondary;
+    }
+  }
 
   &__header {
     display: flex;
     align-items: center;
     margin-bottom: 16px;
+    color: #fff;
 
     &__username {
       font-size: 1.2em;
@@ -16,40 +32,68 @@
 
   &__points {
     &__title {
+      color: #fff;
       font-size: 1.2em;
       font-weight: bold;
     }
   }
 
   &__point-box {
+    color: $foreground-color;
     background-color: $background-color;
     border-radius: 8px;
     overflow: hidden;
     margin-bottom: 16px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 
-    &--native {
-      color: #ff47aa;
+    // &:hover {
+    //   transform: scale(1.03);
+    //   transition: all 0.3s;
+    // }
+
+    &__footer {
+      padding: 8px 16px;
+      background: #f2f2f2;
+
+      &__value {
+        font-size: 24px;
+        color: #0eb077;
+        margin-left: 8px;
+      }
     }
 
     &__header {
       padding: 8px 16px;
-      background-color: #e0f7fa;
+      color: #ff47aa;
+      background-color: #fdf1f7;
+    }
 
-      &--native {
-        background-color: #fdf1f7;
+    &__title {
+      display: flex;
+      align-items: center;
+      p {
+        margin: 0;
       }
     }
 
     &__content {
-      padding: 8px 16px;
-      font-size: 2rem;
+      padding: 16px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      color: $--color-secondary;
 
       i {
-        font-size: 2rem;
+        font-size: 32px;
       }
+    }
+
+    &__point {
+      flex-grow: 1;
+      text-align: right;
+      font-size: 32px;
+      color: $--color-primary;
+      margin: 0;
     }
   }
 }

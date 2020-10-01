@@ -1,3 +1,15 @@
+.d-flex {
+  display: flex;
+}
+
+.grow-1 {
+  flex-grow: 1;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
 // Text
 .text-bold {
   font-weight: bold !important;
@@ -115,6 +127,10 @@
 .px-8 {
   padding-right: 8px !important;
   padding-left: 8px !important;
+}
+
+.p-0 {
+  padding: 0 !important;
 }
 
 .line-height-rs {

@@ -3,7 +3,7 @@
     <bubble>
       <div class="chat-bubble__language">
         <div class="center-y"><i class="el-icon-s-comment mr-8"></i>Korea</div>
-        <level-icon :level="1">
+        <level-icon level="1">
           <template #prefix>
             <i class="el-icon-edit mr-8"></i>
             English (US)
@@ -20,25 +20,25 @@
         <div class="chat-bubble__social">
           <div class="chat-bubble__button">
             <p><i class="iconfont icon-share"></i></p>
-            <p class="text-small">Share</p>
+            <p class="chat-bubble__button__text">Share</p>
           </div>
           <div class="chat-bubble__button">
             <p><i class="iconfont icon-bookmark"></i></p>
-            <p class="text-small">Save</p>
+            <p class="chat-bubble__button__text">Save</p>
           </div>
           <div class="chat-bubble__button">
             <p><i class="iconfont icon-like"></i></p>
-            <p class="text-small">Upvote</p>
+            <p class="chat-bubble__button__text">Upvote</p>
           </div>
           <div class="chat-bubble__button">
             <p><i class="iconfont icon-dislike"></i></p>
-            <p class="text-small">Downvote</p>
+            <p class="chat-bubble__button__text">Downvote</p>
           </div>
         </div>
 
         <div class="chat-bubble__button">
           <p><i class="iconfont icon-ellipsis"></i></p>
-          <p class="text-small">More</p>
+          <p class="chat-bubble__button__text">More</p>
         </div>
       </div>
     </bubble>

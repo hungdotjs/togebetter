@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "10331059",
+      "name": "ask-question",
+      "font_class": "ask-question",
+      "unicode": "e67f",
+      "unicode_decimal": 59007
+    },
+    {
+      "icon_id": "1461278",
+      "name": "graduate",
+      "font_class": "graduate",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
+    },
+    {
+      "icon_id": "1393583",
+      "name": "answer",
+      "font_class": "answer",
+      "unicode": "e6d4",
+      "unicode_decimal": 59092
+    },
+    {
+      "icon_id": "16440791",
+      "name": "fill-an crown",
+      "font_class": "crown",
+      "unicode": "e68f",
+      "unicode_decimal": 59023
+    },
+    {
       "icon_id": "1381362",
       "name": "ellipsis",
       "font_class": "ellipsis",
