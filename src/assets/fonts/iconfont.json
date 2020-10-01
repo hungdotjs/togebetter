@@ -1,0 +1,128 @@
+{
+  "id": "2089412",
+  "name": "hinative",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "10331059",
+      "name": "ask-question",
+      "font_class": "ask-question",
+      "unicode": "e67f",
+      "unicode_decimal": 59007
+    },
+    {
+      "icon_id": "1461278",
+      "name": "graduate",
+      "font_class": "graduate",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
+    },
+    {
+      "icon_id": "1393583",
+      "name": "answer",
+      "font_class": "answer",
+      "unicode": "e6d4",
+      "unicode_decimal": 59092
+    },
+    {
+      "icon_id": "16440791",
+      "name": "fill-an crown",
+      "font_class": "crown",
+      "unicode": "e68f",
+      "unicode_decimal": 59023
+    },
+    {
+      "icon_id": "1381362",
+      "name": "ellipsis",
+      "font_class": "ellipsis",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "959410",
+      "name": "share",
+      "font_class": "share",
+      "unicode": "e655",
+      "unicode_decimal": 58965
+    },
+    {
+      "icon_id": "1381351",
+      "name": "dislike1",
+      "font_class": "dislike",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "1381403",
+      "name": "like1",
+      "font_class": "like",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "13895901",
+      "name": "bookmark",
+      "font_class": "bookmark",
+      "unicode": "e761",
+      "unicode_decimal": 59233
+    },
+    {
+      "icon_id": "702320",
+      "name": "earth",
+      "font_class": "earth",
+      "unicode": "e7dc",
+      "unicode_decimal": 59356
+    },
+    {
+      "icon_id": "704926",
+      "name": "vector-difference",
+      "font_class": "vectordifference",
+      "unicode": "eb49",
+      "unicode_decimal": 60233
+    },
+    {
+      "icon_id": "768092",
+      "name": "sound-b",
+      "font_class": "sound",
+      "unicode": "e66a",
+      "unicode_decimal": 58986
+    },
+    {
+      "icon_id": "1067976",
+      "name": "icon_talk-01",
+      "font_class": "talk",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "1111735",
+      "name": "ask",
+      "font_class": "ask",
+      "unicode": "e7ca",
+      "unicode_decimal": 59338
+    },
+    {
+      "icon_id": "7239896",
+      "name": "smile",
+      "font_class": "smile",
+      "unicode": "e752",
+      "unicode_decimal": 59218
+    },
+    {
+      "icon_id": "10561358",
+      "name": "Plant, herb",
+      "font_class": "plant",
+      "unicode": "e658",
+      "unicode_decimal": 58968
+    },
+    {
+      "icon_id": "16618154",
+      "name": "edit",
+      "font_class": "edit",
+      "unicode": "e6aa",
+      "unicode_decimal": 59050
+    }
+  ]
+}

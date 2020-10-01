@@ -1,0 +1,38 @@
+.question-tag {
+  display: flex;
+  border: 1px solid #ebeef5;
+  background: #fff;
+  cursor: pointer;
+  padding: 12px 16px;
+
+  &:hover {
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    transform: scale(1.02);
+    transition: all 0.2s;
+  }
+
+  &__image {
+    flex-shrink: 0;
+    color: #fff;
+    border-radius: 8px;
+    width: 45px;
+    height: 45px;
+    margin-right: 16px;
+
+    i {
+      font-size: 1.8em;
+    }
+  }
+
+  &__content {
+    flex-shrink: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+  }
+
+  &__subtitle {
+    color: #999;
+  }
+}

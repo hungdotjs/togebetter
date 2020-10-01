@@ -245,6 +245,8 @@ export default {
 
     span {
       width: 100%;
+      white-space: pre-wrap;
+      line-height: 1.5;
       text-align: left;
       border: 1px solid #dcdfe6;
       border-radius: 0 !important;

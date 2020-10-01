@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import {
+  Avatar,
   Button,
   Input,
   Select,
@@ -16,6 +17,8 @@ import {
   RadioGroup,
   RadioButton,
   Dialog,
+  Row,
+  Col,
 } from 'element-ui';
 import App from './App.vue';
 import router from './router';
@@ -23,8 +26,11 @@ import store from './store';
 
 // CSS
 import '@/assets/scss/all.scss';
+// iconfont
+import '@/assets/fonts/iconfont.css';
 
 Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 };
+Vue.use(Avatar);
 Vue.use(Button);
 Vue.use(Input);
 Vue.use(Select);
@@ -41,6 +47,8 @@ Vue.use(Tag);
 Vue.use(RadioGroup);
 Vue.use(RadioButton);
 Vue.use(Dialog);
+Vue.use(Row);
+Vue.use(Col);
 
 Vue.config.productionTip = false;
 
