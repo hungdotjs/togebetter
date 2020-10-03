@@ -7,6 +7,7 @@
       subtitle="How do you say this in ~~?~~"
       icon="el-icon-question"
       icon-bg="#3ad04c"
+      :to="{ name: 'questions-new', params: { type: 'what-say' } }"
     ></question-tag>
     <question-tag
       title="Does this sound natural?"

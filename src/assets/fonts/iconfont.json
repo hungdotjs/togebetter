@@ -6,6 +6,41 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "141714",
+      "name": "keyboard-alt",
+      "font_class": "emoji",
+      "unicode": "e76e",
+      "unicode_decimal": 59246
+    },
+    {
+      "icon_id": "141713",
+      "name": "keyboard",
+      "font_class": "keyboard",
+      "unicode": "e76d",
+      "unicode_decimal": 59245
+    },
+    {
+      "icon_id": "141804",
+      "name": "mic",
+      "font_class": "mic",
+      "unicode": "e7c8",
+      "unicode_decimal": 59336
+    },
+    {
+      "icon_id": "141877",
+      "name": "photo",
+      "font_class": "photo",
+      "unicode": "e811",
+      "unicode_decimal": 59409
+    },
+    {
+      "icon_id": "141915",
+      "name": "photo-camera",
+      "font_class": "camera",
+      "unicode": "e837",
+      "unicode_decimal": 59447
+    },
+    {
       "icon_id": "10331059",
       "name": "ask-question",
       "font_class": "ask-question",

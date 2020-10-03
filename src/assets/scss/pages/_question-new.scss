@@ -1,0 +1,24 @@
+.question-new {
+  min-height: 90vh;
+  padding: 16px;
+  text-align: center;
+  background-color: #fff;
+
+  &__button-mic {
+    border: none;
+    border-radius: 50%;
+    background: #999;
+    color: #fff;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 8px;
+
+    &:hover {
+      background: $--color-primary;
+    }
+
+    i {
+      font-size: 36px;
+    }
+  }
+}
