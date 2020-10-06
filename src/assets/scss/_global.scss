@@ -42,3 +42,8 @@ p {
 .el-col {
   padding: 0 8px;
 }
+
+.el-input-group__append button.el-button--primary {
+  background-color: $--color-primary;
+  color: #fff;
+}
