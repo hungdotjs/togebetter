@@ -62,7 +62,6 @@
 </template>
 
 <script>
-import LayoutDefault from '@/layouts/LayoutDefault.vue';
 import QuestionTag from '@/components/molecules/QuestionTag.vue';
 
 export default {
@@ -71,9 +70,5 @@ export default {
     QuestionTag,
   },
 
-  created() {
-    // Set layout
-    this.$emit('update:layout', LayoutDefault);
-  },
 };
 </script>

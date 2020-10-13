@@ -4,8 +4,8 @@
   left: 0;
   right: 0;
   z-index: 102;
-  background-color: #333;
-  color: #fff;
+  background-color: #fafafa;
+  color: #333;
 
   &__wrapper {
     position: relative;
@@ -31,7 +31,7 @@
     &__anchor {
       display: block;
       position: relative;
-      color: #fff;
+      color: #333;
       text-align: center;
       text-decoration: none;
     }
@@ -56,7 +56,7 @@
   }
 
   &__avatar {
-    border: 2px solid #fff;
+    // border: 1px solid #333;
     border-radius: 50%;
     cursor: pointer;
   }
@@ -80,7 +80,7 @@
       display: block;
       position: relative;
       padding: 0 0.5rem;
-      color: #fff;
+      color: #333;
     }
   }
 }

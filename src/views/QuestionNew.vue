@@ -44,7 +44,6 @@
 </template>
 
 <script>
-import LayoutDefault from '@/layouts/LayoutDefault.vue';
 
 export default {
   name: 'QuestionNew',
@@ -58,9 +57,5 @@ export default {
     };
   },
 
-  created() {
-    // Set layout
-    this.$emit('update:layout', LayoutDefault);
-  },
 };
 </script>

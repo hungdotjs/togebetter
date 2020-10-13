@@ -150,7 +150,6 @@
 </template>
 
 <script>
-import LayoutDefault from '@/layouts/LayoutDefault.vue';
 import LevelIcon from '@/components/atoms/LevelIcon.vue';
 
 export default {
@@ -208,11 +207,6 @@ export default {
       },
       dialogVisible: false,
     };
-  },
-
-  created() {
-    // Set layout
-    this.$emit('update:layout', LayoutDefault);
   },
 
   methods: {

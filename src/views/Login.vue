@@ -17,7 +17,7 @@
     </el-form>
     <el-divider>or</el-divider>
     <div class="mb-16">
-      <el-button size="medium" class="w-100" round>
+      <el-button size="medium" class="w-100 btn--google" round>
         <span class="center">
           <img
             src="https://cdn.svgporn.com/logos/google-icon.svg"
@@ -50,8 +50,6 @@
 </template>
 
 <script>
-import LayoutDefault from '@/layouts/LayoutDefault.vue';
-
 export default {
   name: 'Login',
   data() {
@@ -62,11 +60,6 @@ export default {
       },
       rememberMe: true,
     };
-  },
-
-  created() {
-    // Set layout
-    this.$emit('update:layout', LayoutDefault);
   },
 };
 </script>

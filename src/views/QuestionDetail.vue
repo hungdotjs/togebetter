@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import LayoutDefault from '@/layouts/LayoutDefault.vue';
 import ChatBubble from '@/components/molecules/ChatBubble.vue';
 
 export default {
@@ -52,11 +51,6 @@ export default {
     return {
       answer: '',
     };
-  },
-
-  created() {
-    // Set layout
-    this.$emit('update:layout', LayoutDefault);
   },
 
   methods: {

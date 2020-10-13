@@ -1,15 +1,15 @@
 .page-transition-enter-active {
-  transform: scale(1);
-  transition: all 0.5s;
+  // transform: scale(1);
+  transition: all 0.15s;
 }
 
 .page-transition-leave-active {
-  transform: scale(1);
-  transition: all 0.3s;
+  // transform: scale(1);
+  transition: all 0.15s;
 }
 
 .page-transition-enter,
 .page-transition-leave-to {
   opacity: 0;
-  transform: scale(0.99);
+  // transform: scale(0.99);
 }
