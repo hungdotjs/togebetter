@@ -7,7 +7,26 @@ body {
     'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 14px;
   line-height: 1.5;
-  background-color: $body-background-color;
+  background-color: $background-color;
+
+  @include res(md) {
+    font-size: 16px;
+  }
+}
+
+.app {
+  &__content {
+    min-height: 90vh;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: bold;
+  margin-bottom: 16px;
 }
 
 h1 {
@@ -41,4 +60,14 @@ p {
 
 .el-col {
   padding: 0 8px;
+}
+
+.el-input-group__append button.el-button--primary {
+  background-color: $--color-primary;
+  color: #fff;
+  border: 0;
+}
+
+.el-button {
+  font-weight: bold;
 }

@@ -5,7 +5,7 @@ $background-color: #fff;
 $foreground-color: #000;
 
 /* theme color */
-$--color-primary: #00c2ce;
+$--color-primary: #f65e39;
 $--color-secondary: #999;
 $--color-border: #d7dae2;
 $--color-success: #4caf50;
@@ -13,3 +13,37 @@ $--color-success: #4caf50;
 // $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 @import '~element-ui/lib/theme-chalk/display.css';
+
+$sm: 576px !default;
+$md: 768px !default;
+$lg: 992px !default;
+$xl: 1200px !default;
+
+$breakpoints: (
+  'xs': (
+    max-width: $sm - 1,
+  ),
+  'sm': (
+    min-width: $sm,
+  ),
+  'md': (
+    min-width: $md,
+  ),
+  'lg': (
+    min-width: $lg,
+  ),
+  'xl': (
+    min-width: $xl,
+  ),
+);
+/* Break-points
+ -------------------------- */
+@mixin res($key, $map: $breakpoints) {
+  @if map-has-key($map, $key) {
+    @media only screen and #{inspect(map-get($map, $key))} {
+      @content;
+    }
+  } @else {
+    @warn "Undefeined points: `#{$map}`";
+  }
+}

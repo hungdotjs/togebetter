@@ -153,17 +153,12 @@
 </template>
 
 <script>
-import LayoutDefault from '@/layouts/LayoutDefault.vue';
 import LevelIcon from '@/components/atoms/LevelIcon.vue';
 
 export default {
   name: 'Profile',
   components: { LevelIcon },
 
-  created() {
-    // Set layout
-    this.$emit('update:layout', LayoutDefault);
-  },
 };
 </script>
 

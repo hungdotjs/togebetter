@@ -1,12 +1,14 @@
 <template>
   <div class="container home">
-    <question-bubble v-for="i in 3" :key="i" :totalAnswer="i - 1"></question-bubble>
+    <div>
+      <question-bubble v-for="i in 3" :key="i" :totalAnswer="i - 1"></question-bubble>
+    </div>
   </div>
 </template>
 
 <script>
-import LayoutDefault from '@/layouts/LayoutDefault.vue';
 import QuestionBubble from '@/components/molecules/QuestionBubble.vue';
+import { mapState } from 'vuex';
 
 export default {
   name: 'Home',
@@ -14,9 +16,16 @@ export default {
     QuestionBubble,
   },
 
-  created() {
-    // Set layout
-    this.$emit('update:layout', LayoutDefault);
+  data() {
+    return {};
   },
+
+  computed: {
+    ...mapState({
+      isLogin: (state) => state.user.isLogin,
+    }),
+  },
+
+  created() {},
 };
 </script>

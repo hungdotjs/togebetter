@@ -20,6 +20,8 @@ export default {
 
 <style lang="scss">
 .tb-search {
+  max-width: 600px;
+
   .el-input-group__prepend {
     background-color: #fff;
   }

@@ -1,39 +1,50 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
+import LandingPage from '../views/LandingPage.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
+    path: '/home',
+    name: 'home',
     component: Home,
   },
   {
+    path: '/',
+    name: 'landing-page',
+    component: LandingPage,
+  },
+  {
     path: '/login',
-    name: 'Login',
+    name: 'login',
     component: () => import(/* webpackChunkName: "login" */ '@/views/Login.vue'),
   },
   {
     path: '/signup',
-    name: 'Signup',
+    name: 'signup',
     component: () => import(/* webpackChunkName: "signup" */ '@/views/Signup.vue'),
   },
   {
     path: '/questions/type',
-    name: 'QuestionsType',
+    name: 'questions-type',
     component: () => import(/* webpackChunkName: "questions" */ '@/views/QuestionsType.vue'),
   },
   {
+    path: '/questions/new/:type',
+    name: 'questions-new',
+    component: () => import(/* webpackChunkName: "questions-new" */ '@/views/QuestionNew.vue'),
+  },
+  {
     path: '/questions/:id',
-    name: 'QuestionDetail',
-    component: () => import(/* webpackChunkName: "questions" */ '@/views/QuestionDetail.vue'),
+    name: 'questions-detail',
+    component: () => import(/* webpackChunkName: "questions-detail" */ '@/views/QuestionDetail.vue'),
   },
   {
     path: '/profile/:id',
-    name: 'Profile',
-    component: () => import(/* webpackChunkName: "questions" */ '@/views/Profile.vue'),
+    name: 'profile',
+    component: () => import(/* webpackChunkName: "profile" */ '@/views/Profile.vue'),
   },
   {
     path: '/about',

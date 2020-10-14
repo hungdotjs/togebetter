@@ -1,10 +1,22 @@
 <template>
-  <div class="tb-navbar">
+  <div class="landing-page__header hidden-xs-only" v-if="isLandingPage">
+    <div>
+      <label for="language">Interface language</label>
+      <select name="language" id="language">
+        <option value="en">English</option>
+        <option value="vi">Tiếng Việt</option>
+      </select>
+    </div>
+
+    <router-link tag="button" class="landing-page__sign-in" to="/login">Sign in</router-link>
+  </div>
+
+  <div class="tb-navbar" v-else>
     <!-- Mobile  -->
     <div class="hidden-sm-and-up">
       <ul class="tb-navbar__wrapper">
         <li class="tb-navbar__item">
-          <router-link class="tb-navbar__item__anchor" to="/">
+          <router-link class="tb-navbar__item__anchor" to="/home">
             <div>
               <i class="el-icon-s-home"></i>
             </div>
@@ -54,26 +66,20 @@
     <div class="hidden-xs-only">
       <div class="tb-navbar__wrapper tb-navbar__wrapper--desktop">
         <div class="tb-navbar__item--desktop tb-navbar__logo">
-          <router-link tag="div" class="tb-navbar__item__anchor" to="/">
+          <router-link tag="div" class="tb-navbar__item__anchor" to="/home">
             LOGO
           </router-link>
         </div>
-
         <!-- search  -->
         <div class="tb-navbar__item--desktop tb-navbar__search">
           <tb-search></tb-search>
         </div>
 
         <div class="tb-navbar__item--desktop">
-          <ul class="tb-navbar__operations">
-            <li class="tb-navbar__operations__item">
-              <router-link class="tb-navbar__operations__anchor" to="/">
-                <i class="el-icon-s-home"></i>
-              </router-link>
-            </li>
+          <ul class="tb-navbar__operations" v-if="isLogin">
             <li class="tb-navbar__operations__item rspec-nav_activity">
               <router-link class="tb-navbar__operations__anchor" to="/notifications">
-                <i class="el-icon-message-solid"></i>
+                <i class="el-icon-bell"></i>
               </router-link>
             </li>
             <li class="tb-navbar__operations__item">
@@ -110,11 +116,23 @@
               </div>
             </li>
             <li class="tb-navbar__operations__item">
-              <router-link to="/questions/type" class="tb-navbar__operations__anchor center-y">
+              <router-link
+                tag="div"
+                to="/questions/type"
+                class="tb-navbar__operations__anchor center-y"
+              >
                 <el-button type="primary" class="text-bold" round>Ask</el-button>
               </router-link>
             </li>
           </ul>
+
+          <router-link to="/login" v-else-if="isSignUpPage">
+            <el-button type="primary">Sign in</el-button>
+          </router-link>
+
+          <router-link to="/signup" v-else>
+            <el-button type="primary">Sign up</el-button>
+          </router-link>
         </div>
       </div>
     </div>
@@ -123,6 +141,7 @@
 
 <script>
 import TbSearch from '@/components/molecules/Search.vue';
+import { mapState } from 'vuex';
 
 export default {
   name: 'Navbar',
@@ -131,7 +150,23 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      isLandingPage: true,
+      isSignUpPage: false,
+    };
+  },
+
+  computed: {
+    ...mapState({
+      isLogin: (state) => state.user.isLogin,
+    }),
+  },
+
+  watch: {
+    $route(to) {
+      this.isLandingPage = to.name === 'landing-page';
+      this.isSignUpPage = to.name === 'signup';
+    },
   },
 };
 </script>

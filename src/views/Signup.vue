@@ -1,8 +1,7 @@
 <template>
   <div class="page page--login">
-    <h1 class="title text-center">Sign up</h1>
-    <el-divider></el-divider>
-    <el-form label-position="top" ref="form" :model="form" :rules="rules">
+    <h1 class="text-center mb-32">Sign up</h1>
+    <el-form label-position="top" ref="form" :model="form" :rules="rules" size="medium">
       <el-form-item>
         <template #label>
           <i class="el-icon-s-comment"></i>
@@ -114,6 +113,11 @@
         <el-button type="primary" size="medium" @click="submitForm" round>Sign up</el-button>
       </el-form-item>
     </el-form>
+    <div class="text-center">
+      <router-link tag="el-link" to="/login">
+        Already have an account. Login here!
+      </router-link>
+    </div>
 
     <!-- Dialog  -->
     <el-dialog
@@ -150,7 +154,6 @@
 </template>
 
 <script>
-import LayoutDefault from '@/layouts/LayoutDefault.vue';
 import LevelIcon from '@/components/atoms/LevelIcon.vue';
 
 export default {
@@ -208,11 +211,6 @@ export default {
       },
       dialogVisible: false,
     };
-  },
-
-  created() {
-    // Set layout
-    this.$emit('update:layout', LayoutDefault);
   },
 
   methods: {
