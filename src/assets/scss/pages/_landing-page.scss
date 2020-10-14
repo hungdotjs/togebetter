@@ -1,6 +1,6 @@
 .hero-bg {
   width: 100%;
-  background-image: url(https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fstar-pattern.svg?alt=media&token=b77fff0c-8b49-4eca-9359-32b1564e4423);
+  background-image: url(https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2FHero.jpg?alt=media&token=c376aa37-6c0e-434c-b651-b47be834b4e3);
   background-color: #2b2b2b;
   color: #fff;
 }
@@ -17,12 +17,12 @@
 
   &__title {
     font-weight: bold;
-    font-size: 2rem;
+    font-size: 1.6rem;
     margin-bottom: 16px;
   }
 
   &__subtitle {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     margin-bottom: 16px;
   }
 
@@ -60,14 +60,14 @@
     font-weight: bold;
 
     select {
-      color: #fff;
+      // color: #fff;
       font-weight: bold;
       min-width: 130px;
       padding: 4px;
 
       background: transparent;
       border: none;
-      border-bottom: 2px solid #fff;
+      border-bottom: 2px solid #000;
       margin-left: 8px;
     }
 
@@ -83,13 +83,13 @@
     border-radius: 6px 24px 6px;
     font-weight: bold;
     transition: all 0.3s;
-    background: $--color-primary;
-    border: 2px solid $--color-primary;
-    color: #fff;
+    border: 2px solid #000;
+    background: transparent;
+    color: #000;
 
     &:hover {
-      border: 2px solid #fff;
-      background: transparent;
+      background: $--color-primary;
+      border: 2px solid $--color-primary;
       color: #fff;
     }
   }

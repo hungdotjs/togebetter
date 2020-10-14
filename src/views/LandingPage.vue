@@ -7,7 +7,7 @@
           <lottie-animation path="img/welcome.json" />
         </el-col>
         <el-col :xs="24" :sm="12">
-          <div class="text-center">
+          <div class="text-center" style="padding: 20% 0">
             <div class="mb-32 text-center">
               <h1 class="hero__title">A language learning Q&A app</h1>
               <p class="hero__subtitle">Learn foreign languages for free</p>
@@ -19,6 +19,9 @@
             <el-input class="hero__search" placeholder="habit example" size="medium">
               <el-button slot="append" type="primary" icon="el-icon-search"></el-button>
             </el-input>
+            <router-link tag="div" to="/signup">
+              <el-button type="primary" size="medium" class="text-bold">Join us</el-button>
+            </router-link>
           </div>
         </el-col>
       </el-row>
@@ -64,7 +67,7 @@
     <div class="landing-page__info">
       <el-row :gutter="16">
         <el-col :xs="24" :sm="12" class="text-center">
-          <lottie-animation :width="250" path="img/lighthouse.json" />
+          <lottie-animation :width="250" path="img/earth.json" />
         </el-col>
         <el-col :xs="24" :sm="12">
           <h2 class="mb-16 text-center">
@@ -88,36 +91,6 @@
       <el-row :gutter="16" class="landing-page__info--reverse">
         <el-col :xs="24" :sm="12">
           <h2 class="mb-16 text-center">
-            Togebetter, the free Q&A app for language learners was designed for...
-          </h2>
-          <p>
-            Language learners who want to have their writing and pronunciation checked by native
-            speakers. Language learners studying for language proficiency tests like the JLPT or
-            DELE. Anyone looking for quick translations, help with the basics of a language, or
-            personalized feedback on their writing in a foreign language. People who are interested
-            in different cultures and traveling the world. People who want to learn to speak a
-            language like a native. Any and all language learners looking for a give and take
-            community to help them grow!
-          </p>
-        </el-col>
-        <el-col :xs="24" :sm="12" class="text-center">
-          <lottie-animation :width="250" path="img/reply.json" />
-        </el-col>
-      </el-row>
-    </div>
-    <el-divider></el-divider>
-
-    <div class="landing-page__info">
-      <el-row :gutter="16">
-        <el-col :xs="24" :sm="12" class="text-center">
-          <img
-            src="https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2FNewsletter.svg?alt=media&token=030020f0-eb58-4d71-bf42-5e2c1f6b6425"
-            width="250"
-            alt="#"
-          />
-        </el-col>
-        <el-col :xs="24" :sm="12">
-          <h2 class="mb-16 text-center">
             Even beginners can get great answers from native speakers.
           </h2>
           <p>
@@ -127,12 +100,18 @@
             get tips and pointers from other users.
           </p>
         </el-col>
+        <el-col :xs="24" :sm="12" class="text-center">
+          <lottie-animation :width="250" path="img/message.json" />
+        </el-col>
       </el-row>
     </div>
-
     <el-divider></el-divider>
+
     <div class="landing-page__info">
-      <el-row :gutter="16" class="landing-page__info--reverse">
+      <el-row :gutter="16">
+        <el-col :xs="24" :sm="12" class="text-center">
+          <lottie-animation :width="250" path="img/heart.json" />
+        </el-col>
         <el-col :xs="24" :sm="12">
           <h2 class="mb-16 text-center">
             Full of useful features for learning languages
@@ -166,14 +145,6 @@
               </span>
             </li>
           </ul>
-        </el-col>
-        <el-col :xs="24" :sm="12" class="text-center">
-          <img
-            src="https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Flaptop-schools.svg?alt=media&token=eeeb12e0-9c09-440e-b20a-27069c58e455"
-            width="250"
-            class="mb-32"
-            alt="#"
-          />
         </el-col>
       </el-row>
     </div>

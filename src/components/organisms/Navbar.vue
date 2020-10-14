@@ -1,5 +1,5 @@
 <template>
-  <div class="landing-page__header hero-bg hidden-xs-only" v-if="isLandingPage">
+  <div class="landing-page__header hidden-xs-only" v-if="isLandingPage">
     <div>
       <label for="language">Interface language</label>
       <select name="language" id="language">
@@ -70,14 +70,13 @@
             LOGO
           </router-link>
         </div>
-
         <!-- search  -->
         <div class="tb-navbar__item--desktop tb-navbar__search">
           <tb-search></tb-search>
         </div>
 
         <div class="tb-navbar__item--desktop">
-          <ul class="tb-navbar__operations">
+          <ul class="tb-navbar__operations" v-if="isLogin">
             <li class="tb-navbar__operations__item rspec-nav_activity">
               <router-link class="tb-navbar__operations__anchor" to="/notifications">
                 <i class="el-icon-bell"></i>
@@ -126,6 +125,14 @@
               </router-link>
             </li>
           </ul>
+
+          <router-link to="/login" v-else-if="isSignUpPage">
+            <el-button type="primary">Sign in</el-button>
+          </router-link>
+
+          <router-link to="/signup" v-else>
+            <el-button type="primary">Sign up</el-button>
+          </router-link>
         </div>
       </div>
     </div>
@@ -134,6 +141,7 @@
 
 <script>
 import TbSearch from '@/components/molecules/Search.vue';
+import { mapState } from 'vuex';
 
 export default {
   name: 'Navbar',
@@ -144,16 +152,20 @@ export default {
   data() {
     return {
       isLandingPage: true,
+      isSignUpPage: false,
     };
+  },
+
+  computed: {
+    ...mapState({
+      isLogin: (state) => state.user.isLogin,
+    }),
   },
 
   watch: {
     $route(to) {
-      if (to.name === 'landing-page') {
-        this.isLandingPage = true;
-      } else {
-        this.isLandingPage = false;
-      }
+      this.isLandingPage = to.name === 'landing-page';
+      this.isSignUpPage = to.name === 'signup';
     },
   },
 };

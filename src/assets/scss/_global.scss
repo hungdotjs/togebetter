@@ -9,7 +9,7 @@ body {
   line-height: 1.5;
   background-color: $background-color;
 
-  @include res(lg) {
+  @include res(md) {
     font-size: 16px;
   }
 }
@@ -26,6 +26,7 @@ h3,
 h4,
 h5 {
   font-weight: bold;
+  margin-bottom: 16px;
 }
 
 h1 {
@@ -65,4 +66,8 @@ p {
   background-color: $--color-primary;
   color: #fff;
   border: 0;
+}
+
+.el-button {
+  font-weight: bold;
 }
