@@ -7,7 +7,6 @@
         <option value="vi">Tiếng Việt</option>
       </select>
     </div>
-
     <router-link tag="button" class="landing-page__sign-in" to="/login">Sign in</router-link>
   </div>
 
@@ -67,7 +66,7 @@
       <div class="tb-navbar__wrapper tb-navbar__wrapper--desktop">
         <div class="tb-navbar__item--desktop tb-navbar__logo">
           <router-link tag="div" class="tb-navbar__item__anchor" to="/home">
-            LOGO
+            <img :src="require('@/assets/img/logo-black.png')" alt="#" class="tb-navbar__logo" />
           </router-link>
         </div>
         <!-- search  -->

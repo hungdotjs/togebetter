@@ -1,19 +1,47 @@
 .hero-bg {
   width: 100%;
   background-image: url(https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2FHero.jpg?alt=media&token=c376aa37-6c0e-434c-b651-b47be834b4e3);
+  background-position: top;
+  background-size: cover;
   background-color: #2b2b2b;
   color: #fff;
 }
 
 .hero {
   width: 100%;
-  min-height: calc(100vh - 66px);
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   padding: 16px 32px;
   margin: 0 auto;
+
+  @include res(md) {
+    min-height: calc(100vh - 116px);
+  }
+
+  &__row {
+    display: flex;
+  }
+
+  &__animation {
+    width: 500px;
+    max-width: 100%;
+  }
+
+  &__button {
+    font-size: 16px;
+    padding: 12px 24px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+  }
+
+  &__logo {
+    width: 100%;
+    max-width: 400px;
+  }
 
   &__title {
     font-weight: bold;
@@ -28,12 +56,12 @@
 
   &__select {
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     margin-bottom: 16px;
   }
 
   &__search {
-    max-width: 400px;
+    max-width: 500px;
     margin-bottom: 32px;
   }
 
@@ -56,8 +84,9 @@
   &__header {
     display: flex;
     justify-content: space-between;
-    padding: 16px 32px;
+    padding: 12px 32px;
     font-weight: bold;
+    background-color: #fff;
 
     select {
       // color: #fff;
@@ -149,7 +178,6 @@
   &__feature {
     margin: 0;
     padding: 0;
-    text-align: center;
 
     li {
       display: flex;

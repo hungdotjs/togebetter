@@ -15,7 +15,7 @@
 
         <el-button
           class="question-bubble__number"
-          :type="totalAnswer ? 'danger' : 'primary'"
+          :type="totalAnswer ? 'success' : 'primary'"
           circle
         >
           {{ totalAnswer }}

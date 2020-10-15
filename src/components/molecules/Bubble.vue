@@ -3,11 +3,11 @@
     <el-avatar class="bubble__avatar" :src="avatar" :size="48"></el-avatar>
 
     <div class="bubble__content">
-      <div class="bubble__name text-small">
-        <p class="m-0 text-bold">{{ username }}</p>
-        <p class="m-0">{{ time }}</p>
-      </div>
       <div class="bubble__question">
+        <div class="bubble__name text-small">
+          <p class="m-0 text-bold">{{ username }}</p>
+          <p class="m-0">{{ time }}</p>
+        </div>
         <!-- Slot  -->
         <slot />
       </div>

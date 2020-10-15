@@ -1,11 +1,11 @@
 .profile {
   max-width: 700px;
   margin: 0 auto;
-  background: $background-color;
+  background: #fff;
 
   &__overview {
     padding: 16px;
-    // background-color: #241c17;
+    background-color: #fff;
     background-image: url('~@/assets/img/profile-bg.jpg');
     background-position: top;
     background-size: cover;
@@ -40,7 +40,7 @@
 
   &__point-box {
     color: $foreground-color;
-    background-color: $background-color;
+    background-color: #fff;
     border-radius: 8px;
     overflow: hidden;
     margin-bottom: 16px;

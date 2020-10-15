@@ -2,13 +2,11 @@
   <div class="landing-page">
     <!-- Hero  -->
     <div class="hero hero-bg">
-      <el-row :gutter="42">
-        <el-col :xs="24" :sm="12">
-          <lottie-animation path="img/welcome.json" />
-        </el-col>
-        <el-col :xs="24" :sm="12">
+      <el-row :gutter="42" class="hero__row">
+        <el-col :xs="24" :md="12">
           <div class="text-center" style="padding: 20% 0">
             <div class="mb-32 text-center">
+              <img :src="require('@/assets/img/logo-white.png')" alt="#" class="hero__logo" />
               <h1 class="hero__title">A language learning Q&A app</h1>
               <p class="hero__subtitle">Learn foreign languages for free</p>
             </div>
@@ -20,9 +18,12 @@
               <el-button slot="append" type="primary" icon="el-icon-search"></el-button>
             </el-input>
             <router-link tag="div" to="/signup">
-              <el-button type="primary" size="medium" class="text-bold">Join us</el-button>
+              <button class="hero__button btn-grad">Join us</button>
             </router-link>
           </div>
+        </el-col>
+        <el-col :xs="24" :md="12" class="hidden-sm-and-down">
+          <lottie-animation path="img/welcome.json" class="hero__animation" />
         </el-col>
       </el-row>
     </div>
