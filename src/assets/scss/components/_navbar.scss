@@ -4,8 +4,13 @@
   left: 0;
   right: 0;
   z-index: 102;
-  background-color: #fafafa;
+  background-color: #fff;
   color: #333;
+
+  &__logo {
+    max-width: 130px;
+    padding-right: 16px;
+  }
 
   &__wrapper {
     position: relative;
@@ -34,6 +39,7 @@
       color: #333;
       text-align: center;
       text-decoration: none;
+      cursor: pointer;
     }
 
     i {

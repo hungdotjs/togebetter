@@ -29,7 +29,7 @@ import '@/assets/scss/all.scss';
 // iconfont
 import '@/assets/fonts/iconfont.css';
 
-Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 };
+Vue.prototype.$ELEMENT = { size: 'medium', zIndex: 3000 };
 Vue.use(Avatar);
 Vue.use(Button);
 Vue.use(Input);

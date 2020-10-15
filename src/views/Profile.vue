@@ -158,7 +158,6 @@ import LevelIcon from '@/components/atoms/LevelIcon.vue';
 export default {
   name: 'Profile',
   components: { LevelIcon },
-
 };
 </script>
 
