@@ -1,7 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
-import LandingPage from '../views/LandingPage.vue';
 
 Vue.use(VueRouter);
 
@@ -9,12 +7,12 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    component: Home,
+    component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
   },
   {
     path: '/',
     name: 'landing-page',
-    component: LandingPage,
+    component: () => import(/* webpackChunkName: "landing-page" */ '@/views/LandingPage.vue'),
   },
   {
     path: '/login',
