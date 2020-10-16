@@ -149,16 +149,21 @@
         </el-col>
       </el-row>
     </div>
+
+    <!-- Footer -->
+    <tb-footer></tb-footer>
   </div>
 </template>
 
 <script>
 import LottieAnimation from 'lottie-vuejs/src/LottieAnimation.vue';
+import TbFooter from '@/components/organisms/Footer.vue';
 
 export default {
   name: 'LandingPage',
   components: {
     LottieAnimation,
+    TbFooter,
   },
 
   data() {

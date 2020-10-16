@@ -105,7 +105,7 @@
                       </router-link>
                     </el-dropdown-item>
                     <el-dropdown-item>
-                      <span>
+                      <span @click="signOut">
                         <i class="el-icon-switch-button"></i>
                         Sign out
                       </span>
@@ -157,7 +157,7 @@ export default {
 
   computed: {
     ...mapState({
-      isLogin: (state) => state.user.isLogin,
+      isLogin: (state) => state.auth.accessToken,
     }),
   },
 
@@ -165,6 +165,13 @@ export default {
     $route(to) {
       this.isLandingPage = to.name === 'landing-page';
       this.isSignUpPage = to.name === 'signup';
+    },
+  },
+
+  methods: {
+    signOut() {
+      this.$store.dispatch('auth/signOut');
+      this.$router.push('/');
     },
   },
 };

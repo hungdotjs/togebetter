@@ -1,18 +1,27 @@
 <template>
   <div class="page page--login">
     <h1 class="text-center">Sign in</h1>
-    <el-form label-position="top" :model="formLogin">
-      <el-form-item label="Username or Email Address" size="large">
-        <el-input v-model="formLogin.username"></el-input>
+    <el-form label-position="top" :model="form">
+      <el-form-item label="Email Address" size="large">
+        <el-input v-model="form.username"></el-input>
       </el-form-item>
       <el-form-item label="Password" size="large">
-        <el-input v-model="formLogin.password" type="password"></el-input>
+        <el-input v-model="form.password" type="password"></el-input>
       </el-form-item>
       <el-form-item class="text-center">
         <el-checkbox v-model="rememberMe">Keep me logged in</el-checkbox>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" class="w-100" size="large" round>Sign in</el-button>
+        <el-button
+          type="primary"
+          class="w-100"
+          size="large"
+          :loading="loading"
+          round
+          @click="signIn"
+        >
+          Sign in
+        </el-button>
       </el-form-item>
     </el-form>
     <el-divider>or</el-divider>
@@ -60,12 +69,26 @@ export default {
   name: 'Login',
   data() {
     return {
-      formLogin: {
+      form: {
         username: '',
         password: '',
       },
+      loading: false,
       rememberMe: true,
     };
+  },
+
+  methods: {
+    signIn() {
+      this.loading = true;
+      const input = {
+        email: this.form.username,
+        password: this.form.password,
+      };
+      this.$store.dispatch('auth/signIn', input);
+      this.loading = false;
+      this.$router.push('/home');
+    },
   },
 };
 </script>

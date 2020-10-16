@@ -11,6 +11,7 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "element-ui": "^2.13.2",
+    "firebase": "^7.24.0",
     "lottie-vuejs": "^0.4.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",

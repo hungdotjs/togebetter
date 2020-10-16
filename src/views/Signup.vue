@@ -84,16 +84,28 @@
           <i class="el-icon-message"></i>
           Email Address
         </template>
-        <el-input type="email" placeholder="Email Address" v-model="form.email"></el-input>
+        <el-input
+          type="email"
+          autocomplete="on"
+          placeholder="Email Address"
+          v-model="form.email"
+        ></el-input>
       </el-form-item>
 
       <!-- Username  -->
-      <el-form-item prop="username">
+      <el-form-item prop="name">
         <template #label>
           <i class=" el-icon-user"></i>
-          Username
+          Nickname
+          <p class="text-small">From <b>3 to 26</b> characters.</p>
         </template>
-        <el-input placeholder="Alphanumeric and underline only" v-model="form.username"></el-input>
+        <el-input
+          placeholder="Alphanumeric and underline only"
+          v-model="form.name"
+          autocomplete="on"
+          :minlength="3"
+          :maxlength="26"
+        ></el-input>
       </el-form-item>
 
       <!-- Password  -->
@@ -106,7 +118,12 @@
             isn't easy to guess.
           </p>
         </template>
-        <el-input type="password" v-model="form.password"></el-input>
+        <el-input
+          type="password"
+          v-model="form.password"
+          autocomplete="on"
+          show-password
+        ></el-input>
       </el-form-item>
 
       <el-form-item class="center">
@@ -163,28 +180,6 @@ export default {
   },
 
   data() {
-    const validatePass = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('Please input the password'));
-      } else {
-        if (value.length > 8) {
-          this.$refs.form.validateField('password');
-        }
-        callback(new Error('Please enter at least 8 characters'));
-      }
-    };
-    const validateUsername = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error('Please input the username'));
-      } else {
-        const re = new RegExp(/^[a-zA-Z0-9_]{3,16}$/);
-        if (re.test(value)) {
-          this.$refs.form.validateField('username');
-        }
-        callback(new Error('Please enter at least 3 characters'));
-      }
-    };
-
     return {
       form: {
         nativeLanguage: 'en_us',
@@ -194,7 +189,7 @@ export default {
         knowingCountry: 'us',
         interestCountry: 'us',
         email: '',
-        username: '',
+        name: '',
         password: '',
       },
       rules: {
@@ -206,8 +201,19 @@ export default {
           },
           { required: true, message: 'Please input email address', trigger: 'blur' },
         ],
-        username: [{ validator: validateUsername, trigger: 'blur' }],
-        password: [{ validator: validatePass, trigger: 'blur' }],
+        name: [
+          { required: true, message: 'Please input your nickname', trigger: 'blur' },
+          {
+            min: 3,
+            max: 26,
+            message: 'Please enter from 3 to 26 characters',
+            trigger: 'blur',
+          },
+        ],
+        password: [
+          { required: true, message: 'Please input the password', trigger: 'blur' },
+          { min: 8, message: 'Please enter at least 8 characters', trigger: 'blur' },
+        ],
       },
       dialogVisible: false,
     };
@@ -219,36 +225,15 @@ export default {
     },
 
     submitForm() {
-      this.$refs.form.validate((valid) => !!valid);
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          console.log('submit');
+          this.$store.dispatch('auth/createUser', this.form);
+          return true;
+        }
+        return false;
+      });
     },
   },
 };
 </script>
-
-<style lang="scss">
-.symbol-dialog {
-  &__title {
-    font-size: 1.1rem;
-    margin-bottom: 16px;
-  }
-}
-
-.custom-radio-group {
-  display: flex;
-  flex-direction: column;
-
-  .el-radio-button {
-    width: 100%;
-    display: block;
-
-    span {
-      width: 100%;
-      white-space: pre-wrap;
-      line-height: 1.5;
-      text-align: left;
-      border: 1px solid #dcdfe6;
-      border-radius: 0 !important;
-    }
-  }
-}
-</style>
