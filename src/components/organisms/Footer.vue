@@ -8,14 +8,3 @@
 <script>
 export default {};
 </script>
-
-<style lang="scss" scoped>
-.footer {
-  padding: 16px 32px;
-  background-position: center;
-
-  &__logo {
-    max-width: 200px;
-  }
-}
-</style>
