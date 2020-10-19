@@ -6,7 +6,7 @@
         <el-input v-model="form.username"></el-input>
       </el-form-item>
       <el-form-item label="Password" size="large">
-        <el-input v-model="form.password" type="password"></el-input>
+        <el-input v-model="form.password" type="password" show-password></el-input>
       </el-form-item>
       <el-form-item class="text-center">
         <el-checkbox v-model="rememberMe">Keep me logged in</el-checkbox>
@@ -73,21 +73,24 @@ export default {
         username: '',
         password: '',
       },
-      loading: false,
       rememberMe: true,
     };
   },
 
+  computed: {
+    loading() {
+      return this.$store.state.auth.loading;
+    },
+  },
+
   methods: {
     signIn() {
-      this.loading = true;
       const input = {
         email: this.form.username,
         password: this.form.password,
       };
+
       this.$store.dispatch('auth/signIn', input);
-      this.loading = false;
-      this.$router.push('/home');
     },
   },
 };

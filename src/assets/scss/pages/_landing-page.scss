@@ -1,6 +1,6 @@
 .hero-bg {
   width: 100%;
-  background-image: url(https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fhero-bg.webp?alt=media&token=7f7c51fc-209d-4f9e-94fc-93e0510fc9af);
+  background-image: url(https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fstar-pattern.svg?alt=media&token=b77fff0c-8b49-4eca-9359-32b1564e4423);
   background-position: top;
   background-size: cover;
   background-color: #2b2b2b;
@@ -28,6 +28,8 @@
   &__animation {
     width: 500px;
     max-width: 100%;
+    display: flex;
+    align-items: center;
   }
 
   &__button {
@@ -127,9 +129,12 @@
     width: 100%;
     max-width: 880px;
     background: #fff;
-    margin: 0 auto !important;
+    margin: 0 auto;
     margin-bottom: 32px;
+    margin-top: -50px;
     padding: 32px;
+    border-radius: 32px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 
     &__title {
       padding: 0 16px;
@@ -183,9 +188,18 @@
       display: flex;
       align-items: center;
       margin-bottom: 8px;
-
+      .el-image {
+        flex-shrink: 0;
+      }
       img {
         margin-right: 8px;
+        width: 55px;
+      }
+
+      span {
+        display: block;
+        padding-left: 8px;
+        flex-shrink: 1;
       }
     }
   }

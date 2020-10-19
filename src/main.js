@@ -19,6 +19,7 @@ import {
   Dialog,
   Row,
   Col,
+  Image,
 } from 'element-ui';
 import App from './App.vue';
 import router from './router';
@@ -49,6 +50,7 @@ Vue.use(RadioButton);
 Vue.use(Dialog);
 Vue.use(Row);
 Vue.use(Col);
+Vue.use(Image);
 
 Vue.config.productionTip = false;
 

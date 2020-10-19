@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import { auth } from '@/firebase';
 import Navbar from '@/components/organisms/Navbar.vue';
 
 export default {
@@ -23,17 +22,6 @@ export default {
     $route() {
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     },
-  },
-
-  created() {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        // User is signed in.
-        const userId = user.uid;
-        const accessToken = user.ya;
-        this.$store.commit('auth/saveUser', { userId, accessToken });
-      }
-    });
   },
 };
 </script>

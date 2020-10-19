@@ -7,9 +7,7 @@
           <i class="el-icon-s-comment"></i>
           Native language
         </template>
-        <el-select v-model="form.nativeLanguage" class="w-100">
-          <el-option value="en_us" label="English (US)"> </el-option>
-        </el-select>
+        <select-language></select-language>
         <el-form-item label="Level" class="ml-16">
           <el-radio-group v-model="form.nativeLanguageLevel">
             <el-radio-button label="fluent">Fluent</el-radio-button>
@@ -93,15 +91,15 @@
       </el-form-item>
 
       <!-- Username  -->
-      <el-form-item prop="name">
+      <el-form-item prop="username">
         <template #label>
           <i class=" el-icon-user"></i>
-          Nickname
+          Username
           <p class="text-small">From <b>3 to 26</b> characters.</p>
         </template>
         <el-input
           placeholder="Alphanumeric and underline only"
-          v-model="form.name"
+          v-model="form.username"
           autocomplete="on"
           :minlength="3"
           :maxlength="26"
@@ -127,7 +125,9 @@
       </el-form-item>
 
       <el-form-item class="center">
-        <el-button type="primary" size="medium" @click="submitForm" round>Sign up</el-button>
+        <el-button type="primary" size="medium" @click="submitForm" :loading="loading" round>
+          Sign up
+        </el-button>
       </el-form-item>
     </el-form>
     <div class="text-center">
@@ -172,11 +172,13 @@
 
 <script>
 import LevelIcon from '@/components/atoms/LevelIcon.vue';
+import SelectLanguage from '@/components/atoms/SelectLanguage.vue';
 
 export default {
   name: 'Login',
   components: {
     LevelIcon,
+    SelectLanguage,
   },
 
   data() {
@@ -189,7 +191,7 @@ export default {
         knowingCountry: 'us',
         interestCountry: 'us',
         email: '',
-        name: '',
+        username: '',
         password: '',
       },
       rules: {
@@ -201,8 +203,8 @@ export default {
           },
           { required: true, message: 'Please input email address', trigger: 'blur' },
         ],
-        name: [
-          { required: true, message: 'Please input your nickname', trigger: 'blur' },
+        username: [
+          { required: true, message: 'Please input your username', trigger: 'blur' },
           {
             min: 3,
             max: 26,
@@ -219,6 +221,12 @@ export default {
     };
   },
 
+  computed: {
+    loading() {
+      return this.$store.state.auth.loading;
+    },
+  },
+
   methods: {
     openDialog() {
       this.dialogVisible = true;
@@ -227,12 +235,15 @@ export default {
     submitForm() {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          console.log('submit');
-          this.$store.dispatch('auth/createUser', this.form);
+          this.createUser();
           return true;
         }
         return false;
       });
+    },
+
+    createUser() {
+      this.$store.dispatch('auth/signUp', this.form);
     },
   },
 };

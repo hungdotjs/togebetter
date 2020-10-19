@@ -66,6 +66,8 @@ p {
   background-color: $--color-primary;
   color: #fff;
   border: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .el-button {
