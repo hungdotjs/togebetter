@@ -9,6 +9,7 @@
     "build-report": "vue-cli-service build --report"
   },
   "dependencies": {
+    "@lottiefiles/lottie-player": "^0.5.1",
     "core-js": "^3.6.5",
     "element-ui": "^2.13.2",
     "firebase": "^7.24.0",

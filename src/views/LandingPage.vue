@@ -1,11 +1,5 @@
 <template>
   <div class="landing-page">
-    <!-- Script  -->
-    <component
-      :is="`script`"
-      src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"
-      async
-    ></component>
     <!-- Hero  -->
     <div class="hero hero-bg">
       <el-row :gutter="42" class="hero__row">
@@ -196,6 +190,7 @@
 
 <script>
 import TbFooter from '@/components/organisms/Footer.vue';
+import '@lottiefiles/lottie-player';
 
 export default {
   name: 'LandingPage',

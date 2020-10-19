@@ -1,12 +1,12 @@
 <template>
   <el-select :value="value" class="w-100 mb-8" @change="onChange" filterable>
-    <el-option v-for="item in languages" :key="item.code" :value="item.code" :label="item.name">
+    <el-option v-for="item in countries" :key="item.code" :value="item.code" :label="item.name">
     </el-option>
   </el-select>
 </template>
 
 <script>
-import languages from '@/data/languages';
+import countries from '@/data/countries';
 
 export default {
   props: {
@@ -18,12 +18,12 @@ export default {
 
   data() {
     return {
-      languages: [],
+      countries: [],
     };
   },
 
   created() {
-    this.languages = languages;
+    this.countries = countries;
   },
 
   methods: {

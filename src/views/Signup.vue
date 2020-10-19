@@ -7,7 +7,7 @@
           <i class="el-icon-s-comment"></i>
           Native language
         </template>
-        <select-language></select-language>
+        <select-language :value.sync="form.nativeLanguage"></select-language>
         <el-form-item label="Level" class="ml-16">
           <el-radio-group v-model="form.nativeLanguageLevel">
             <el-radio-button label="fluent">Fluent</el-radio-button>
@@ -21,9 +21,8 @@
           <i class="el-icon-edit"></i>
           Language of interest
         </template>
-        <el-select v-model="form.interestLanguage" class="w-100 mb-8">
-          <el-option value="en_us" label="English (US)"> </el-option>
-        </el-select>
+
+        <select-language :value.sync="form.interestLanguage"></select-language>
         <el-form-item class="ml-16">
           <template #label>
             <p>Level <i @click="openDialog" class="el-icon-question cursor"></i></p>
@@ -59,9 +58,7 @@
           <i class=" el-icon-location"></i>
           Country or region you know well
         </template>
-        <el-select v-model="form.knowingCountry" class="w-100 mb-8">
-          <el-option value="us" label="United States"> </el-option>
-        </el-select>
+        <select-country :value.sync="form.knowingCountry"></select-country>
       </el-form-item>
 
       <el-form-item>
@@ -69,9 +66,7 @@
           <i class=" el-icon-location"></i>
           Countries and regions of interest
         </template>
-        <el-select v-model="form.interestCountry" class="w-100 mb-8">
-          <el-option value="us" label="United States"> </el-option>
-        </el-select>
+        <select-country :value.sync="form.interestCountry"></select-country>
       </el-form-item>
 
       <el-divider>Almost there!</el-divider>
@@ -173,23 +168,25 @@
 <script>
 import LevelIcon from '@/components/atoms/LevelIcon.vue';
 import SelectLanguage from '@/components/atoms/SelectLanguage.vue';
+import SelectCountry from '@/components/atoms/SelectCountry.vue';
 
 export default {
   name: 'Login',
   components: {
     LevelIcon,
+    SelectCountry,
     SelectLanguage,
   },
 
   data() {
     return {
       form: {
-        nativeLanguage: 'en_us',
+        nativeLanguage: 'en',
         nativeLanguageLevel: 'fluent',
-        interestLanguage: 'en_us',
+        interestLanguage: 'en',
         interestLanguageLevel: 'beginner',
-        knowingCountry: 'us',
-        interestCountry: 'us',
+        knowingCountry: 'US',
+        interestCountry: 'US',
         email: '',
         username: '',
         password: '',
