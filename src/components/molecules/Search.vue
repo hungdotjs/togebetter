@@ -17,19 +17,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.tb-search {
-  max-width: 700px;
-
-  .el-input-group__prepend {
-    background-color: #fff;
-  }
-  .el-select .el-input {
-    width: 120px;
-  }
-  .el-input__inner {
-    padding-left: 8px;
-  }
-}
-</style>
