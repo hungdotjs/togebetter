@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable global-require */
-const IN_PRODUCTION = process.env.NODE_ENV === 'production';
+const IN_PRODUCTION = process.env.NODE_ENV === 'production' && false;
 
 module.exports = {
   plugins: [
