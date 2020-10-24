@@ -1,7 +1,7 @@
+/* eslint-disable implicit-arrow-linebreak */
 import Vue from 'vue';
+import store from '@/store';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
-import LandingPage from '../views/LandingPage.vue';
 
 Vue.use(VueRouter);
 
@@ -9,12 +9,12 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    component: Home,
+    component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
   },
   {
     path: '/',
     name: 'landing-page',
-    component: LandingPage,
+    component: () => import(/* webpackChunkName: "landing-page" */ '@/views/LandingPage.vue'),
   },
   {
     path: '/login',
@@ -39,7 +39,8 @@ const routes = [
   {
     path: '/questions/:id',
     name: 'questions-detail',
-    component: () => import(/* webpackChunkName: "questions-detail" */ '@/views/QuestionDetail.vue'),
+    component: () =>
+      import(/* webpackChunkName: "questions-detail" */ '@/views/QuestionDetail.vue'),
   },
   {
     path: '/profile/:id',
@@ -60,6 +61,20 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (store.state.auth.user) {
+    switch (to.name) {
+      case 'login':
+      case 'signup':
+        next({ name: 'home' });
+        break;
+      default:
+        next();
+    }
+  }
+  next();
 });
 
 export default router;

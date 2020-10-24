@@ -1,18 +1,27 @@
 <template>
   <div class="page page--login">
     <h1 class="text-center">Sign in</h1>
-    <el-form label-position="top" :model="formLogin">
-      <el-form-item label="Username or Email Address" size="large">
-        <el-input v-model="formLogin.username"></el-input>
+    <el-form label-position="top" :model="form">
+      <el-form-item label="Email Address" size="large">
+        <el-input v-model="form.email"></el-input>
       </el-form-item>
       <el-form-item label="Password" size="large">
-        <el-input v-model="formLogin.password" type="password"></el-input>
+        <el-input v-model="form.password" type="password" show-password></el-input>
       </el-form-item>
       <el-form-item class="text-center">
         <el-checkbox v-model="rememberMe">Keep me logged in</el-checkbox>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" class="w-100" size="large" round>Sign in</el-button>
+        <el-button
+          type="primary"
+          class="w-100"
+          size="large"
+          :loading="loading"
+          round
+          @click="signIn"
+        >
+          Sign in
+        </el-button>
       </el-form-item>
     </el-form>
     <el-divider>or</el-divider>
@@ -56,16 +65,41 @@
 </template>
 
 <script>
+import { auth } from '@/firebase';
+import { Message } from 'element-ui';
+
 export default {
   name: 'Login',
   data() {
     return {
-      formLogin: {
-        username: '',
+      form: {
+        email: '',
         password: '',
       },
       rememberMe: true,
+      loading: false,
     };
+  },
+
+  methods: {
+    signIn() {
+      this.loading = true;
+      const { email, password } = this.form;
+
+      auth
+        .signInWithEmailAndPassword(email, password)
+        .then((res) => {
+          // Save user to store
+          this.$store.commit('auth/saveUser', res.user.providerData[0]);
+          this.loading = false;
+          this.$router.push('/home');
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          Message.error(errorMessage);
+          this.loading = false;
+        });
+    },
   },
 };
 </script>

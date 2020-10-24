@@ -84,13 +84,7 @@
             <li class="tb-navbar__operations__item">
               <div class="tb-navbar__operations__anchor center-y">
                 <el-dropdown>
-                  <img
-                    alt="user image"
-                    class="tb-navbar__avatar"
-                    src="https://cdn.hinative.com/photos/5811857/d4d7f5f714a3975d37bf104853ef6d5c1b31f436/thumb.jpg?1600090881"
-                    width="32"
-                    height="32"
-                  />
+                  <el-image alt="user-image" class="tb-navbar__avatar" :src="user.photoURL" lazy />
                   <el-dropdown-menu>
                     <el-dropdown-item>
                       <router-link tag="span" to="/profile/12321312">
@@ -105,7 +99,7 @@
                       </router-link>
                     </el-dropdown-item>
                     <el-dropdown-item>
-                      <span>
+                      <span @click="signOut">
                         <i class="el-icon-switch-button"></i>
                         Sign out
                       </span>
@@ -157,7 +151,8 @@ export default {
 
   computed: {
     ...mapState({
-      isLogin: (state) => state.user.isLogin,
+      isLogin: (state) => !!state.auth.user,
+      user: (state) => state.auth.user,
     }),
   },
 
@@ -165,6 +160,13 @@ export default {
     $route(to) {
       this.isLandingPage = to.name === 'landing-page';
       this.isSignUpPage = to.name === 'signup';
+    },
+  },
+
+  methods: {
+    signOut() {
+      this.$store.dispatch('auth/signOut');
+      this.$router.push('/');
     },
   },
 };

@@ -6,7 +6,12 @@
         <el-col :xs="24" :md="12">
           <div class="text-center" style="padding: 20% 0">
             <div class="mb-32 text-center">
-              <img :src="require('@/assets/img/logo-white.png')" alt="#" class="hero__logo" />
+              <el-image
+                :src="require('@/assets/img/logo-white.png')"
+                alt="#"
+                class="hero__logo"
+                lazy
+              />
               <h1 class="hero__title">A language learning Q&A app</h1>
               <p class="hero__subtitle">Learn foreign languages for free</p>
             </div>
@@ -23,7 +28,14 @@
           </div>
         </el-col>
         <el-col :xs="24" :md="12" class="hidden-sm-and-down">
-          <lottie-animation path="img/welcome.json" class="hero__animation" />
+          <lottie-player
+            src="https://assets8.lottiefiles.com/private_files/lf30_TBKozE.json"
+            background="transparent"
+            speed="1"
+            loop
+            class="hero__animation"
+            autoplay
+          ></lottie-player>
         </el-col>
       </el-row>
     </div>
@@ -41,13 +53,11 @@
           </div>
         </el-col>
       </el-row>
-      <div class="text-center">
+      <div class="text-center mb-32">
         <el-button type="primary" size="medium">Show more</el-button>
       </div>
-    </div>
 
-    <!-- Question with language  -->
-    <div class="landing-page__box">
+      <!-- Question with language  -->
       <h2 class="landing-page__box__title">Questions for Korean</h2>
       <el-row :gutter="16">
         <el-col v-for="i in 6" :key="i" :xs="24" :sm="12">
@@ -63,12 +73,18 @@
         <el-button type="primary" size="medium">Show more</el-button>
       </div>
     </div>
-    <el-divider></el-divider>
 
     <div class="landing-page__info">
       <el-row :gutter="16">
         <el-col :xs="24" :sm="12" class="text-center">
-          <lottie-animation :width="250" path="img/earth.json" />
+          <lottie-player
+            src="https://assets7.lottiefiles.com/packages/lf20_T1gagt.json"
+            background="transparent"
+            speed="1"
+            loop
+            style="width: 300px; margin: 0 auto;"
+            autoplay
+          ></lottie-player>
         </el-col>
         <el-col :xs="24" :sm="12">
           <h2 class="mb-16 text-center">
@@ -102,7 +118,14 @@
           </p>
         </el-col>
         <el-col :xs="24" :sm="12" class="text-center">
-          <lottie-animation :width="250" path="img/message.json" />
+          <lottie-player
+            src="https://assets3.lottiefiles.com/packages/lf20_85jUo8.json"
+            background="transparent"
+            speed="1"
+            loop
+            style="width: 300px; margin: 0 auto;"
+            autoplay
+          ></lottie-player>
         </el-col>
       </el-row>
     </div>
@@ -111,7 +134,14 @@
     <div class="landing-page__info">
       <el-row :gutter="16">
         <el-col :xs="24" :sm="12" class="text-center">
-          <lottie-animation :width="250" path="img/heart.json" />
+          <lottie-player
+            src="https://assets8.lottiefiles.com/datafiles/nZgj7wTd56UtH6m/data.json"
+            background="transparent"
+            speed="1"
+            loop
+            style="width: 300px; margin: 0 auto;"
+            autoplay
+          ></lottie-player>
         </el-col>
         <el-col :xs="24" :sm="12">
           <h2 class="mb-16 text-center">
@@ -119,27 +149,30 @@
           </h2>
           <ul class="landing-page__feature">
             <li>
-              <img
+              <el-image
                 src="https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/icon%2Ffeature-speaker.svg?alt=media&token=c9662f47-3957-4606-a7de-ca30925c6472"
                 alt="#"
+                lazy
               />
               <span>
                 Post voice questions and answers via a simple app interface
               </span>
             </li>
             <li>
-              <img
+              <el-image
                 src="https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/icon%2Ffeature-streak.svg?alt=media&token=1cb024a7-870e-4e7a-9543-ebc3513c499b"
                 alt="#"
+                lazy
               />
               <span>
                 Question templates make asking questions easy
               </span>
             </li>
             <li>
-              <img
+              <el-image
                 src="https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/icon%2Ffeature-check.svg?alt=media&token=93bd0381-9270-4930-9135-1b2c17f9b893"
                 alt="#"
+                lazy
               />
               <span>
                 Ask in English, Spanish, or any language you want and get the answer!
@@ -149,16 +182,20 @@
         </el-col>
       </el-row>
     </div>
+
+    <!-- Footer -->
+    <tb-footer></tb-footer>
   </div>
 </template>
 
 <script>
-import LottieAnimation from 'lottie-vuejs/src/LottieAnimation.vue';
+import TbFooter from '@/components/organisms/Footer.vue';
+import '@lottiefiles/lottie-player';
 
 export default {
   name: 'LandingPage',
   components: {
-    LottieAnimation,
+    TbFooter,
   },
 
   data() {

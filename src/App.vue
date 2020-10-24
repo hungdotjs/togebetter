@@ -6,25 +6,33 @@
         <router-view></router-view>
       </transition>
     </main>
-    <tb-footer></tb-footer>
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/organisms/Navbar.vue';
-import TbFooter from '@/components/organisms/Footer.vue';
+import { auth } from '@/firebase';
 
 export default {
   name: 'App',
   components: {
     Navbar,
-    TbFooter,
   },
 
   watch: {
     $route() {
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     },
+  },
+
+  mounted() {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.$store.commit('auth/saveUser', user.providerData[0]);
+      } else {
+        this.$store.commit('auth/signOut');
+      }
+    });
   },
 };
 </script>

@@ -7,9 +7,7 @@
           <i class="el-icon-s-comment"></i>
           Native language
         </template>
-        <el-select v-model="form.nativeLanguage" class="w-100">
-          <el-option value="en_us" label="English (US)"> </el-option>
-        </el-select>
+        <select-language :value.sync="form.nativeLanguage"></select-language>
         <el-form-item label="Level" class="ml-16">
           <el-radio-group v-model="form.nativeLanguageLevel">
             <el-radio-button label="fluent">Fluent</el-radio-button>
@@ -23,9 +21,8 @@
           <i class="el-icon-edit"></i>
           Language of interest
         </template>
-        <el-select v-model="form.interestLanguage" class="w-100 mb-8">
-          <el-option value="en_us" label="English (US)"> </el-option>
-        </el-select>
+
+        <select-language :value.sync="form.interestLanguage"></select-language>
         <el-form-item class="ml-16">
           <template #label>
             <p>Level <i @click="openDialog" class="el-icon-question cursor"></i></p>
@@ -61,9 +58,7 @@
           <i class=" el-icon-location"></i>
           Country or region you know well
         </template>
-        <el-select v-model="form.knowingCountry" class="w-100 mb-8">
-          <el-option value="us" label="United States"> </el-option>
-        </el-select>
+        <select-country :value.sync="form.knowingCountry"></select-country>
       </el-form-item>
 
       <el-form-item>
@@ -71,9 +66,7 @@
           <i class=" el-icon-location"></i>
           Countries and regions of interest
         </template>
-        <el-select v-model="form.interestCountry" class="w-100 mb-8">
-          <el-option value="us" label="United States"> </el-option>
-        </el-select>
+        <select-country :value.sync="form.interestCountry"></select-country>
       </el-form-item>
 
       <el-divider>Almost there!</el-divider>
@@ -84,7 +77,12 @@
           <i class="el-icon-message"></i>
           Email Address
         </template>
-        <el-input type="email" placeholder="Email Address" v-model="form.email"></el-input>
+        <el-input
+          type="email"
+          autocomplete="on"
+          placeholder="Email Address"
+          v-model="form.email"
+        ></el-input>
       </el-form-item>
 
       <!-- Username  -->
@@ -92,8 +90,15 @@
         <template #label>
           <i class=" el-icon-user"></i>
           Username
+          <p class="text-small">From <b>3 to 26</b> characters.</p>
         </template>
-        <el-input placeholder="Alphanumeric and underline only" v-model="form.username"></el-input>
+        <el-input
+          placeholder="Alphanumeric and underline only"
+          v-model="form.username"
+          autocomplete="on"
+          :minlength="3"
+          :maxlength="26"
+        ></el-input>
       </el-form-item>
 
       <!-- Password  -->
@@ -106,11 +111,18 @@
             isn't easy to guess.
           </p>
         </template>
-        <el-input type="password" v-model="form.password"></el-input>
+        <el-input
+          type="password"
+          v-model="form.password"
+          autocomplete="on"
+          show-password
+        ></el-input>
       </el-form-item>
 
       <el-form-item class="center">
-        <el-button type="primary" size="medium" @click="submitForm" round>Sign up</el-button>
+        <el-button type="primary" size="medium" @click="submitForm" :loading="loading" round>
+          Sign up
+        </el-button>
       </el-form-item>
     </el-form>
     <div class="text-center">
@@ -155,44 +167,29 @@
 
 <script>
 import LevelIcon from '@/components/atoms/LevelIcon.vue';
+import SelectLanguage from '@/components/atoms/SelectLanguage.vue';
+import SelectCountry from '@/components/atoms/SelectCountry.vue';
+import { db, auth } from '@/firebase';
+import { Message } from 'element-ui';
 
 export default {
-  name: 'Login',
+  name: 'Signup',
   components: {
     LevelIcon,
+    SelectCountry,
+    SelectLanguage,
   },
 
   data() {
-    const validatePass = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('Please input the password'));
-      } else {
-        if (value.length > 8) {
-          this.$refs.form.validateField('password');
-        }
-        callback(new Error('Please enter at least 8 characters'));
-      }
-    };
-    const validateUsername = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error('Please input the username'));
-      } else {
-        const re = new RegExp(/^[a-zA-Z0-9_]{3,16}$/);
-        if (re.test(value)) {
-          this.$refs.form.validateField('username');
-        }
-        callback(new Error('Please enter at least 3 characters'));
-      }
-    };
-
     return {
+      loading: false,
       form: {
-        nativeLanguage: 'en_us',
+        nativeLanguage: 'en',
         nativeLanguageLevel: 'fluent',
-        interestLanguage: 'en_us',
+        interestLanguage: 'en',
         interestLanguageLevel: 'beginner',
-        knowingCountry: 'us',
-        interestCountry: 'us',
+        knowingCountry: 'US',
+        interestCountry: 'US',
         email: '',
         username: '',
         password: '',
@@ -206,8 +203,19 @@ export default {
           },
           { required: true, message: 'Please input email address', trigger: 'blur' },
         ],
-        username: [{ validator: validateUsername, trigger: 'blur' }],
-        password: [{ validator: validatePass, trigger: 'blur' }],
+        username: [
+          { required: true, message: 'Please input your username', trigger: 'blur' },
+          {
+            min: 3,
+            max: 26,
+            message: 'Please enter from 3 to 26 characters',
+            trigger: 'blur',
+          },
+        ],
+        password: [
+          { required: true, message: 'Please input the password', trigger: 'blur' },
+          { min: 8, message: 'Please enter at least 8 characters', trigger: 'blur' },
+        ],
       },
       dialogVisible: false,
     };
@@ -219,36 +227,61 @@ export default {
     },
 
     submitForm() {
-      this.$refs.form.validate((valid) => !!valid);
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          this.createUser();
+          return true;
+        }
+        return false;
+      });
+    },
+
+    createUser() {
+      this.loading = true;
+      // eslint-disable-next-line object-curly-newline
+      const { email, password, username, ...profile } = this.form;
+      auth
+        .createUserWithEmailAndPassword(email, password)
+        .then((res) => {
+          // Update profile
+          res.user
+            .updateProfile({
+              displayName: username,
+              photoURL:
+                'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Favatar-default.webp?alt=media&token=22fe2ae6-3a19-48cd-9fab-582df2d2f879',
+            })
+            .then((res) => {
+              // Save user and token to store
+              this.$store.commit('auth/saveUser', res.user.providerData[0]);
+            });
+
+          const user = {
+            username,
+            email,
+            id: res.user.uid,
+            photoURL:
+              'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Favatar-default.webp?alt=media&token=22fe2ae6-3a19-48cd-9fab-582df2d2f879',
+            ...profile,
+          };
+
+          // Save to Firestore
+          db.collection('users')
+            .doc(res.user.uid)
+            .set(user)
+            .then(() => {
+              this.$router.push('/home');
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+          this.loading = false;
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          Message.error(errorMessage);
+          this.loading = false;
+        });
     },
   },
 };
 </script>
-
-<style lang="scss">
-.symbol-dialog {
-  &__title {
-    font-size: 1.1rem;
-    margin-bottom: 16px;
-  }
-}
-
-.custom-radio-group {
-  display: flex;
-  flex-direction: column;
-
-  .el-radio-button {
-    width: 100%;
-    display: block;
-
-    span {
-      width: 100%;
-      white-space: pre-wrap;
-      line-height: 1.5;
-      text-align: left;
-      border: 1px solid #dcdfe6;
-      border-radius: 0 !important;
-    }
-  }
-}
-</style>

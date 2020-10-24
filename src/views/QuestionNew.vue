@@ -23,7 +23,7 @@
         <button class="question-new__button-mic">
           <i class="iconfont icon-mic"></i>
         </button>
-        <p class="color-secondary">Click to record a voice answer</p>
+        <p class="color-secondary text-small">Click to record a voice answer</p>
       </div>
     </div>
     <div class="mb-16">
@@ -44,7 +44,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'QuestionNew',
   components: {
@@ -56,6 +55,5 @@ export default {
       selectedLang: 'en_us',
     };
   },
-
 };
 </script>

@@ -1,4 +1,6 @@
 import Vue from 'vue';
+import lang from 'element-ui/lib/locale/lang/en';
+import locale from 'element-ui/lib/locale';
 import {
   Avatar,
   Button,
@@ -19,15 +21,18 @@ import {
   Dialog,
   Row,
   Col,
+  Image,
 } from 'element-ui';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-
 // CSS
 import '@/assets/scss/all.scss';
 // iconfont
 import '@/assets/fonts/iconfont.css';
+
+// configure language
+locale.use(lang);
 
 Vue.prototype.$ELEMENT = { size: 'medium', zIndex: 3000 };
 Vue.use(Avatar);
@@ -49,6 +54,7 @@ Vue.use(RadioButton);
 Vue.use(Dialog);
 Vue.use(Row);
 Vue.use(Col);
+Vue.use(Image);
 
 Vue.config.productionTip = false;
 
