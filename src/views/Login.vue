@@ -3,7 +3,7 @@
     <h1 class="text-center">Sign in</h1>
     <el-form label-position="top" :model="form">
       <el-form-item label="Email Address" size="large">
-        <el-input v-model="form.username"></el-input>
+        <el-input v-model="form.email"></el-input>
       </el-form-item>
       <el-form-item label="Password" size="large">
         <el-input v-model="form.password" type="password" show-password></el-input>
@@ -65,32 +65,40 @@
 </template>
 
 <script>
+import { auth } from '@/firebase';
+import { Message } from 'element-ui';
+
 export default {
   name: 'Login',
   data() {
     return {
       form: {
-        username: '',
+        email: '',
         password: '',
       },
       rememberMe: true,
+      loading: false,
     };
-  },
-
-  computed: {
-    loading() {
-      return this.$store.state.auth.loading;
-    },
   },
 
   methods: {
     signIn() {
-      const input = {
-        email: this.form.username,
-        password: this.form.password,
-      };
+      this.loading = true;
+      const { email, password } = this.form;
 
-      this.$store.dispatch('auth/signIn', input);
+      auth
+        .signInWithEmailAndPassword(email, password)
+        .then((res) => {
+          // Save user to store
+          this.$store.commit('auth/saveUser', res.user.providerData[0]);
+          this.loading = false;
+          this.$router.push('/home');
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          Message.error(errorMessage);
+          this.loading = false;
+        });
     },
   },
 };

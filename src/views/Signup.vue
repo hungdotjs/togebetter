@@ -169,9 +169,11 @@
 import LevelIcon from '@/components/atoms/LevelIcon.vue';
 import SelectLanguage from '@/components/atoms/SelectLanguage.vue';
 import SelectCountry from '@/components/atoms/SelectCountry.vue';
+import { db, auth } from '@/firebase';
+import { Message } from 'element-ui';
 
 export default {
-  name: 'Login',
+  name: 'Signup',
   components: {
     LevelIcon,
     SelectCountry,
@@ -180,6 +182,7 @@ export default {
 
   data() {
     return {
+      loading: false,
       form: {
         nativeLanguage: 'en',
         nativeLanguageLevel: 'fluent',
@@ -218,12 +221,6 @@ export default {
     };
   },
 
-  computed: {
-    loading() {
-      return this.$store.state.auth.loading;
-    },
-  },
-
   methods: {
     openDialog() {
       this.dialogVisible = true;
@@ -240,7 +237,50 @@ export default {
     },
 
     createUser() {
-      this.$store.dispatch('auth/signUp', this.form);
+      this.loading = true;
+      // eslint-disable-next-line object-curly-newline
+      const { email, password, username, ...profile } = this.form;
+      auth
+        .createUserWithEmailAndPassword(email, password)
+        .then((res) => {
+          // Update profile
+          res.user
+            .updateProfile({
+              displayName: username,
+              photoURL:
+                'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Favatar-default.webp?alt=media&token=22fe2ae6-3a19-48cd-9fab-582df2d2f879',
+            })
+            .then((res) => {
+              // Save user and token to store
+              this.$store.commit('auth/saveUser', res.user.providerData[0]);
+            });
+
+          const user = {
+            username,
+            email,
+            id: res.user.uid,
+            photoURL:
+              'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Favatar-default.webp?alt=media&token=22fe2ae6-3a19-48cd-9fab-582df2d2f879',
+            ...profile,
+          };
+
+          // Save to Firestore
+          db.collection('users')
+            .doc(res.user.uid)
+            .set(user)
+            .then(() => {
+              this.$router.push('/home');
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+          this.loading = false;
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          Message.error(errorMessage);
+          this.loading = false;
+        });
     },
   },
 };

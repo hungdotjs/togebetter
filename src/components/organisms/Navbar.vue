@@ -151,7 +151,7 @@ export default {
 
   computed: {
     ...mapState({
-      isLogin: (state) => state.auth.accessToken,
+      isLogin: (state) => !!state.auth.user,
       user: (state) => state.auth.user,
     }),
   },
