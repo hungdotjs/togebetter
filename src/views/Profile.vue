@@ -2,9 +2,9 @@
   <div class="profile">
     <div class="profile__overview container">
       <div class="profile__header">
-        <el-avatar icon="el-icon-user-solid" :size="80"></el-avatar>
+        <el-avatar :src="user.photoURL" :size="80"></el-avatar>
         <div class="ml-16">
-          <p class="profile__header__username">hungteddy98</p>
+          <p class="profile__header__username">{{ user.displayName }}</p>
           <el-link type="primary">Edit</el-link>
         </div>
       </div>
@@ -154,10 +154,17 @@
 
 <script>
 import LevelIcon from '@/components/atoms/LevelIcon.vue';
+import { mapState } from 'vuex';
 
 export default {
   name: 'Profile',
   components: { LevelIcon },
+
+  computed: {
+    ...mapState({
+      user: (state) => state.auth.user,
+    }),
+  },
 };
 </script>
 

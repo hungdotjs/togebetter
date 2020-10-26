@@ -28,7 +28,13 @@ export default {
   mounted() {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        this.$store.commit('auth/saveUser', user.providerData[0]);
+        const userData = {
+          uid: user.uid,
+          photoURL: user.photoURL,
+          displayName: user.displayName,
+          email: user.email,
+        };
+        this.$store.commit('auth/saveUser', userData);
       } else {
         this.$store.commit('auth/signOut');
       }

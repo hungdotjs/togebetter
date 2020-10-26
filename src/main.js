@@ -22,6 +22,8 @@ import {
   Row,
   Col,
   Image,
+  Upload,
+  Tooltip,
 } from 'element-ui';
 import App from './App.vue';
 import router from './router';
@@ -54,6 +56,8 @@ Vue.use(RadioButton);
 Vue.use(Dialog);
 Vue.use(Row);
 Vue.use(Col);
+Vue.use(Upload);
+Vue.use(Tooltip);
 Vue.use(Image);
 
 Vue.config.productionTip = false;

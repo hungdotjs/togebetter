@@ -250,9 +250,15 @@ export default {
               photoURL:
                 'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Favatar-default.webp?alt=media&token=22fe2ae6-3a19-48cd-9fab-582df2d2f879',
             })
-            .then((res) => {
+            .then(({ user }) => {
+              const userData = {
+                uid: user.uid,
+                photoURL: user.photoURL,
+                displayName: user.displayName,
+                email: user.email,
+              };
               // Save user and token to store
-              this.$store.commit('auth/saveUser', res.user.providerData[0]);
+              this.$store.commit('auth/saveUser', userData);
             });
 
           const user = {
