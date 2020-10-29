@@ -16,6 +16,7 @@
       top="25vh"
       :close-on-click-modal="false"
       destroy-on-close
+      append-to-body
       center
     >
       <div class="text-center">

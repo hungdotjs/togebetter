@@ -1,6 +1,7 @@
 .bubble {
   display: flex;
-  margin-bottom: 16px;
+  max-width: 600px;
+  margin: 16px auto;
 
   &__avatar {
     margin-top: 16px;
@@ -23,7 +24,7 @@
 
   &__question {
     border: 1px solid $--color-border;
-    padding: 8px 16px;
+    padding: 12px 16px;
     border-radius: 8px;
     background-color: #fff;
   }

@@ -1,6 +1,6 @@
 <template>
-  <div class="container ">
-    <div class="home">
+  <div class="container">
+    <div class="home main-layout">
       <question-bubble v-for="i in 3" :key="i" :totalAnswer="i - 1"></question-bubble>
     </div>
   </div>

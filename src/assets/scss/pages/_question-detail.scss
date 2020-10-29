@@ -1,10 +1,15 @@
 .question-detail {
   position: relative;
-  min-height: 90vh;
+  background-color: #fff;
+
+  &__content {
+    min-height: 90vh;
+    padding: 16px 8px;
+  }
 }
 
 .answer-form {
-  position: fixed;
+  position: sticky;
   bottom: 0;
   left: 0;
   right: 0;
