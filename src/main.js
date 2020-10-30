@@ -24,6 +24,7 @@ import {
   Image,
   Upload,
   Tooltip,
+  Loading,
 } from 'element-ui';
 import App from './App.vue';
 import router from './router';
@@ -59,6 +60,7 @@ Vue.use(Col);
 Vue.use(Upload);
 Vue.use(Tooltip);
 Vue.use(Image);
+Vue.use(Loading);
 
 Vue.config.productionTip = false;
 

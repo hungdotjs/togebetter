@@ -27,7 +27,6 @@
       </div>
       <div class="mb-16 text-center">
         <el-upload
-          class="avatar-uploader"
           action="#"
           accept="image/*"
           :auto-upload="false"
@@ -74,7 +73,7 @@ import SelectLanguage from '@/components/atoms/SelectLanguage.vue';
 import RecordAudio from '@/components/atoms/RecordAudio.vue';
 import { Message } from 'element-ui';
 import { mapState } from 'vuex';
-import { storage, db } from '@/firebase';
+import { storage, db, FieldValue } from '@/firebase';
 import generateUID from '@/helpers/generateUID';
 
 export default {
@@ -157,7 +156,7 @@ export default {
         question: this.question,
         additionalInformation: this.additionalInformation,
         questionType: this.questionType,
-        createdAt: new Date(),
+        createdAt: FieldValue.serverTimestamp(),
         comments: [],
       };
       if (this.imageUrl) {

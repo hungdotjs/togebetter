@@ -3,7 +3,7 @@
     <div @click="openDialog" class="record-audio__wrapper">
       <slot></slot>
     </div>
-    <div>
+    <div class="record-audio__audio" v-if="!disablePreview">
       <audio v-if="audioURL" :src="audioURL" controls>
         Your browser does not support the
         <code>audio</code> element.
@@ -30,6 +30,9 @@
           <i class="iconfont icon-mic"></i>
         </button>
         <p>{{ time }} / 1:00</p>
+        <el-tag type="primary" effect="dark" v-if="isStarting">
+          Click the microphone again to finish recording </el-tag
+        ><br />
       </div>
     </el-dialog>
   </div>
@@ -37,6 +40,13 @@
 
 <script>
 export default {
+  props: {
+    disablePreview: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
   data() {
     return {
       dialogVisible: false,
