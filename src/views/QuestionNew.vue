@@ -151,9 +151,9 @@ export default {
       this.loading = true;
       const uid = generateUID();
       const input = {
-        ownerId: this.user.uid,
+        ownerID: this.user.uid,
         lang: this.selectedLang,
-        question: this.question,
+        content: this.question,
         additionalInformation: this.additionalInformation,
         questionType: this.questionType,
         createdAt: FieldValue.serverTimestamp(),

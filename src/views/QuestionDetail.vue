@@ -2,7 +2,15 @@
   <div class="container">
     <div v-loading="loading" class="question-detail main-layout">
       <div class="question-detail__content">
-        <chat-bubble></chat-bubble>
+        <chat-bubble :content="question"></chat-bubble>
+
+        <div v-if="comments.length">
+          <chat-bubble
+            v-for="comment in comments"
+            :key="comment.id"
+            :content="comment"
+          ></chat-bubble>
+        </div>
       </div>
 
       <div class="answer-form">
@@ -82,7 +90,7 @@
 import ChatBubble from '@/components/molecules/ChatBubble.vue';
 import RecordAudio from '@/components/atoms/RecordAudio.vue';
 import ChatSticker from '@/components/atoms/ChatSticker.vue';
-import { storage, db, FieldValue } from '@/firebase';
+import { storage, db, FieldValue, FieldPath } from '@/firebase';
 import { mapState } from 'vuex';
 import generateUID from '@/helpers/generateUID';
 import { Message } from 'element-ui';
@@ -104,6 +112,8 @@ export default {
       answer: '',
       audioURL: '',
       photoURL: '',
+      question: null,
+      comments: [],
     };
   },
 
@@ -118,16 +128,34 @@ export default {
   },
 
   created() {
+    this.loading = true;
     const { id } = this.$route.params;
+    const commentRef = db.collection('comments');
     db.collection('questions')
       .doc(id)
       .get()
       .then((res) => {
         if (res.exists) {
-          console.log('Document data:', res.data());
+          this.question = res.data();
+          if (this.question.comments.length) {
+            commentRef
+              .where(FieldPath.documentId(), 'in', this.question.comments)
+              .get()
+              .then((querySnapshot) => {
+                const comments = [];
+                querySnapshot.forEach((doc) => {
+                  comments.push({
+                    id: doc.id,
+                    ...doc.data(),
+                  });
+                });
+                this.comments = comments.reverse();
+                this.loading = false;
+              });
+          }
+          this.loading = false;
         } else {
-          // doc.data() will be undefined in this case
-          console.log('No such document!');
+          this.$router.push({ name: '404' });
         }
       });
   },
@@ -201,11 +229,18 @@ export default {
         votes: [],
         createdAt: FieldValue.serverTimestamp(),
       };
-      await db.collection('comments').add(input);
+      const comment = await db.collection('comments').add(input);
+      await db
+        .collection('questions')
+        .doc(this.$route.params.id)
+        .update({
+          comments: FieldValue.arrayUnion(comment.id),
+        });
       this.loadingSubmit = false;
       this.photoURL = '';
       this.audioURL = '';
       this.answer = '';
+      this.$router.go();
     },
   },
 };

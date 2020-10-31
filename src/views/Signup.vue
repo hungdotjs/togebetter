@@ -139,7 +139,7 @@
       :append-to-body="true"
     >
       <template #title>
-        <level-icon level="2" class="symbol-dialog__title">
+        <level-icon class="symbol-dialog__title">
           <h2>What’s this symbol?</h2>
         </level-icon>
         <p>
@@ -149,16 +149,16 @@
         </p>
       </template>
       <div>
-        <level-icon level="1">Beginner</level-icon>
+        <level-icon level="beginner">Beginner</level-icon>
         Has difficulty understanding even short answers in this language.
         <el-divider></el-divider>
-        <level-icon level="2">Beginner-Intermediate</level-icon>
+        <level-icon level="beginner-intermediate">Beginner-Intermediate</level-icon>
         Can ask simple questions and can understand simple answers.
         <el-divider></el-divider>
-        <level-icon level="3">Intermediate</level-icon>
+        <level-icon level="intermediate">Intermediate</level-icon>
         Can ask all types of general questions and can understand longer answers.
         <el-divider></el-divider>
-        <level-icon level="4">Advanced</level-icon>
+        <level-icon level="advanced">Advanced</level-icon>
         Can understand long, complex answers.
       </div>
     </el-dialog>

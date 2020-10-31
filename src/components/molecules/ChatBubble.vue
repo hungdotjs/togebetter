@@ -1,29 +1,26 @@
 <template>
-  <bubble>
-    <div class="chat-bubble__language">
-      <div class="center-y"><i class="el-icon-s-comment mr-8"></i>Korea</div>
-      <level-icon level="1">
-        <template #prefix>
-          <i class="el-icon-edit mr-8"></i>
-          English (US)
-        </template>
-      </level-icon>
-    </div>
-
-    <p>
-      It could mean he has a criminal record, or a lot of past relationships, or he has some secrets
-      from his past.
+  <bubble v-if="content" :userID="content.ownerID" :createdAt="content.createdAt">
+    <p v-if="content.lang">
+      Question about <b>{{ languageName }}</b>
     </p>
+    <p class="color-secondary" v-if="content.questionType">{{ questionType }}</p>
+    <div v-if="content.photoURL">
+      <el-image :src="content.photoURL" class="chat-bubble__image"></el-image>
+    </div>
+    <div v-if="content.audioURL">
+      <audio :src="content.audioURL" class="chat-bubble__audio" controls></audio>
+    </div>
+    <p>{{ content.content }}</p>
 
     <div class="chat-bubble__command">
       <div class="chat-bubble__social">
-        <div class="chat-bubble__button">
+        <div class="chat-bubble__button" v-if="!content.lang">
           <p><i class="iconfont icon-like"></i></p>
-          <p class="chat-bubble__button__text">Upvote</p>
+          <p class="chat-bubble__button__text">0</p>
         </div>
-        <div class="chat-bubble__button">
+        <div class="chat-bubble__button" v-if="!content.lang">
           <p><i class="iconfont icon-dislike"></i></p>
-          <p class="chat-bubble__button__text">Downvote</p>
+          <p class="chat-bubble__button__text">0</p>
         </div>
         <div class="chat-bubble__button">
           <p><i class="iconfont icon-share"></i></p>
@@ -45,12 +42,44 @@
 
 <script>
 import Bubble from '@/components/molecules/Bubble.vue';
-import LevelIcon from '@/components/atoms/LevelIcon.vue';
+import languages from '@/data/languages';
 
 export default {
   components: {
     Bubble,
-    LevelIcon,
+  },
+
+  props: {
+    content: {
+      type: Object,
+    },
+  },
+
+  computed: {
+    languageName() {
+      return languages.find((item) => item.code === this.content.lang).name;
+    },
+
+    questionType() {
+      switch (this.content.questionType) {
+        case 'what-mean':
+          return 'What does this mean?';
+        case 'sound-natural':
+          return 'Does this sound natural?';
+        case 'example':
+          return 'Please show me example sentences with?';
+        case 'difference':
+          return "What's the difference?";
+        case 'your-pronounce':
+          return 'Please show me how to pronounce?';
+        case 'my-pronounce':
+          return "How's my pronunciation?";
+        case 'free-question':
+          return 'Ask about a country, culture or anything you want.';
+        default:
+          return 'How do you say this?';
+      }
+    },
   },
 };
 </script>

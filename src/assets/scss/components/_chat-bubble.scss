@@ -36,9 +36,12 @@
     }
   }
 
-  &__language {
-    color: $--color-secondary;
-    font-size: 12px;
+  &__image {
+    max-width: 100%;
+    margin-bottom: 16px;
+  }
+
+  &__audio {
     margin-bottom: 8px;
   }
 }

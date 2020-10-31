@@ -121,7 +121,7 @@
           <i class="el-icon-edit"></i>
           Language of interest
         </p>
-        <level-icon level="2">English (US)</level-icon>
+        <level-icon>English (US)</level-icon>
       </div>
       <el-divider></el-divider>
       <div class="profile__detail">
