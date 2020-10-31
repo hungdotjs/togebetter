@@ -1,0 +1,22 @@
+.chat-sticker {
+  &__dialog {
+    width: 90%;
+    max-width: 650px;
+  }
+
+  &__image {
+    width: 50%;
+    padding: 0 16px;
+    margin-bottom: 16px;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 0.6;
+      transition: opacity 0.3s;
+    }
+
+    @include res(md) {
+      max-width: 200px;
+    }
+  }
+}

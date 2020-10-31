@@ -1,16 +1,54 @@
 .question-detail {
   position: relative;
-  min-height: 90vh;
+  background-color: #fff;
+
+  &__content {
+    min-height: 80vh;
+    padding: 16px 8px;
+  }
 }
 
 .answer-form {
-  position: fixed;
+  position: sticky;
   bottom: 0;
   left: 0;
   right: 0;
   padding: 16px;
   padding-bottom: 0;
   background: #ededed;
+
+  &__image {
+    width: 64px;
+    height: 64px;
+
+    &__remove {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+
+      &:hover {
+        cursor: pointer;
+        color: $--color-primary;
+      }
+    }
+  }
+
+  &__audio {
+    position: relative;
+    width: fit-content;
+
+    &__remove {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      cursor: pointer;
+
+      &:hover {
+        color: $--color-primary;
+        transition: all 0.3s;
+      }
+    }
+  }
 
   &__input-wrapper {
     display: flex;

@@ -88,9 +88,15 @@ export default {
 
       auth
         .signInWithEmailAndPassword(email, password)
-        .then((res) => {
+        .then(({ user }) => {
+          const userData = {
+            uid: user.uid,
+            photoURL: user.photoURL,
+            displayName: user.displayName,
+            email: user.email,
+          };
           // Save user to store
-          this.$store.commit('auth/saveUser', res.user.providerData[0]);
+          this.$store.commit('auth/saveUser', userData);
           this.loading = false;
           this.$router.push('/home');
         })

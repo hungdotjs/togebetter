@@ -22,10 +22,15 @@ import {
   Row,
   Col,
   Image,
+  Upload,
+  Tooltip,
+  Loading,
 } from 'element-ui';
+import VueTimeago from 'vue-timeago';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+
 // CSS
 import '@/assets/scss/all.scss';
 // iconfont
@@ -54,7 +59,15 @@ Vue.use(RadioButton);
 Vue.use(Dialog);
 Vue.use(Row);
 Vue.use(Col);
+Vue.use(Upload);
+Vue.use(Tooltip);
 Vue.use(Image);
+Vue.use(Loading);
+
+Vue.use(VueTimeago, {
+  name: 'Timeago', // Component name, `Timeago` by default
+  locale: 'en', // Default locale
+});
 
 Vue.config.productionTip = false;
 

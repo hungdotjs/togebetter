@@ -1,37 +1,85 @@
 <template>
-  <div class="container question-detail">
-    <chat-bubble></chat-bubble>
+  <div class="container">
+    <div v-loading="loading" class="question-detail main-layout">
+      <div class="question-detail__content">
+        <chat-bubble :content="question"></chat-bubble>
 
-    <div class="answer-form container">
-      <div class="answer-form__input-wrapper">
-        <el-input
-          class="answer-form__input"
-          type="textarea"
-          v-model="answer"
-          placeholder="Answer in his/her native language as he/she is a beginner speaker."
-          :autosize="{ minRows: 3, maxRows: 5 }"
-          resize="none"
-        >
-        </el-input>
-        <el-button
-          class="answer-form__send"
-          type="primary"
-          size="mini"
-          icon="el-icon-right"
-        ></el-button>
+        <div v-if="comments.length">
+          <chat-bubble
+            v-for="comment in comments"
+            :key="comment.id"
+            :content="comment"
+          ></chat-bubble>
+        </div>
       </div>
-      <div class="button-group">
-        <div class="button-group__item">
-          <i class="iconfont icon-keyboard"></i>
+
+      <div class="answer-form">
+        <div v-if="photoURL" style="position: relative; width: fit-content;">
+          <el-image :src="photoURL" class="answer-form__image" fit="cover">
+            <div slot="placeholder" class="text-center p-16">
+              <i class="el-icon-loading"></i>
+            </div>
+          </el-image>
+          <span @click="removePhoto" class="answer-form__image__remove">
+            <i class="el-icon-error"></i>
+          </span>
         </div>
-        <div class="button-group__item" @click="openMic">
-          <i class="iconfont icon-mic"></i>
+        <div class="answer-form__audio" v-if="audioURL">
+          <audio :src="audioURL" controls>
+            Your browser does not support the
+            <code>audio</code> element.
+          </audio>
+          <span class="answer-form__audio__remove" @click="removeAudio">
+            <i class="el-icon-error"></i>
+          </span>
         </div>
-        <div class="button-group__item">
-          <i class="iconfont icon-camera"></i>
+        <div class="answer-form__input-wrapper">
+          <el-input
+            class="answer-form__input"
+            type="textarea"
+            v-model="answer"
+            placeholder="Answer in his/her native language as he/she is a beginner speaker."
+            :autosize="{ minRows: 3, maxRows: 5 }"
+            resize="none"
+          >
+          </el-input>
+          <el-button
+            class="answer-form__send"
+            type="primary"
+            size="mini"
+            icon="el-icon-right"
+            :loading="loadingSubmit"
+            :disabled="!alreadyInput"
+            @click="submit"
+          ></el-button>
         </div>
-        <div class="button-group__item">
-          <i class="iconfont icon-smile"></i>
+        <div class="button-group">
+          <div class="button-group__item">
+            <i class="iconfont icon-keyboard"></i>
+          </div>
+          <record-audio
+            @done="handleRecordAudio"
+            class="button-group__item"
+            :disable-preview="true"
+          >
+            <i class="iconfont icon-mic"></i>
+          </record-audio>
+          <el-upload
+            action="#"
+            accept="image/*"
+            :auto-upload="false"
+            :show-file-list="false"
+            :on-change="handleChangeUpload"
+          >
+            <div class="button-group__item">
+              <i class="iconfont icon-camera"></i>
+            </div>
+          </el-upload>
+          <chat-sticker @select="selectSticker">
+            <div class="button-group__item">
+              <i class="iconfont icon-smile"></i>
+            </div>
+          </chat-sticker>
         </div>
       </div>
     </div>
@@ -40,35 +88,159 @@
 
 <script>
 import ChatBubble from '@/components/molecules/ChatBubble.vue';
+import RecordAudio from '@/components/atoms/RecordAudio.vue';
+import ChatSticker from '@/components/atoms/ChatSticker.vue';
+import { storage, db, FieldValue, FieldPath } from '@/firebase';
+import { mapState } from 'vuex';
+import generateUID from '@/helpers/generateUID';
+import { Message } from 'element-ui';
 
 export default {
   name: 'Home',
   components: {
     ChatBubble,
+    RecordAudio,
+    ChatSticker,
   },
 
   data() {
     return {
+      loading: false,
+      loadingSubmit: false,
+      audioRef: null,
+      photoRef: null,
       answer: '',
+      audioURL: '',
+      photoURL: '',
+      question: null,
+      comments: [],
     };
   },
 
+  computed: {
+    ...mapState({
+      user: (state) => state.auth.user,
+    }),
+
+    alreadyInput() {
+      return !!this.answer || !!this.audioURL || !!this.photoURL;
+    },
+  },
+
+  created() {
+    this.loading = true;
+    const { id } = this.$route.params;
+    const commentRef = db.collection('comments');
+    db.collection('questions')
+      .doc(id)
+      .get()
+      .then((res) => {
+        if (res.exists) {
+          this.question = res.data();
+          if (this.question.comments.length) {
+            commentRef
+              .where(FieldPath.documentId(), 'in', this.question.comments)
+              .get()
+              .then((querySnapshot) => {
+                const comments = [];
+                querySnapshot.forEach((doc) => {
+                  comments.push({
+                    id: doc.id,
+                    ...doc.data(),
+                  });
+                });
+                this.comments = comments.reverse();
+                this.loading = false;
+              });
+          }
+          this.loading = false;
+        } else {
+          this.$router.push({ name: '404' });
+        }
+      });
+  },
+
   methods: {
-    openMic() {
-      navigator.permissions
-        .query(
-          // { name: 'camera' }
-          { name: 'microphone' },
-          // { name: 'geolocation' }
-          // { name: 'notifications' }
-          // { name: 'midi', sysex: false }
-          // { name: 'midi', sysex: true }
-          // { name: 'push', userVisibleOnly: true }
-          // { name: 'push' } // without userVisibleOnly isn't supported in chrome M45, yet
-        )
-        .then((permissionStatus) => {
-          console.log(permissionStatus); // granted, denied, prompt
+    async handleChangeUpload(file) {
+      const isImage = file.raw.type.includes('image/');
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isImage) {
+        Message.error('File must be an image!');
+        return;
+      }
+
+      if (!isLt2M) {
+        Message.error('Picture size can not exceed 2MB!');
+        return;
+      }
+
+      this.loading = true;
+      const uid = generateUID();
+      const storagePhotoRef = storage.ref(`assets/images/${uid}`);
+      this.photoRef = storagePhotoRef;
+      await storagePhotoRef.put(file.raw);
+      const downloadURL = await storagePhotoRef.getDownloadURL();
+      this.photoURL = downloadURL;
+      this.loading = false;
+    },
+
+    removePhoto() {
+      this.loading = true;
+      this.photoRef.delete().then(() => {
+        this.photoURL = '';
+        this.loading = false;
+      });
+    },
+
+    async handleRecordAudio(file) {
+      this.loading = true;
+      const uid = generateUID();
+      const storageAudioRef = storage.ref(`assets/audio/${uid}`);
+      this.audioRef = storageAudioRef;
+      await storageAudioRef.put(file);
+      const downloadURL = await storageAudioRef.getDownloadURL();
+      this.audioURL = downloadURL;
+      this.loading = false;
+    },
+
+    removeAudio() {
+      this.loading = true;
+      this.audioRef.delete().then(() => {
+        this.audioURL = '';
+        this.loading = false;
+      });
+    },
+
+    selectSticker(stickerURL) {
+      this.photoURL = stickerURL;
+      this.answer = '';
+      this.audioURL = '';
+      this.submit();
+    },
+
+    async submit() {
+      this.loadingSubmit = true;
+      const input = {
+        questionID: this.$route.params.id,
+        ownerID: this.user.uid,
+        content: this.answer,
+        audioURL: this.audioURL,
+        photoURL: this.photoURL,
+        votes: [],
+        createdAt: FieldValue.serverTimestamp(),
+      };
+      const comment = await db.collection('comments').add(input);
+      await db
+        .collection('questions')
+        .doc(this.$route.params.id)
+        .update({
+          comments: FieldValue.arrayUnion(comment.id),
         });
+      this.loadingSubmit = false;
+      this.photoURL = '';
+      this.audioURL = '';
+      this.answer = '';
+      this.$router.go();
     },
   },
 };
