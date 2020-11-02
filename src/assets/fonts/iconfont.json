@@ -6,6 +6,167 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "11635688",
+      "name": "earth-line",
+      "font_class": "earth",
+      "unicode": "e75e",
+      "unicode_decimal": 59230
+    },
+    {
+      "icon_id": "11635689",
+      "name": "earth-fill",
+      "font_class": "earth-fill",
+      "unicode": "e75f",
+      "unicode_decimal": 59231
+    },
+    {
+      "icon_id": "4766975",
+      "name": "tags",
+      "font_class": "tags",
+      "unicode": "e7e5",
+      "unicode_decimal": 59365
+    },
+    {
+      "icon_id": "4936685",
+      "name": "tags-fill",
+      "font_class": "tags-fill",
+      "unicode": "e86e",
+      "unicode_decimal": 59502
+    },
+    {
+      "icon_id": "1112550",
+      "name": "home",
+      "font_class": "home-solid",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "1112551",
+      "name": "home1",
+      "font_class": "home",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "348274",
+      "name": "bookmark",
+      "font_class": "bookmark-solid",
+      "unicode": "e9f4",
+      "unicode_decimal": 59892
+    },
+    {
+      "icon_id": "348275",
+      "name": "bookmark-o",
+      "font_class": "bookmark",
+      "unicode": "e9f5",
+      "unicode_decimal": 59893
+    },
+    {
+      "icon_id": "15167597",
+      "name": "like",
+      "font_class": "heart",
+      "unicode": "e64f",
+      "unicode_decimal": 58959
+    },
+    {
+      "icon_id": "15167605",
+      "name": "user",
+      "font_class": "user",
+      "unicode": "e654",
+      "unicode_decimal": 58964
+    },
+    {
+      "icon_id": "15167623",
+      "name": "message",
+      "font_class": "message",
+      "unicode": "e653",
+      "unicode_decimal": 58963
+    },
+    {
+      "icon_id": "15167626",
+      "name": "search",
+      "font_class": "search",
+      "unicode": "e65a",
+      "unicode_decimal": 58970
+    },
+    {
+      "icon_id": "15167650",
+      "name": "message",
+      "font_class": "message-solid",
+      "unicode": "e65b",
+      "unicode_decimal": 58971
+    },
+    {
+      "icon_id": "15167663",
+      "name": "like",
+      "font_class": "heart-solid",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
+      "icon_id": "15167680",
+      "name": "user",
+      "font_class": "user-solid",
+      "unicode": "e65e",
+      "unicode_decimal": 58974
+    },
+    {
+      "icon_id": "1381348",
+      "name": "dislike",
+      "font_class": "dislike",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "1381357",
+      "name": "downcircle",
+      "font_class": "downcircle",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "1381358",
+      "name": "downcircleo",
+      "font_class": "downcircleo",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "1381404",
+      "name": "like",
+      "font_class": "like",
+      "unicode": "e632",
+      "unicode_decimal": 58930
+    },
+    {
+      "icon_id": "1381464",
+      "name": "setting",
+      "font_class": "setting",
+      "unicode": "e64e",
+      "unicode_decimal": 58958
+    },
+    {
+      "icon_id": "1381487",
+      "name": "upcircle",
+      "font_class": "upcircle",
+      "unicode": "e657",
+      "unicode_decimal": 58967
+    },
+    {
+      "icon_id": "1381489",
+      "name": "upcircleo",
+      "font_class": "upcircleo",
+      "unicode": "e659",
+      "unicode_decimal": 58969
+    },
+    {
+      "icon_id": "16440836",
+      "name": "line-an crown",
+      "font_class": "crown",
+      "unicode": "e699",
+      "unicode_decimal": 59033
+    },
+    {
       "icon_id": "141714",
       "name": "keyboard-alt",
       "font_class": "emoji",
@@ -64,7 +225,7 @@
     {
       "icon_id": "16440791",
       "name": "fill-an crown",
-      "font_class": "crown",
+      "font_class": "crown-solid",
       "unicode": "e68f",
       "unicode_decimal": 59023
     },
@@ -85,30 +246,16 @@
     {
       "icon_id": "1381351",
       "name": "dislike1",
-      "font_class": "dislike",
+      "font_class": "dislike-solid",
       "unicode": "e618",
       "unicode_decimal": 58904
     },
     {
       "icon_id": "1381403",
       "name": "like1",
-      "font_class": "like",
+      "font_class": "like-solid",
       "unicode": "e631",
       "unicode_decimal": 58929
-    },
-    {
-      "icon_id": "13895901",
-      "name": "bookmark",
-      "font_class": "bookmark",
-      "unicode": "e761",
-      "unicode_decimal": 59233
-    },
-    {
-      "icon_id": "702320",
-      "name": "earth",
-      "font_class": "earth",
-      "unicode": "e7dc",
-      "unicode_decimal": 59356
     },
     {
       "icon_id": "704926",

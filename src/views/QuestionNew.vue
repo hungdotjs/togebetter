@@ -33,19 +33,35 @@
           :show-file-list="false"
           :on-change="handleChangeUpload"
         >
-          <el-tooltip content="Click to change" placement="top" v-if="imageUrl">
-            <img :src="imageUrl" class="question-new__image" />
-          </el-tooltip>
-          <el-button v-else icon="el-icon-camera-solid" plain>Upload Image</el-button>
+          <el-button icon="el-icon-camera-solid" plain>Upload Image</el-button>
         </el-upload>
+        <div v-if="photoURL" style="position: relative; width: fit-content; margin: 8px auto;">
+          <el-image :src="photoURL" class="question-new__image" fit="cover">
+            <div slot="placeholder" class="text-center p-16">
+              <i class="el-icon-loading"></i>
+            </div>
+          </el-image>
+          <span @click="removePhoto" class="answer-form__image__remove">
+            <i class="el-icon-error"></i>
+          </span>
+        </div>
       </div>
       <div class="text-center mb-16">
-        <record-audio @done="handleRecordAudio">
+        <record-audio @done="handleRecordAudio" :disable-preview="true">
           <button class="question-new__button-mic">
             <i class="iconfont icon-mic"></i>
           </button>
         </record-audio>
         <p class="color-secondary text-small">Click to record a voice answer</p>
+      </div>
+      <div class="answer-form__audio" v-if="audioURL">
+        <audio :src="audioURL" controls>
+          Your browser does not support the
+          <code>audio</code> element.
+        </audio>
+        <span class="answer-form__audio__remove" @click="removeAudio">
+          <i class="el-icon-error"></i>
+        </span>
       </div>
       <div class="mb-16">
         <p class="text-bold">
@@ -60,9 +76,9 @@
         ></el-input>
       </div>
       <div class="text-center">
-        <el-button type="primary" size="medium" :loading="loading" round @click="submit"
-          >Ask</el-button
-        >
+        <el-button type="primary" size="medium" :loading="loadingSubmit" round @click="submit">
+          Ask
+        </el-button>
       </div>
     </div>
   </div>
@@ -71,10 +87,9 @@
 <script>
 import SelectLanguage from '@/components/atoms/SelectLanguage.vue';
 import RecordAudio from '@/components/atoms/RecordAudio.vue';
-import { Message } from 'element-ui';
 import { mapState } from 'vuex';
-import { storage, db, FieldValue } from '@/firebase';
-import generateUID from '@/helpers/generateUID';
+import { db, FieldValue } from '@/firebase';
+import uploadMixin from '@/mixins/upload';
 
 export default {
   name: 'QuestionNew',
@@ -82,13 +97,11 @@ export default {
     SelectLanguage,
     RecordAudio,
   },
+  mixins: [uploadMixin],
 
   data() {
     return {
-      loading: false,
-      file: null,
-      audio: null,
-      imageUrl: '',
+      loadingSubmit: false,
       selectedLang: 'en',
       question: '',
       additionalInformation: '',
@@ -125,80 +138,24 @@ export default {
   },
 
   methods: {
-    handleChangeUpload(file) {
-      const isImage = file.raw.type.includes('image/');
-      const isLt2M = file.size / 1024 / 1024 < 2;
-
-      if (!isImage) {
-        Message.error('File must be an image!');
-        return;
-      }
-
-      if (!isLt2M) {
-        Message.error('Picture size can not exceed 2MB!');
-        return;
-      }
-
-      this.imageUrl = URL.createObjectURL(file.raw);
-      this.file = file.raw;
-    },
-
-    handleRecordAudio(file) {
-      this.audio = file;
-    },
-
-    submit() {
-      this.loading = true;
-      const uid = generateUID();
+    async submit() {
+      this.loadingSubmit = true;
       const input = {
-        ownerID: this.user.uid,
+        ownerID: this.user.id,
+        ownerInfo: this.user,
         lang: this.selectedLang,
         content: this.question,
+        audioURL: this.audioURL,
+        photoURL: this.photoURL,
         additionalInformation: this.additionalInformation,
         questionType: this.questionType,
         createdAt: FieldValue.serverTimestamp(),
         comments: [],
+        votes: [],
       };
-      if (this.imageUrl) {
-        const storageRef = storage.ref(`assets/images/${uid}`);
-        storageRef.put(this.file).then(() => {
-          storageRef.getDownloadURL().then((downloadURL) => {
-            input.photoURL = downloadURL;
-            if (this.audio) {
-              const audioUID = generateUID();
-              const storageAudioRef = storage.ref(`assets/audio/${audioUID}`);
-              storageAudioRef.put(this.audio).then(() => {
-                storageAudioRef.getDownloadURL().then((downloadURL) => {
-                  input.audioURL = downloadURL;
-                  db.collection('questions')
-                    .add(input)
-                    .then((res) => {
-                      console.log(res);
-                      this.loading = false;
-                      this.$router.push({ name: 'questions-detail', params: { id: res.id } });
-                    });
-                });
-              });
-            } else {
-              db.collection('questions')
-                .add(input)
-                .then((res) => {
-                  console.log(res);
-                  this.loading = false;
-                  this.$router.push({ name: 'questions-detail', params: { id: res.id } });
-                });
-            }
-          });
-        });
-      } else {
-        db.collection('questions')
-          .add(input)
-          .then((res) => {
-            console.log(res);
-            this.loading = false;
-            this.$router.push({ name: 'questions-detail', params: { id: res.id } });
-          });
-      }
+      const res = await db.collection('questions').add(input);
+      this.loadingSubmit = false;
+      this.$router.push({ name: 'questions-detail', params: { id: res.id } });
     },
   },
 

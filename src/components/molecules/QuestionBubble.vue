@@ -1,22 +1,37 @@
 <template>
   <div class="question-bubble">
-    <bubble v-if="content" :userID="content.ownerID" :createdAt="content.createdAt">
+    <bubble
+      v-if="content"
+      :userID="content.ownerID"
+      :userInfo="content.ownerInfo"
+      :createdAt="content.createdAt"
+      :hideInterestLanguage="true"
+    >
       <div @click="goTo">
         <p class="color-secondary" v-if="content.questionType">{{ questionType }}</p>
-        <p class="question-bubble__question__text text-truncate">
+        <p v-if="content.content" class="question-bubble__content text-truncate">
           {{ content.content }}
         </p>
         <div v-if="content.photoURL">
           <el-image :src="content.photoURL" class="chat-bubble__image"></el-image>
         </div>
-
-        <el-button
-          class="question-bubble__number"
-          :type="totalAnswer ? 'success' : 'primary'"
-          circle
-        >
-          {{ totalAnswer }}
-        </el-button>
+        <div class="d-flex">
+          <el-button
+            class="question-bubble__number"
+            :type="totalAnswer ? 'primary' : 'success'"
+            circle
+          >
+            {{ totalAnswer }}
+          </el-button>
+          <el-button
+            v-if="content.audioURL"
+            class="question-bubble__number question-bubble__number--audio"
+            icon="iconfont icon-sound"
+            type="warning"
+            circle
+          >
+          </el-button>
+        </div>
       </div>
     </bubble>
   </div>

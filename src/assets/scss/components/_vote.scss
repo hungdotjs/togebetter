@@ -1,0 +1,42 @@
+.vote {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+
+  &__button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 8px;
+    color: $--color-secondary;
+    transition: all 0.3s;
+
+    &__text {
+      font-size: 0.7em;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    i {
+      font-size: 1.4rem;
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: $--color-primary;
+    }
+
+    &--active {
+      animation: heartbeat 1s;
+      color: $--color-primary;
+    }
+  }
+
+  &__point {
+    padding: 0 4px;
+    color: $--color-primary;
+    font-weight: bold;
+  }
+}

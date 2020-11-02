@@ -25,6 +25,7 @@ import {
   Upload,
   Tooltip,
   Loading,
+  MessageBox,
 } from 'element-ui';
 import VueTimeago from 'vue-timeago';
 import App from './App.vue';
@@ -63,6 +64,7 @@ Vue.use(Upload);
 Vue.use(Tooltip);
 Vue.use(Image);
 Vue.use(Loading);
+Vue.prototype.$confirm = MessageBox.confirm;
 
 Vue.use(VueTimeago, {
   name: 'Timeago', // Component name, `Timeago` by default

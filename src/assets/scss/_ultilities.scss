@@ -183,6 +183,7 @@
 }
 
 .main-layout {
-  margin-top: 16px;
   max-width: 800px;
+  width: calc(100% - 300px);
+  min-height: 90vh;
 }
