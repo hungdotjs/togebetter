@@ -10,6 +10,7 @@ import {
   Dropdown,
   DropdownMenu,
   DropdownItem,
+  Drawer,
   FormItem,
   Form,
   Checkbox,
@@ -46,6 +47,7 @@ Vue.use(Button);
 Vue.use(Input);
 Vue.use(Select);
 Vue.use(Option);
+Vue.use(Drawer);
 Vue.use(Dropdown);
 Vue.use(DropdownMenu);
 Vue.use(DropdownItem);

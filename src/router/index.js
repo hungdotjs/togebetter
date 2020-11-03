@@ -43,9 +43,19 @@ const routes = [
       import(/* webpackChunkName: "questions-detail" */ '@/views/QuestionDetail.vue'),
   },
   {
-    path: '/profile/:id',
-    name: 'profile',
-    component: () => import(/* webpackChunkName: "profile" */ '@/views/Profile.vue'),
+    path: '/users/:id',
+    name: 'users',
+    component: () => import(/* webpackChunkName: "users" */ '@/views/Profile.vue'),
+  },
+  {
+    path: '/tags',
+    name: 'tags',
+    component: () => import(/* webpackChunkName: "tags" */ '@/views/Tags.vue'),
+  },
+  {
+    path: '/users',
+    name: 'users',
+    component: () => import(/* webpackChunkName: "users" */ '@/views/Users.vue'),
   },
   {
     path: '/404',

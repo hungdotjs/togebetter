@@ -268,6 +268,7 @@ export default {
             createdAt: new Date(),
             photoURL:
               'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Favatar-default.webp?alt=media&token=22fe2ae6-3a19-48cd-9fab-582df2d2f879',
+            points: 0,
             ...profile,
           };
 

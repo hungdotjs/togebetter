@@ -15,50 +15,72 @@
     <div class="hidden-sm-and-up">
       <ul class="tb-navbar__wrapper">
         <li class="tb-navbar__item">
+          <div @click="openSidebar = true">
+            <i class="iconfont icon-menu"></i>
+          </div>
+          <el-drawer :visible.sync="openSidebar" :append-to-body="true" size="60%" direction="ltr">
+            <left-sidebar class="tb-navbar__item__sidebar"></left-sidebar>
+          </el-drawer>
+        </li>
+        <li class="tb-navbar__item">
           <router-link class="tb-navbar__item__anchor" to="/home">
             <div>
-              <i class="el-icon-s-home"></i>
+              <i class="iconfont icon-home"></i>
             </div>
-            <div class="tb-navbar__item__label">Home</div>
+            <!-- <div class="tb-navbar__item__label">Notifications</div> -->
           </router-link>
         </li>
         <li class="tb-navbar__item">
-          <router-link class="tb-navbar__item__anchor" to="/notifications">
-            <div>
-              <i class="el-icon-message-solid"></i>
-            </div>
-            <div class="tb-navbar__item__label">Notifications</div>
-          </router-link>
+          <div class="tb-navbar__item__anchor" @click="openSearch">
+            <i class="iconfont icon-search"></i>
+          </div>
         </li>
         <li class="tb-navbar__item ">
           <router-link class="tb-navbar__item__anchor" to="/questions/type">
             <div>
-              <i class="el-icon-question"></i>
+              <i class="iconfont icon-question"></i>
             </div>
-            <div class="tb-navbar__item__label">Ask</div>
+            <!-- <div class="tb-navbar__item__label">Ask</div> -->
           </router-link>
         </li>
-        <li class="tb-navbar__item">
-          <router-link class="tb-navbar__item__anchor" to="/profile/12323">
+        <li class="tb-navbar__item" v-if="user">
+          <router-link class="tb-navbar__item__anchor" to="/notifications">
             <div>
-              <i class="el-icon-user-solid"></i>
+              <i class="iconfont icon-bell"></i>
             </div>
-            <div class="tb-navbar__item__label">Profile</div>
+            <!-- <div class="tb-navbar__item__label">Notifications</div> -->
           </router-link>
         </li>
-        <li class="tb-navbar__item">
-          <router-link class="tb-navbar__item__anchor" to="/settings">
-            <div>
-              <i class="el-icon-s-tools"></i>
-            </div>
-            <div class="tb-navbar__item__label">Settings</div>
-          </router-link>
+        <li class="tb-navbar__item" v-if="user">
+          <el-dropdown>
+            <el-image alt="user-image" class="tb-navbar__avatar" :src="user.photoURL" lazy />
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>
+                <router-link tag="span" :to="`/users/${user.id}`">
+                  <i class="el-icon-user"></i>
+                  Profile
+                </router-link>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <router-link tag="span" to="/settings">
+                  <i class="el-icon-setting"></i>
+                  Settings
+                </router-link>
+              </el-dropdown-item>
+              <el-dropdown-item divided>
+                <span @click="signOut">
+                  <i class="el-icon-switch-button"></i>
+                  Sign out
+                </span>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </li>
       </ul>
 
-      <!-- <div class="tb-navbar__container">
-      <tb-search></tb-search>
-    </div> -->
+      <div class="tb-navbar__search-popup" v-if="showSearch">
+        <el-input prefix-icon="el-icon-search" :autofocus="true"></el-input>
+      </div>
     </div>
 
     <!-- Desktop  -->
@@ -87,7 +109,7 @@
                   <el-image alt="user-image" class="tb-navbar__avatar" :src="user.photoURL" lazy />
                   <el-dropdown-menu>
                     <el-dropdown-item>
-                      <router-link tag="span" to="/profile/12321312">
+                      <router-link tag="span" :to="`/users/${user.id}`">
                         <i class="el-icon-user"></i>
                         Profile
                       </router-link>
@@ -98,7 +120,7 @@
                         Settings
                       </router-link>
                     </el-dropdown-item>
-                    <el-dropdown-item>
+                    <el-dropdown-item divided>
                       <span @click="signOut">
                         <i class="el-icon-switch-button"></i>
                         Sign out
@@ -134,11 +156,13 @@
 
 <script>
 import TbSearch from '@/components/molecules/Search.vue';
+import LeftSidebar from '@/components/molecules/LeftSidebar.vue';
 import { mapState } from 'vuex';
 
 export default {
   name: 'Navbar',
   components: {
+    LeftSidebar,
     TbSearch,
   },
 
@@ -146,6 +170,8 @@ export default {
     return {
       isLandingPage: true,
       isSignUpPage: false,
+      openSidebar: false,
+      showSearch: false,
     };
   },
 
@@ -167,6 +193,10 @@ export default {
     signOut() {
       this.$store.dispatch('auth/signOut');
       this.$router.push('/');
+    },
+
+    openSearch() {
+      this.showSearch = !this.showSearch;
     },
   },
 };

@@ -81,7 +81,7 @@ export default {
 
   methods: {
     goTo() {
-      this.$router.push({ name: 'profile', params: { id: this.userID } });
+      this.$router.push({ name: 'users', params: { id: this.userID } });
     },
   },
 };

@@ -1,4 +1,7 @@
 .questions-type {
-  padding: 32px;
   background-color: #fff;
+
+  @include res(md) {
+    padding: 32px;
+  }
 }

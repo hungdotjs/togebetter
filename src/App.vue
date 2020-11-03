@@ -2,8 +2,10 @@
   <div>
     <navbar></navbar>
     <main class="app__content">
-      <div class="container d-flex">
-        <left-sidebar></left-sidebar>
+      <div :class="{ container: !hideSidebar, 'd-flex': !hideSidebar }">
+        <div class="left-sidebar">
+          <left-sidebar v-if="!hideSidebar"></left-sidebar>
+        </div>
         <transition name="page-transition" mode="out-in">
           <router-view></router-view>
         </transition>
@@ -22,6 +24,18 @@ export default {
   components: {
     Navbar,
     LeftSidebar,
+  },
+
+  data() {
+    return {
+      blackList: ['landing-page', 'login', 'signup'],
+    };
+  },
+
+  computed: {
+    hideSidebar() {
+      return this.blackList.includes(this.$route.name);
+    },
   },
 
   watch: {

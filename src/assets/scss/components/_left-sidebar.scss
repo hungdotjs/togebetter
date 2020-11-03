@@ -1,8 +1,13 @@
 .left-sidebar {
-  width: 184px;
+  display: none;
+  width: 254px;
   background: #fff;
   border-right: 1px solid #eee;
   position: relative;
+
+  @include res(md) {
+    display: block;
+  }
 
   &__links {
     position: sticky;
@@ -22,6 +27,7 @@
     &--active {
       color: $--color-primary;
       background-color: #eff0f1;
+      background-color: #feefeb;
       font-weight: bold;
       border-right: 3px solid $--color-primary;
     }

@@ -1,5 +1,5 @@
 <template>
-  <div class="profile">
+  <div class="profile main-layout">
     <div class="profile__overview container">
       <div class="profile__header">
         <el-avatar :src="user.photoURL" :size="80"></el-avatar>

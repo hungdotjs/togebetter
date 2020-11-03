@@ -183,7 +183,10 @@
 }
 
 .main-layout {
-  max-width: 800px;
-  width: calc(100% - 300px);
-  min-height: 90vh;
+  // max-width: 800px;
+  // width: calc(100% - 300px);
+  width: 100%;
+  min-height: calc(100vh - 56px);
+  flex-grow: 1;
+  padding: 16px;
 }

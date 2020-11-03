@@ -1,0 +1,42 @@
+.user-tag {
+  display: flex;
+  padding: 12px;
+  width: 100%;
+  font-size: 14px;
+  background-color: #fff;
+  //   border-radius: 8px;
+  //   box-shadow: $light-shadow;
+
+  &__country {
+    color: #6a737c;
+    margin-bottom: 0;
+  }
+
+  &__heart {
+    color: #6a737c;
+    display: flex;
+    align-items: center;
+  }
+
+  &__username {
+    text-decoration: none;
+    font-weight: 500;
+    color: $--color-primary;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__image {
+    margin-right: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+  }
+
+  &__content {
+    flex-grow: 1;
+  }
+}

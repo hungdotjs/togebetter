@@ -6,11 +6,16 @@
   z-index: 102;
   background-color: #fff;
   color: #333;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
 
   &__logo {
     max-width: 130px;
     padding-right: 16px;
+  }
+
+  &__search-popup {
+    padding: 8px 12px;
   }
 
   &__wrapper {
@@ -32,7 +37,6 @@
 
   &__item {
     display: block;
-    flex-basis: 20%;
 
     &__anchor {
       display: block;
@@ -44,7 +48,7 @@
     }
 
     i {
-      font-size: 1.2em;
+      font-size: 1.4em;
     }
 
     &__label {

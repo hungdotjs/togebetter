@@ -6,6 +6,97 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "17605487",
+      "name": "查找",
+      "font_class": "search",
+      "unicode": "e817",
+      "unicode_decimal": 59415
+    },
+    {
+      "icon_id": "4765891",
+      "name": "setting",
+      "font_class": "setting",
+      "unicode": "e78e",
+      "unicode_decimal": 59278
+    },
+    {
+      "icon_id": "4936694",
+      "name": "setting-fill",
+      "font_class": "setting-solid",
+      "unicode": "e871",
+      "unicode_decimal": 59505
+    },
+    {
+      "icon_id": "4765736",
+      "name": "question-circle",
+      "font_class": "question",
+      "unicode": "e782",
+      "unicode_decimal": 59266
+    },
+    {
+      "icon_id": "4936487",
+      "name": "question-circle-fill",
+      "font_class": "question-solid",
+      "unicode": "e846",
+      "unicode_decimal": 59462
+    },
+    {
+      "icon_id": "4766680",
+      "name": "bell",
+      "font_class": "bell",
+      "unicode": "e7c4",
+      "unicode_decimal": 59332
+    },
+    {
+      "icon_id": "4936650",
+      "name": "bell-fill",
+      "font_class": "bell-solid",
+      "unicode": "e866",
+      "unicode_decimal": 59494
+    },
+    {
+      "icon_id": "1842121",
+      "name": "menu",
+      "font_class": "menu",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "767485",
+      "name": "sound",
+      "font_class": "sound",
+      "unicode": "e669",
+      "unicode_decimal": 58985
+    },
+    {
+      "icon_id": "4765729",
+      "name": "down-circle",
+      "font_class": "down-circle",
+      "unicode": "e77f",
+      "unicode_decimal": 59263
+    },
+    {
+      "icon_id": "4765745",
+      "name": "up-circle",
+      "font_class": "up-circle",
+      "unicode": "e785",
+      "unicode_decimal": 59269
+    },
+    {
+      "icon_id": "4936480",
+      "name": "down-circle-fill",
+      "font_class": "down-circle-fill",
+      "unicode": "e844",
+      "unicode_decimal": 59460
+    },
+    {
+      "icon_id": "4936484",
+      "name": "up-circle-fill",
+      "font_class": "up-circle-fill",
+      "unicode": "e845",
+      "unicode_decimal": 59461
+    },
+    {
       "icon_id": "11635688",
       "name": "earth-line",
       "font_class": "earth",
@@ -15,7 +106,7 @@
     {
       "icon_id": "11635689",
       "name": "earth-fill",
-      "font_class": "earth-fill",
+      "font_class": "earth-solid",
       "unicode": "e75f",
       "unicode_decimal": 59231
     },
@@ -29,7 +120,7 @@
     {
       "icon_id": "4936685",
       "name": "tags-fill",
-      "font_class": "tags-fill",
+      "font_class": "tags-solid",
       "unicode": "e86e",
       "unicode_decimal": 59502
     },
@@ -83,13 +174,6 @@
       "unicode_decimal": 58963
     },
     {
-      "icon_id": "15167626",
-      "name": "search",
-      "font_class": "search",
-      "unicode": "e65a",
-      "unicode_decimal": 58970
-    },
-    {
       "icon_id": "15167650",
       "name": "message",
       "font_class": "message-solid",
@@ -118,46 +202,11 @@
       "unicode_decimal": 58903
     },
     {
-      "icon_id": "1381357",
-      "name": "downcircle",
-      "font_class": "downcircle",
-      "unicode": "e61b",
-      "unicode_decimal": 58907
-    },
-    {
-      "icon_id": "1381358",
-      "name": "downcircleo",
-      "font_class": "downcircleo",
-      "unicode": "e61d",
-      "unicode_decimal": 58909
-    },
-    {
       "icon_id": "1381404",
       "name": "like",
       "font_class": "like",
       "unicode": "e632",
       "unicode_decimal": 58930
-    },
-    {
-      "icon_id": "1381464",
-      "name": "setting",
-      "font_class": "setting",
-      "unicode": "e64e",
-      "unicode_decimal": 58958
-    },
-    {
-      "icon_id": "1381487",
-      "name": "upcircle",
-      "font_class": "upcircle",
-      "unicode": "e657",
-      "unicode_decimal": 58967
-    },
-    {
-      "icon_id": "1381489",
-      "name": "upcircleo",
-      "font_class": "upcircleo",
-      "unicode": "e659",
-      "unicode_decimal": 58969
     },
     {
       "icon_id": "16440836",
@@ -267,7 +316,7 @@
     {
       "icon_id": "768092",
       "name": "sound-b",
-      "font_class": "sound",
+      "font_class": "sound-solid",
       "unicode": "e66a",
       "unicode_decimal": 58986
     },
