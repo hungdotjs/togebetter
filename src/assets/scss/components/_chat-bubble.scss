@@ -6,6 +6,21 @@
     flex-wrap: wrap;
   }
 
+  &__content {
+    white-space: pre-wrap;
+  }
+
+  &__additional-info {
+    font-size: 0.9em;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border: 1px solid #d8d8d8;
+    border-radius: 4px;
+    background-color: #fbfafa;
+    color: #707070;
+  }
+
   &__social {
     display: flex;
     align-items: center;

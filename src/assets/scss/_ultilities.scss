@@ -183,6 +183,10 @@
 }
 
 .main-layout {
-  margin-top: 16px;
-  max-width: 800px;
+  // max-width: 800px;
+  // width: calc(100% - 300px);
+  width: 100%;
+  min-height: calc(100vh - 56px);
+  flex-grow: 1;
+  padding: 16px;
 }

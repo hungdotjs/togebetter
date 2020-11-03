@@ -1,0 +1,39 @@
+.left-sidebar {
+  display: none;
+  width: 254px;
+  background: #fff;
+  border-right: 1px solid #eee;
+  position: relative;
+
+  @include res(md) {
+    display: block;
+  }
+
+  &__links {
+    position: sticky;
+    top: 56px;
+    padding-top: 16px;
+  }
+
+  &__item {
+    padding: 8px 16px;
+    cursor: pointer;
+
+    i {
+      font-size: 1.2em;
+      margin-right: 8px;
+    }
+
+    &--active {
+      color: $--color-primary;
+      background-color: #eff0f1;
+      background-color: #feefeb;
+      font-weight: bold;
+      border-right: 3px solid $--color-primary;
+    }
+
+    &:hover {
+      color: $--color-primary;
+    }
+  }
+}

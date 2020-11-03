@@ -1,12 +1,10 @@
 <template>
-  <div class="container">
-    <div class="home main-layout">
-      <question-bubble
-        v-for="question in questions"
-        :key="question.id"
-        :content="question"
-      ></question-bubble>
-    </div>
+  <div class="home main-layout" v-loading="loading">
+    <question-bubble
+      v-for="question in questions"
+      :key="question.id"
+      :content="question"
+    ></question-bubble>
   </div>
 </template>
 
@@ -22,13 +20,16 @@ export default {
 
   data() {
     return {
-      limit: 10,
+      loading: false,
+      limit: 5,
       questions: [],
     };
   },
 
   created() {
+    this.loading = true;
     db.collection('questions')
+      .orderBy('createdAt', 'desc')
       .limit(this.limit)
       .get()
       .then((querySnapshot) => {
@@ -40,6 +41,7 @@ export default {
           });
         });
         this.questions = this.questions.concat(questions);
+        this.loading = false;
       });
   },
 };

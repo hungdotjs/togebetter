@@ -4,8 +4,19 @@
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
+    border: 2px solid #fff;
+
+    &--audio {
+      margin-left: -6px !important;
+      background-color: #fcbf44;
+      color: #fff;
+    }
+  }
+
+  &__content {
+    white-space: pre-wrap;
   }
 }
