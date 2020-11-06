@@ -1,16 +1,16 @@
 const state = () => ({
-  isLogin: false,
+  isRefreshHome: false,
 });
 
 const actions = {
-  updateIsLogin({ commit }, status) {
-    commit('updateIsLogin', status);
+  refreshHome({ commit }) {
+    commit('refreshHome', true);
   },
 };
 
 const mutations = {
-  updateIsLogin(state, status) {
-    state.isLogin = status;
+  refreshHome(state, flag) {
+    state.isRefreshHome = flag;
   },
 };
 

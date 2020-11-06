@@ -135,7 +135,7 @@ export default {
         case 'your-pronounce':
           return 'Please show me how to pronounce?';
         case 'my-pronounce':
-          return "How's my pronunciation?";
+          return "How's my pronunciation? Please record yours too.";
         default:
           return '';
       }

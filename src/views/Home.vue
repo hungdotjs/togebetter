@@ -26,23 +26,43 @@ export default {
     };
   },
 
+  computed: {
+    isRefresh() {
+      return this.$store.state.ui.isRefreshHome;
+    },
+  },
+
+  watch: {
+    isRefresh(value) {
+      if (value) {
+        this.getData();
+        this.$store.commit('ui/refreshHome', false);
+      }
+    },
+  },
+
   created() {
-    this.loading = true;
-    db.collection('questions')
-      .orderBy('createdAt', 'desc')
-      .limit(this.limit)
-      .get()
-      .then((querySnapshot) => {
-        const questions = [];
-        querySnapshot.forEach((doc) => {
-          questions.push({
-            id: doc.id,
-            ...doc.data(),
-          });
+    this.getData();
+  },
+
+  methods: {
+    async getData() {
+      this.loading = true;
+      const querySnapshot = await db
+        .collection('questions')
+        .orderBy('createdAt', 'desc')
+        .limit(this.limit)
+        .get();
+      const questions = [];
+      querySnapshot.forEach((doc) => {
+        questions.push({
+          id: doc.id,
+          ...doc.data(),
         });
-        this.questions = this.questions.concat(questions);
-        this.loading = false;
       });
+      this.questions = questions;
+      this.loading = false;
+    },
   },
 };
 </script>
