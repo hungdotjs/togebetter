@@ -40,6 +40,7 @@ import Bubble from '@/components/molecules/Bubble.vue';
 import languages from '@/data/languages';
 
 export default {
+  name: 'QuestionBubble',
   components: {
     Bubble,
   },

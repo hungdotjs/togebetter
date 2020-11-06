@@ -1,6 +1,10 @@
 <template>
   <div class="bubble">
-    <el-avatar class="bubble__avatar" :src="avatar" :size="48"></el-avatar>
+    <el-image class="bubble__avatar" :src="avatar" fit="cover" lazy>
+      <div slot="error" class="text-center">
+        <i class="el-icon-picture-outline-round"></i>
+      </div>
+    </el-image>
 
     <div class="bubble__content">
       <div class="bubble__question">
@@ -32,6 +36,7 @@ import languages from '@/data/languages';
 import { database } from '@/firebase';
 
 export default {
+  name: 'Bubble',
   components: {
     LevelIcon,
   },
@@ -80,7 +85,7 @@ export default {
 
   methods: {
     goTo() {
-      this.$router.push({ name: 'users', params: { id: this.userID } });
+      this.$router.push({ name: 'profile', params: { id: this.userID } });
     },
   },
 };

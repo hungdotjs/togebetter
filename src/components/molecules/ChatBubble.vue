@@ -87,6 +87,7 @@ import { mapState } from 'vuex';
 import { db, FieldValue } from '@/firebase';
 
 export default {
+  name: 'ChatBubble',
   components: {
     Bubble,
     Vote,
