@@ -44,8 +44,13 @@ const routes = [
   },
   {
     path: '/users/:id',
-    name: 'users',
-    component: () => import(/* webpackChunkName: "users" */ '@/views/Profile.vue'),
+    name: 'profile',
+    component: () => import(/* webpackChunkName: "profile" */ '@/views/Profile.vue'),
+  },
+  {
+    path: '/users/:id/edit',
+    name: 'edit-profile',
+    component: () => import(/* webpackChunkName: "profile" */ '@/views/EditProfile.vue'),
   },
   {
     path: '/tags',

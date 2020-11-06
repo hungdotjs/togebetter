@@ -28,7 +28,7 @@ export default {
       }
 
       this.loading = true;
-      const uid = generateUID();
+      const uid = `${generateUID()}_${file.raw.uid}`;
       const storagePhotoRef = storage.ref(`assets/images/${uid}`);
       this.photoRef = storagePhotoRef;
       await storagePhotoRef.put(file.raw);

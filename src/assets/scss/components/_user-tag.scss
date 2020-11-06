@@ -1,11 +1,17 @@
 .user-tag {
   display: flex;
-  padding: 12px;
+  padding: 16px 24px;
   width: 100%;
   font-size: 14px;
   background-color: #fff;
-  //   border-radius: 8px;
-  //   box-shadow: $light-shadow;
+
+  &:hover {
+    transform: translateY(-8px);
+    transition: all 0.3s;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: $light-shadow;
+  }
 
   &__country {
     color: #6a737c;
@@ -20,8 +26,9 @@
 
   &__username {
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     color: $--color-primary;
+    margin-bottom: 0;
 
     &:hover {
       opacity: 0.8;

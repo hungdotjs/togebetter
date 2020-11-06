@@ -3,7 +3,6 @@
     <bubble
       v-if="content"
       :userID="content.ownerID"
-      :userInfo="content.ownerInfo"
       :createdAt="content.createdAt"
       :hideInterestLanguage="true"
     >
@@ -27,7 +26,6 @@
             v-if="content.audioURL"
             class="question-bubble__number question-bubble__number--audio"
             icon="iconfont icon-sound"
-            type="warning"
             circle
           >
           </el-button>
@@ -39,6 +37,7 @@
 
 <script>
 import Bubble from '@/components/molecules/Bubble.vue';
+import languages from '@/data/languages';
 
 export default {
   components: {
@@ -60,8 +59,14 @@ export default {
       return this.content.comments.length;
     },
 
+    languageName() {
+      return languages.find((item) => item.code === this.content.lang).name;
+    },
+
     questionType() {
       switch (this.content.questionType) {
+        case 'how-say':
+          return `How do you say this in ${this.languageName}?`;
         case 'what-mean':
           return 'What does this mean?';
         case 'sound-natural':
@@ -74,10 +79,8 @@ export default {
           return 'Please show me how to pronounce?';
         case 'my-pronounce':
           return "How's my pronunciation?";
-        case 'free-question':
-          return 'Ask about a country, culture or anything you want.';
         default:
-          return 'How do you say this?';
+          return '';
       }
     },
   },

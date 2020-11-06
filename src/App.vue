@@ -3,11 +3,13 @@
     <navbar></navbar>
     <main class="app__content">
       <div :class="{ container: !hideSidebar, 'd-flex': !hideSidebar }">
-        <div class="left-sidebar">
-          <left-sidebar v-if="!hideSidebar"></left-sidebar>
+        <div :class="[!hideSidebar && 'left-sidebar']" v-if="!hideSidebar">
+          <left-sidebar></left-sidebar>
         </div>
         <transition name="page-transition" mode="out-in">
-          <router-view></router-view>
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
         </transition>
       </div>
     </main>
@@ -52,7 +54,7 @@ export default {
           .get()
           .then((res) => {
             const userData = res.data();
-            this.$store.commit('auth/saveUser', userData);
+            this.$store.commit('auth/saveUser', { id: user.uid, ...userData });
           });
       } else {
         this.$store.commit('auth/signOut');

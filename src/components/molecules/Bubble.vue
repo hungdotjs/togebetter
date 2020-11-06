@@ -29,6 +29,7 @@
 <script>
 import LevelIcon from '@/components/atoms/LevelIcon.vue';
 import languages from '@/data/languages';
+import { database } from '@/firebase';
 
 export default {
   components: {
@@ -38,10 +39,6 @@ export default {
   props: {
     userID: {
       type: String,
-      required: true,
-    },
-    userInfo: {
-      type: Object,
       required: true,
     },
     createdAt: {
@@ -70,13 +67,15 @@ export default {
   },
 
   created() {
-    this.avatar = this.userInfo.photoURL;
-    this.username = this.userInfo.username;
-    this.nativeLanguage = languages.find((item) => item.code === this.userInfo.nativeLanguage).name;
-    this.interestLanguage = languages.find(
-      (item) => item.code === this.userInfo.interestLanguage,
-    ).name;
-    this.interestLanguageLevel = this.userInfo.interestLanguageLevel;
+    const ref = database.ref(`users/${this.userID}`);
+    ref.once('value').then((snapshot) => {
+      const data = snapshot.val();
+      this.avatar = data.photoURL;
+      this.username = data.username;
+      this.nativeLanguage = languages.find((item) => item.code === data.nativeLanguage).name;
+      this.interestLanguage = languages.find((item) => item.code === data.interestLanguage).name;
+      this.interestLanguageLevel = data.interestLanguageLevel;
+    });
   },
 
   methods: {

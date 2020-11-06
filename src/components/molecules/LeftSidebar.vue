@@ -6,10 +6,11 @@
       class="left-sidebar__item"
       active-class="left-sidebar__item--active"
       exact
+      @click.native="refreshHome"
     >
       <i class="iconfont icon-home"></i> Home
     </router-link>
-    <router-link
+    <!-- <router-link
       tag="li"
       to="/questions"
       class="left-sidebar__item"
@@ -17,7 +18,7 @@
       exact
     >
       <i class="iconfont icon-earth"></i> Question
-    </router-link>
+    </router-link> -->
     <router-link
       tag="li"
       to="/tags"
@@ -39,5 +40,27 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      disabled: true,
+    };
+  },
+
+  watch: {
+    $route(to) {
+      if (to.name === 'home') this.disabled = false;
+    },
+  },
+
+  methods: {
+    refreshHome() {
+      this.disabled = !this.disabled;
+      if (!this.disabled) {
+        this.disabled = true;
+        this.$store.dispatch('ui/refreshHome');
+      }
+    },
+  },
+};
 </script>

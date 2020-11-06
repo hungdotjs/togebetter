@@ -200,6 +200,7 @@ export default {
 
   data() {
     return {
+      loading: false,
       language: 'en_us',
     };
   },

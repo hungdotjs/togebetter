@@ -21,7 +21,7 @@
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
   }
 
   &__name {
@@ -44,6 +44,6 @@
   &__language {
     color: $--color-secondary;
     font-size: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
 }

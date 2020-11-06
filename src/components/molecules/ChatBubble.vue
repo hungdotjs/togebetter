@@ -1,10 +1,5 @@
 <template>
-  <bubble
-    v-if="content"
-    :userID="content.ownerID"
-    :userInfo="content.ownerInfo"
-    :createdAt="content.createdAt"
-  >
+  <bubble v-if="content" :userID="content.ownerID" :createdAt="content.createdAt">
     <p v-if="content.questionType">
       <el-tag type="success" effect="plain">
         Question about <b>{{ languageName }}</b>
@@ -46,7 +41,12 @@
 
     <div class="chat-bubble__command">
       <div class="chat-bubble__social">
-        <vote :votes="content.votes" @vote="handleVote" @unvote="handleUnvote"></vote>
+        <vote
+          v-if="!isOwner"
+          :votes="content.votes"
+          @vote="handleVote"
+          @unvote="handleUnvote"
+        ></vote>
 
         <!-- <div class="chat-bubble__button">
           <p><i class="iconfont icon-share"></i></p>
@@ -122,6 +122,8 @@ export default {
 
     questionType() {
       switch (this.content.questionType) {
+        case 'how-say':
+          return `How do you say this in ${this.languageName}?`;
         case 'what-mean':
           return 'What does this mean?';
         case 'sound-natural':
@@ -133,11 +135,9 @@ export default {
         case 'your-pronounce':
           return 'Please show me how to pronounce?';
         case 'my-pronounce':
-          return "How's my pronunciation?";
-        case 'free-question':
-          return 'Ask about a country, culture or anything you want.';
+          return "How's my pronunciation? Please record yours too.";
         default:
-          return 'How do you say this?';
+          return '';
       }
     },
   },

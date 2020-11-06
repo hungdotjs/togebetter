@@ -43,7 +43,7 @@
             <!-- <div class="tb-navbar__item__label">Ask</div> -->
           </router-link>
         </li>
-        <li class="tb-navbar__item" v-if="user">
+        <li class="tb-navbar__item" v-if="isLogin">
           <router-link class="tb-navbar__item__anchor" to="/notifications">
             <div>
               <i class="iconfont icon-bell"></i>
@@ -51,7 +51,7 @@
             <!-- <div class="tb-navbar__item__label">Notifications</div> -->
           </router-link>
         </li>
-        <li class="tb-navbar__item" v-if="user">
+        <li class="tb-navbar__item" v-if="isLogin">
           <el-dropdown>
             <el-image alt="user-image" class="tb-navbar__avatar" :src="user.photoURL" lazy />
             <el-dropdown-menu slot="dropdown">

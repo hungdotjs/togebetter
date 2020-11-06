@@ -1,18 +1,18 @@
 .question-bubble {
   &__number {
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
     font-weight: bold;
     width: 34px;
     height: 34px;
     border-radius: 50%;
-    border: 2px solid #fff;
+    border: 2px solid #fff !important;
 
     &--audio {
       margin-left: -6px !important;
-      background-color: #fcbf44;
-      color: #fff;
+      background-color: #fcbf44 !important ;
+      color: #fff !important;
     }
   }
 

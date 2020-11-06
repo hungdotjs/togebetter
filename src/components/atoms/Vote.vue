@@ -31,11 +31,15 @@ export default {
     }),
   },
 
+  watch: {
+    user(value) {
+      if (value) this.voted = this.votes.indexOf(this.user.id) !== -1;
+    },
+  },
+
   mounted() {
     this.point = this.votes.length;
-    if (this.user) {
-      this.voted = this.votes.indexOf(this.user.id) !== -1;
-    }
+    if (this.user) this.voted = this.votes.indexOf(this.user.id) !== -1;
   },
 
   methods: {
