@@ -55,6 +55,9 @@ export default {
       if (value) {
         this.getData();
         this.$store.commit('ui/refreshHome', false);
+        this.scrollLoading = false;
+        this.noMore = false;
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       }
     },
   },
