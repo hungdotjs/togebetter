@@ -57,7 +57,8 @@ export default {
 
   computed: {
     time() {
-      return this.createdAt.toDate();
+      if (this.createdAt) return this.createdAt.toDate();
+      return new Date();
     },
   },
 

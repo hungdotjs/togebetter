@@ -124,9 +124,6 @@ export default {
 
   created() {
     this.getData();
-    this.answer = '';
-    this.photoURL = '';
-    this.audioURL = '';
   },
 
   beforeDestroy() {
@@ -157,7 +154,7 @@ export default {
                 ...doc.data(),
               });
             });
-            this.comments = comments;
+            this.comments = comments.reverse();
           });
 
         this.loading = false;
