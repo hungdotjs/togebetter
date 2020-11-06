@@ -140,7 +140,6 @@ export default {
       this.loadingSubmit = true;
       const input = {
         ownerID: this.user.id,
-        ownerInfo: this.user,
         lang: this.selectedLang,
         content: this.question,
         audioURL: this.audioURL,

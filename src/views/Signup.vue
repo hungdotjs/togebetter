@@ -8,12 +8,12 @@
           Native language
         </template>
         <select-language :value.sync="form.nativeLanguage"></select-language>
-        <el-form-item label="Level" class="ml-16">
+        <!-- <el-form-item label="Level" class="ml-16">
           <el-radio-group v-model="form.nativeLanguageLevel">
             <el-radio-button label="fluent">Fluent</el-radio-button>
             <el-radio-button label="near-fluent">Near fluent</el-radio-button>
           </el-radio-group>
-        </el-form-item>
+        </el-form-item> -->
       </el-form-item>
 
       <el-form-item>
@@ -71,20 +71,6 @@
 
       <el-divider>Almost there!</el-divider>
 
-      <!-- Email  -->
-      <el-form-item prop="email">
-        <template #label>
-          <i class="el-icon-message"></i>
-          Email Address
-        </template>
-        <el-input
-          type="email"
-          autocomplete="on"
-          placeholder="Email Address"
-          v-model="form.email"
-        ></el-input>
-      </el-form-item>
-
       <!-- Username  -->
       <el-form-item prop="username">
         <template #label>
@@ -98,6 +84,20 @@
           autocomplete="on"
           :minlength="3"
           :maxlength="26"
+        ></el-input>
+      </el-form-item>
+
+      <!-- Email  -->
+      <el-form-item prop="email">
+        <template #label>
+          <i class="el-icon-message"></i>
+          Email Address
+        </template>
+        <el-input
+          type="email"
+          autocomplete="on"
+          placeholder="Email Address"
+          v-model="form.email"
         ></el-input>
       </el-form-item>
 
@@ -169,7 +169,7 @@
 import LevelIcon from '@/components/atoms/LevelIcon.vue';
 import SelectLanguage from '@/components/atoms/SelectLanguage.vue';
 import SelectCountry from '@/components/atoms/SelectCountry.vue';
-import { db, auth } from '@/firebase';
+import { db, auth, database, FieldValue } from '@/firebase';
 import { Message } from 'element-ui';
 
 export default {
@@ -185,7 +185,7 @@ export default {
       loading: false,
       form: {
         nativeLanguage: 'en',
-        nativeLanguageLevel: 'fluent',
+        // nativeLanguageLevel: 'fluent',
         interestLanguage: 'en',
         interestLanguageLevel: 'beginner',
         knowingCountry: 'US',
@@ -242,47 +242,31 @@ export default {
       const { email, password, username, ...profile } = this.form;
       auth
         .createUserWithEmailAndPassword(email, password)
-        .then((res) => {
-          // Update profile
-          res.user
-            .updateProfile({
-              displayName: username,
-              photoURL:
-                'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Favatar-default.webp?alt=media&token=22fe2ae6-3a19-48cd-9fab-582df2d2f879',
-            })
-            .then(({ user }) => {
-              const userData = {
-                uid: user.uid,
-                photoURL: user.photoURL,
-                displayName: user.displayName,
-                email: user.email,
-              };
-              // Save user and token to store
-              this.$store.commit('auth/saveUser', userData);
-            });
-
+        .then(async (res) => {
+          const userID = res.user.uid;
           const user = {
             username,
             email,
-            id: res.user.uid,
-            createdAt: new Date(),
             photoURL:
-              'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Favatar-default.webp?alt=media&token=22fe2ae6-3a19-48cd-9fab-582df2d2f879',
-            points: 0,
+              'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fdefault-avatar.png?alt=media&token=7e92b95b-0600-497c-8585-9d43d6ac40ff',
             ...profile,
           };
-
           // Save to Firestore
-          db.collection('users')
-            .doc(res.user.uid)
-            .set(user)
-            .then(() => {
-              this.$router.push('/home');
-            })
-            .catch((err) => {
-              console.error(err);
+          await db
+            .collection('users')
+            .doc(userID)
+            .set({
+              createdAt: FieldValue.serverTimestamp(),
+              points: 0,
+              bio: '',
+              ...user,
             });
+          database.ref(`users/${userID}`).set({
+            ...user,
+          });
+          this.$store.commit('auth/saveUser', { id: userID, ...user });
           this.loading = false;
+          this.$router.push('/home');
         })
         .catch((error) => {
           const errorMessage = error.message;

@@ -90,7 +90,7 @@ import { mapState } from 'vuex';
 import uploadMixin from '@/mixins/upload';
 
 export default {
-  name: 'Home',
+  name: 'QuestionDetail',
   components: {
     ChatBubble,
     RecordAudio,
@@ -201,7 +201,6 @@ export default {
       const input = {
         questionID: this.$route.params.id,
         ownerID: this.user.id,
-        ownerInfo: this.user,
         content: this.answer,
         audioURL: this.audioURL,
         photoURL: this.photoURL,
@@ -219,7 +218,6 @@ export default {
       this.photoURL = '';
       this.audioURL = '';
       this.answer = '';
-      this.$router.go();
     },
   },
 

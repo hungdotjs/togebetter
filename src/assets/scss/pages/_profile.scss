@@ -95,3 +95,23 @@
     }
   }
 }
+
+.edit-profile {
+  background-color: $background-color;
+
+  &__wrapper {
+    max-width: 600px;
+
+    p {
+      margin-bottom: 0;
+    }
+
+    .el-form-item__label {
+      font-weight: 500;
+    }
+
+    i {
+      margin-right: 8px;
+    }
+  }
+}
