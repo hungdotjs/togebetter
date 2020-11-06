@@ -4,9 +4,6 @@
   &__overview {
     padding: 16px;
     background-color: #fff;
-    background-image: url('~@/assets/img/profile-bg.jpg');
-    background-position: top;
-    background-size: cover;
     margin-bottom: 16px;
   }
 
@@ -18,19 +15,24 @@
 
   &__header {
     display: flex;
-    align-items: center;
     margin-bottom: 16px;
-    color: #fff;
 
     &__username {
-      font-size: 1.2em;
-      font-weight: bold;
+      font-size: 1.5em;
     }
+  }
+
+  &__avatar {
+    border: 1px solid #eee;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 32px;
+    cursor: pointer;
   }
 
   &__points {
     &__title {
-      color: #fff;
       font-size: 1.2em;
       font-weight: bold;
     }

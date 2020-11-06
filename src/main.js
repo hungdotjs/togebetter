@@ -28,6 +28,7 @@ import {
   Loading,
   MessageBox,
 } from 'element-ui';
+import infiniteScroll from 'vue-infinite-scroll';
 import VueTimeago from 'vue-timeago';
 import App from './App.vue';
 import router from './router';
@@ -42,6 +43,7 @@ import '@/assets/fonts/iconfont.css';
 locale.use(lang);
 
 Vue.prototype.$ELEMENT = { size: 'medium', zIndex: 3000 };
+Vue.use(infiniteScroll);
 Vue.use(Avatar);
 Vue.use(Button);
 Vue.use(Input);
