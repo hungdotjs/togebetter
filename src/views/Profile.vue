@@ -7,11 +7,11 @@
           <div class="ml-16">
             <p class="profile__header__username">{{ currentUser.username }}</p>
             <router-link
-              tag="el-link"
+              tag="el-button"
               v-if="user && currentUser.id === user.id"
               :to="{ name: 'edit-profile', params: { id: user.id } }"
             >
-              Edit
+              <i class="iconfont icon-edit"></i> Edit Profile
             </router-link>
           </div>
         </div>
@@ -173,7 +173,7 @@ export default {
   data() {
     return {
       currentUser: null,
-      loading: true,
+      loading: false,
     };
   },
 
@@ -183,24 +183,30 @@ export default {
     }),
   },
 
-  created() {
-    const userID = this.$route.params.id;
-    db.collection('users')
-      .doc(userID)
-      .get()
-      .then((doc) => {
-        this.loading = false;
-        if (doc.exists) {
-          const user = {
-            id: doc.id,
-            ...doc.data(),
-          };
-          this.currentUser = user;
-          console.log(user, this.user);
-        } else {
-          this.$router.push({ name: '404' });
-        }
-      });
+  activated() {
+    this.getData();
+  },
+
+  methods: {
+    getData() {
+      const userID = this.$route.params.id;
+      this.loading = true;
+      db.collection('users')
+        .doc(userID)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const user = {
+              id: doc.id,
+              ...doc.data(),
+            };
+            this.currentUser = user;
+            this.loading = false;
+          } else {
+            this.$router.push({ name: '404' });
+          }
+        });
+    },
   },
 };
 </script>

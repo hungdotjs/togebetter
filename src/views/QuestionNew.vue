@@ -135,6 +135,14 @@ export default {
     },
   },
 
+  activated() {
+    this.selectedLang = 'en';
+    this.question = '';
+    this.additionalInformation = '';
+    this.photoURL = '';
+    this.audioURL = '';
+  },
+
   methods: {
     async submit() {
       this.loadingSubmit = true;
@@ -151,6 +159,12 @@ export default {
         votes: [],
       };
       const res = await db.collection('questions').add(input);
+      await db
+        .collection('users')
+        .doc(this.user.id)
+        .update({
+          totalQuestions: FieldValue.increment(1),
+        });
       this.loadingSubmit = false;
       this.$router.push({ name: 'questions-detail', params: { id: res.id } });
     },

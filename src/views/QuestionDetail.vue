@@ -122,39 +122,50 @@ export default {
     },
   },
 
-  async created() {
-    this.loading = true;
-    const commentRef = db.collection('comments');
-    const res = await db
-      .collection('questions')
-      .doc(this.id)
-      .get();
+  activated() {
+    this.getData();
+    this.answer = '';
+    this.photoURL = '';
+    this.audioURL = '';
+  },
 
-    if (res.exists) {
-      this.question = {
-        id: this.id,
-        ...res.data(),
-      };
-      this.snapshot = await commentRef
-        .where('questionID', '==', this.id)
-        .onSnapshot((querySnapshot) => {
-          const comments = [];
-          querySnapshot.forEach((doc) => {
-            comments.push({
-              id: doc.id,
-              ...doc.data(),
-            });
-          });
-          this.comments = comments;
-        });
-
-      this.loading = false;
-    } else {
-      this.$router.push({ name: '404' });
-    }
+  deactivated() {
+    this.snapshot();
   },
 
   methods: {
+    async getData() {
+      this.loading = true;
+      const commentRef = db.collection('comments');
+      const res = await db
+        .collection('questions')
+        .doc(this.id)
+        .get();
+
+      if (res.exists) {
+        this.question = {
+          id: this.id,
+          ...res.data(),
+        };
+        this.snapshot = await commentRef
+          .where('questionID', '==', this.id)
+          .onSnapshot((querySnapshot) => {
+            const comments = [];
+            querySnapshot.forEach((doc) => {
+              comments.push({
+                id: doc.id,
+                ...doc.data(),
+              });
+            });
+            this.comments = comments;
+          });
+
+        this.loading = false;
+      } else {
+        this.$router.push({ name: '404' });
+      }
+    },
+
     selectSticker(stickerURL) {
       this.photoURL = stickerURL;
       this.answer = '';
@@ -186,13 +197,18 @@ export default {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
         type: 'danger',
-      }).then(() => {
-        db.collection('questions')
+      }).then(async () => {
+        await db
+          .collection('questions')
           .doc(questionID)
-          .delete()
-          .then(() => {
-            this.$router.push({ name: 'home' });
+          .delete();
+        await db
+          .collection('users')
+          .doc(this.user.id)
+          .update({
+            totalQuestions: FieldValue.increment(-1),
           });
+        this.$router.push({ name: 'home' });
       });
     },
 
@@ -219,10 +235,6 @@ export default {
       this.audioURL = '';
       this.answer = '';
     },
-  },
-
-  beforeDestroy() {
-    this.snapshot();
   },
 };
 </script>

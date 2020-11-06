@@ -3,8 +3,8 @@ const state = () => ({
 });
 
 const actions = {
-  refreshHome({ commit }) {
-    commit('refreshHome', true);
+  refreshHome({ commit }, flag) {
+    commit('refreshHome', flag);
   },
 };
 
