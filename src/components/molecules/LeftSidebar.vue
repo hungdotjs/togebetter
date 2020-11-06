@@ -58,7 +58,7 @@ export default {
       this.disabled = !this.disabled;
       if (!this.disabled) {
         this.disabled = true;
-        this.$store.dispatch('ui/refreshHome');
+        this.$store.dispatch('ui/refreshHome', true);
       }
     },
   },
