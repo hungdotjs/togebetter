@@ -122,14 +122,14 @@ export default {
     },
   },
 
-  activated() {
+  created() {
     this.getData();
     this.answer = '';
     this.photoURL = '';
     this.audioURL = '';
   },
 
-  deactivated() {
+  beforeDestroy() {
     this.snapshot();
   },
 
