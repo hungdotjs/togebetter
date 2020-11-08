@@ -1,12 +1,13 @@
 .profile {
   background: #fff;
+  padding: 16px;
 
   &__wrapper {
     max-width: 800px;
   }
 
   &__overview {
-    padding: 16px;
+    padding: 16px 0;
     display: flex;
     margin-bottom: 16px;
   }
@@ -23,6 +24,7 @@
     height: 100px;
     border-radius: 50%;
     cursor: pointer;
+    margin-bottom: 8px;
   }
 
   &__avatar-wrapper {
@@ -73,6 +75,7 @@
 
 .edit-profile {
   background-color: $background-color;
+  padding: 16px;
 
   &__wrapper {
     max-width: 600px;

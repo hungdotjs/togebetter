@@ -1,5 +1,5 @@
 <template>
-  <div class="edit-profile main-layout">
+  <div class="edit-profile">
     <h1>Edit Profile</h1>
     <div class="edit-profile__wrapper">
       <el-form label-position="top" ref="form" :model="form" :rules="rules" size="medium">

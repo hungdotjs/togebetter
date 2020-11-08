@@ -1,6 +1,6 @@
 <template>
   <div
-    class="home main-layout"
+    class="home"
     v-loading="loading"
     v-infinite-scroll="load"
     infinite-scroll-immediate-check="false"

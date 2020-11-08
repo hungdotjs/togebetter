@@ -1,5 +1,5 @@
 <template>
-  <div class="question-new main-layout">
+  <div class="question-new" v-if="user">
     <div class="text-center mb-16">
       <el-image
         :src="imageURL"
@@ -79,6 +79,19 @@
         Ask
       </el-button>
     </div>
+  </div>
+  <div v-else class="p-32 text-center">
+    <el-dialog :visible="true" width="300px" :show-close="false">
+      <p>Login or Sign up to continue</p>
+      <div slot="footer" class="text-center">
+        <router-link to="/login">
+          <el-button class="mr-16">Log in</el-button>
+        </router-link>
+        <router-link to="/signup">
+          <el-button type="primary">Sign up</el-button>
+        </router-link>
+      </div>
+    </el-dialog>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="profile main-layout" v-loading="loading">
+  <div class="profile" v-loading="loading">
     <div class="profile__wrapper" v-if="currentUser">
       <div class="profile__overview">
         <div class="profile__avatar-wrapper">

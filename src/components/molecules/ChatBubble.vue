@@ -39,7 +39,7 @@
       {{ content.additionalInformation }}
     </p>
 
-    <div class="chat-bubble__command">
+    <div class="chat-bubble__command" v-if="user">
       <div class="chat-bubble__social">
         <vote
           v-if="!isOwner"

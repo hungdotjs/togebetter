@@ -1,6 +1,7 @@
 .question-detail {
   position: relative;
   background-color: #fff;
+  padding: 16px;
 
   &__content {
     min-height: 80vh;
@@ -15,7 +16,7 @@
   padding: 16px;
   margin: 0 -16px;
   margin-bottom: -16px;
-  padding-bottom: 0;
+  // padding-bottom: 0;
   background: #ededed;
 
   &__image {
