@@ -22,15 +22,18 @@
 <script>
 import QuestionBubble from '@/components/molecules/QuestionBubble.vue';
 import { db } from '@/firebase';
+import savePosition from '@/mixins/savePosition';
 
 export default {
   name: 'Home',
+  mixins: [savePosition],
   components: {
     QuestionBubble,
   },
 
   data() {
     return {
+      flag: false,
       loading: false,
       scrollLoading: false,
       noMore: false,
@@ -52,17 +55,27 @@ export default {
 
   watch: {
     isRefresh(value) {
-      if (value) {
+      if (value && this.flag) {
+        console.log('refresh');
         this.getData();
-        this.$store.commit('ui/refreshHome', false);
         this.scrollLoading = false;
         this.noMore = false;
+        this.$store.dispatch('ui/refreshHome', false);
         window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       }
     },
   },
 
-  created() {
+  activated() {
+    this.flag = true;
+    this.$store.dispatch('ui/refreshHome', false);
+  },
+
+  deactivated() {
+    this.flag = false;
+  },
+
+  mounted() {
     this.getData();
   },
 
@@ -85,7 +98,6 @@ export default {
         .get();
       // Get the last visible document
       this.lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
-
       const questions = [];
       querySnapshot.forEach((doc) => {
         questions.push({
@@ -110,7 +122,6 @@ export default {
       const questions = [];
       // Get the last visible document
       this.lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
-
       querySnapshot.forEach((doc) => {
         questions.push({
           id: doc.id,

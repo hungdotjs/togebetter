@@ -38,6 +38,11 @@
   &__item {
     display: block;
 
+    &--active {
+      color: $--color-primary !important;
+      border-bottom: 2px solid $--color-primary;
+    }
+
     &__anchor {
       display: block;
       position: relative;

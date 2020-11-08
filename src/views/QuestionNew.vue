@@ -135,14 +135,6 @@ export default {
     },
   },
 
-  activated() {
-    this.selectedLang = 'en';
-    this.question = '';
-    this.additionalInformation = '';
-    this.photoURL = '';
-    this.audioURL = '';
-  },
-
   methods: {
     async submit() {
       this.loadingSubmit = true;

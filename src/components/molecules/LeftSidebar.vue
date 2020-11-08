@@ -41,25 +41,9 @@
 
 <script>
 export default {
-  data() {
-    return {
-      disabled: true,
-    };
-  },
-
-  watch: {
-    $route(to) {
-      if (to.name === 'home') this.disabled = false;
-    },
-  },
-
   methods: {
     refreshHome() {
-      this.disabled = !this.disabled;
-      if (!this.disabled) {
-        this.disabled = true;
-        this.$store.dispatch('ui/refreshHome', true);
-      }
+      this.$store.dispatch('ui/refreshHome', true);
     },
   },
 };

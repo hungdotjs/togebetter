@@ -1,18 +1,16 @@
 <template>
-  <div>
+  <div id="app">
     <navbar></navbar>
-    <main class="app__content">
-      <div :class="{ container: !hideSidebar, 'd-flex': !hideSidebar }">
-        <div :class="[!hideSidebar && 'left-sidebar']" v-if="!hideSidebar">
-          <left-sidebar></left-sidebar>
-        </div>
-        <transition name="page-transition" mode="out-in">
-          <keep-alive>
-            <router-view :key="$route.fullPath"></router-view>
-          </keep-alive>
-        </transition>
+    <div :class="{ container: !hideSidebar, 'd-flex': !hideSidebar }">
+      <div :class="[!hideSidebar && 'left-sidebar']" v-if="!hideSidebar">
+        <left-sidebar></left-sidebar>
       </div>
-    </main>
+      <transition name="page-transition" mode="out-in">
+        <keep-alive :include="['Home', 'Users']">
+          <router-view :key="$route.params.id"></router-view>
+        </keep-alive>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -37,12 +35,6 @@ export default {
   computed: {
     hideSidebar() {
       return this.blackList.includes(this.$route.name);
-    },
-  },
-
-  watch: {
-    $route() {
-      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     },
   },
 

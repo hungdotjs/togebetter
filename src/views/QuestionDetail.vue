@@ -88,6 +88,7 @@ import ChatSticker from '@/components/atoms/ChatSticker.vue';
 import { db, FieldValue } from '@/firebase';
 import { mapState } from 'vuex';
 import uploadMixin from '@/mixins/upload';
+import savePosition from '@/mixins/savePosition';
 
 export default {
   name: 'QuestionDetail',
@@ -96,7 +97,7 @@ export default {
     RecordAudio,
     ChatSticker,
   },
-  mixins: [uploadMixin],
+  mixins: [uploadMixin, savePosition],
 
   data() {
     return {
@@ -155,9 +156,8 @@ export default {
               });
             });
             this.comments = comments.reverse();
+            this.loading = false;
           });
-
-        this.loading = false;
       } else {
         this.$router.push({ name: '404' });
       }
@@ -185,6 +185,12 @@ export default {
           .doc(this.id)
           .update({
             comments: FieldValue.arrayRemove(commentID),
+          });
+        await db
+          .collection('users')
+          .doc(this.user.id)
+          .update({
+            totalAnswers: FieldValue.increment(-1),
           });
       });
     },
@@ -226,6 +232,12 @@ export default {
         .doc(this.$route.params.id)
         .update({
           comments: FieldValue.arrayUnion(comment.id),
+        });
+      await db
+        .collection('users')
+        .doc(this.user.id)
+        .update({
+          totalAnswers: FieldValue.increment(1),
         });
       this.loadingSubmit = false;
       this.photoURL = '';

@@ -44,6 +44,7 @@ locale.use(lang);
 
 Vue.prototype.$ELEMENT = { size: 'medium', zIndex: 3000 };
 Vue.use(infiniteScroll);
+
 Vue.use(Avatar);
 Vue.use(Button);
 Vue.use(Input);

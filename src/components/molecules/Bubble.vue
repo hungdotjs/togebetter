@@ -1,10 +1,6 @@
 <template>
   <div class="bubble">
-    <el-image class="bubble__avatar" :src="avatar" fit="cover" lazy>
-      <div slot="error" class="text-center">
-        <i class="el-icon-picture-outline-round"></i>
-      </div>
-    </el-image>
+    <el-image class="bubble__avatar" :src="avatar" fit="cover" lazy> </el-image>
 
     <div class="bubble__content">
       <div class="bubble__question">

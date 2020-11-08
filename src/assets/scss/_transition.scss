@@ -3,13 +3,8 @@
   transition: all 0.35s;
 }
 
-.page-transition-leave-active {
-  // transform: scale(1);
-  transition: all 0.15s;
-}
-
 .page-transition-enter,
-.page-transition-leave-to {
+.page-transition-leave {
   opacity: 0;
   // transform: scale(0.99);
 }

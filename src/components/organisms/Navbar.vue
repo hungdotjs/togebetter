@@ -7,7 +7,7 @@
         <option value="vi">Tiếng Việt</option>
       </select>
     </div>
-    <router-link tag="button" class="landing-page__sign-in" to="/login">Sign in</router-link>
+    <router-link tag="button" class="landing-page__sign-in" to="/login">Get started</router-link>
   </div>
 
   <div class="tb-navbar" v-else>
@@ -23,7 +23,12 @@
           </el-drawer>
         </li>
         <li class="tb-navbar__item">
-          <router-link class="tb-navbar__item__anchor" to="/home">
+          <router-link
+            class="tb-navbar__item__anchor"
+            active-class="tb-navbar__item--active"
+            to="/home"
+            @click.native="refreshHome"
+          >
             <div>
               <i class="iconfont icon-home"></i>
             </div>
@@ -36,7 +41,11 @@
           </div>
         </li>
         <li class="tb-navbar__item ">
-          <router-link class="tb-navbar__item__anchor" to="/questions/type">
+          <router-link
+            class="tb-navbar__item__anchor"
+            active-class="tb-navbar__item--active"
+            to="/questions/type"
+          >
             <div>
               <i class="iconfont icon-question"></i>
             </div>
@@ -44,7 +53,11 @@
           </router-link>
         </li>
         <li class="tb-navbar__item" v-if="isLogin">
-          <router-link class="tb-navbar__item__anchor" to="/notifications">
+          <router-link
+            class="tb-navbar__item__anchor"
+            active-class="tb-navbar__item--active"
+            to="/notifications"
+          >
             <div>
               <i class="iconfont icon-bell"></i>
             </div>
@@ -197,6 +210,10 @@ export default {
 
     openSearch() {
       this.showSearch = !this.showSearch;
+    },
+
+    refreshHome() {
+      this.$store.dispatch('ui/refreshHome', true);
     },
   },
 };

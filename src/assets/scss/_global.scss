@@ -32,10 +32,8 @@ body {
   }
 }
 
-.app {
-  &__content {
-    min-height: 90vh;
-  }
+#app {
+  min-height: 100vh;
 }
 
 h1,
@@ -90,8 +88,4 @@ p {
 
 .el-button {
   font-weight: bold;
-}
-
-.el-avatar {
-  background-color: #fff;
 }

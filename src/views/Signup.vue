@@ -114,6 +114,7 @@
         <el-input
           type="password"
           v-model="form.password"
+          @keyup.enter.native="submitForm"
           autocomplete="on"
           show-password
         ></el-input>

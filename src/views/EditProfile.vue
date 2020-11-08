@@ -30,6 +30,23 @@
           ></el-input>
         </el-form-item>
 
+        <!-- Bio  -->
+        <el-form-item prop="bio">
+          <template #label>
+            <i class="el-icon-coffee-cup"></i>
+            About me
+          </template>
+          <el-input
+            placeholder="Describe who you are"
+            v-model="form.bio"
+            type="textarea"
+            maxlength="101"
+            rows="3"
+            resize="none"
+            show-word-limit
+          ></el-input>
+        </el-form-item>
+
         <el-form-item>
           <template #label>
             <i class="el-icon-s-comment"></i>
@@ -135,6 +152,7 @@ export default {
         interestCountry: 'US',
         photoURL: '',
         username: '',
+        bio: '',
       },
       rules: {
         username: [
@@ -168,6 +186,7 @@ export default {
       this.form.interestCountry = this.user.interestCountry;
       this.form.photoURL = this.user.photoURL;
       this.form.username = this.user.username;
+      this.form.bio = this.user.bio;
     }
   },
 
@@ -194,7 +213,7 @@ export default {
       await database.ref(`users/${this.user.id}`).update({ ...this.form });
 
       this.loading = false;
-      this.$router.push({ name: 'profile', params: { id: this.user.id } });
+      this.$router.replace({ name: 'profile', params: { id: this.user.id } });
     },
 
     handleChangeUpload(file) {

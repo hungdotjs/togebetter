@@ -6,7 +6,12 @@
         <el-input v-model="form.email"></el-input>
       </el-form-item>
       <el-form-item label="Password" size="large">
-        <el-input v-model="form.password" type="password" show-password></el-input>
+        <el-input
+          v-model="form.password"
+          type="password"
+          show-password
+          @keyup.enter.native="signIn"
+        ></el-input>
       </el-form-item>
       <el-form-item class="text-center">
         <el-checkbox v-model="rememberMe">Keep me logged in</el-checkbox>

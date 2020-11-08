@@ -1,37 +1,67 @@
 <template>
   <div class="profile main-layout" v-loading="loading">
-    <div v-if="currentUser">
+    <div class="profile__wrapper" v-if="currentUser">
       <div class="profile__overview">
-        <div class="profile__header">
+        <div class="profile__avatar-wrapper">
           <el-image class="profile__avatar" :src="currentUser.photoURL"></el-image>
-          <div>
-            <p class="profile__header__username">{{ currentUser.username }}</p>
-            <router-link
-              v-if="user && currentUser.id === user.id"
-              :to="{ name: 'edit-profile', params: { id: user.id } }"
-            >
-              <el-button size="mini" icon="iconfont icon-edit">
-                Edit Profile
-              </el-button>
-            </router-link>
+          <router-link
+            tag="div"
+            class="text-center"
+            v-if="user && currentUser.id === user.id"
+            :to="{ name: 'edit-profile', params: { id: user.id } }"
+          >
+            <el-button size="mini" icon="iconfont icon-edit" plain>
+              Edit Profile
+            </el-button>
+          </router-link>
+        </div>
+        <div>
+          <div class="profile__username">
+            {{ currentUser.username }}
+          </div>
+          <p class="profile__time">
+            <i class="el-icon-time"></i> Joined <timeago :datetime="time"></timeago>
+          </p>
+          <div class="profile__stats">
+            <div class="profile__stats__item profile__stats__item--points">
+              <span class="text-bold">
+                <i class="iconfont icon-heart-solid"></i>
+                {{ currentUser.points }}
+              </span>
+              <span> points </span>
+            </div>
+            <p class="profile__stats__item profile__stats__item--question">
+              <span class="text-bold">
+                <i class="iconfont icon-ask-question"></i>
+                {{ currentUser.totalQuestions }}
+              </span>
+              <span> questions </span>
+            </p>
+            <p class="profile__stats__item profile__stats__item--answer">
+              <span class="text-bold">
+                <i class="iconfont icon-answer"></i>
+                {{ currentUser.totalAnswers }}
+              </span>
+              <span> answers </span>
+            </p>
           </div>
         </div>
-
-        <div class="profile__bio" v-if="currentUser.bio">
-          {{ currentUser.bio }}
-        </div>
-        <div v-else>
-          (Your bio is currently blank.)
-        </div>
-
-        <div class="profile__points">Points: {{ currentUser.points }}</div>
-        <div class="profile__questions">{{ currentUser.totalQuestions }} questions</div>
       </div>
 
-      <div class="container">
+      <div class="p-16">
+        <div class="profile__bio">
+          <p class="text-bold">About me</p>
+          <p class="profile__bio" v-if="currentUser.bio">
+            {{ currentUser.bio }}
+          </p>
+          <p class="color-secondary " v-else>
+            (Your about me is currently blank.)
+          </p>
+        </div>
+        <el-divider></el-divider>
         <div class="profile__detail">
           <p class="profile__detail__title">
-            <i class="el-icon-s-comment"></i>
+            <i class="iconfont icon-message"></i>
             Native language
           </p>
           <p>{{ currentUser.nativeLanguage | languageName }}</p>
@@ -42,9 +72,9 @@
             <i class="el-icon-edit"></i>
             Language of interest
           </p>
-          <level-icon :level="currentUser.interestLanguageLevel">{{
-            currentUser.interestLanguage | languageName
-          }}</level-icon>
+          <level-icon :level="currentUser.interestLanguageLevel">
+            {{ currentUser.interestLanguage | languageName }}
+          </level-icon>
         </div>
         <el-divider></el-divider>
         <div class="profile__detail">
@@ -89,6 +119,11 @@ export default {
     ...mapState({
       user: (state) => state.auth.user,
     }),
+
+    time() {
+      if (this.currentUser) return this.currentUser.createdAt.toDate();
+      return null;
+    },
   },
 
   created() {
