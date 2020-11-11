@@ -57,9 +57,22 @@
     display: flex;
     align-items: flex-start;
   }
+
   &__input {
     flex-grow: 1;
+    textarea {
+      resize: none;
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+
+      &:focus {
+        border: 1px solid $--color-primary;
+      }
+    }
   }
+
   &__send {
     margin-left: 8px;
   }
@@ -85,4 +98,24 @@
   i {
     font-size: 26px;
   }
+}
+
+.mention-item {
+  padding: 6px 12px;
+  border-radius: 4px;
+  background: #fff;
+  width: 100%;
+  min-width: 250px;
+}
+
+.mention-selected {
+  background: rgba($color: $--color-primary, $alpha: 0.8);
+  color: #fff;
+  transition: all 0.2s;
+}
+
+.popover {
+  margin-left: 250px;
+  margin-bottom: 30px;
+  box-shadow: $light-shadow;
 }

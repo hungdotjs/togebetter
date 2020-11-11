@@ -17,9 +17,6 @@
 </template>
 
 <script>
-import countries from '@/data/countries';
-import languages from '@/data/languages';
-
 export default {
   name: 'UserTag',
   props: {
@@ -27,16 +24,6 @@ export default {
       type: Object,
       required: true,
       default: null,
-    },
-  },
-
-  filters: {
-    countryName(value) {
-      return countries.find((item) => item.code === value).name;
-    },
-
-    languageName(value) {
-      return languages.find((item) => item.code === value).name;
     },
   },
 

@@ -1,5 +1,10 @@
 <template>
-  <bubble v-if="content" :userID="content.ownerID" :createdAt="content.createdAt">
+  <bubble
+    v-if="content"
+    :userID="content.ownerID"
+    :createdAt="content.createdAt"
+    :borderColor="borderColor"
+  >
     <p v-if="content.questionType">
       <el-tag type="success" effect="plain">
         Question about <b>{{ languageName }}</b>
@@ -47,11 +52,10 @@
           @vote="handleVote"
           @unvote="handleUnvote"
         ></vote>
-
-        <!-- <div class="chat-bubble__button">
-          <p><i class="iconfont icon-share"></i></p>
-          <p class="chat-bubble__button__text">Share</p>
-        </div> -->
+        <div class="chat-bubble__button" v-if="!isOwner" @click="handleReply">
+          <p><i class="iconfont icon-reply"></i></p>
+          <p class="chat-bubble__button__text">Reply</p>
+        </div>
         <div class="chat-bubble__button" v-if="content.questionType">
           <p><i class="iconfont icon-bookmark"></i></p>
           <p class="chat-bubble__button__text">Save</p>
@@ -96,6 +100,10 @@ export default {
   props: {
     content: {
       type: Object,
+    },
+    borderColor: {
+      type: String,
+      default: '#d7dae2',
     },
   },
 
@@ -163,6 +171,10 @@ export default {
       userRef.doc(this.content.ownerID).update({
         points: FieldValue.increment(point),
       });
+    },
+
+    handleReply() {
+      this.$emit('reply');
     },
 
     handleVote() {

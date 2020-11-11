@@ -1,17 +1,33 @@
 <template>
   <div
     class="home"
-    v-loading="loading"
     v-infinite-scroll="load"
     infinite-scroll-immediate-check="false"
     infinite-scroll-throttle-delay="500"
     infinite-scroll-disabled="disabled"
   >
-    <question-bubble
-      v-for="question in questions"
-      :key="question.id"
-      :content="question"
-    ></question-bubble>
+    <div class="home__filter" v-if="user">
+      <el-select v-model="filter" placeholder="Select" class="mr-8 grow-1">
+        <el-option
+          v-for="(item, i) in userLanguages"
+          :key="i"
+          :value="item"
+          :label="filterLabel(item)"
+        >
+        </el-option>
+      </el-select>
+      <el-popover placement="bottom-end" trigger="click">
+        <div>Data</div>
+        <el-button slot="reference" icon="el-icon-set-up" plain>Filter</el-button>
+      </el-popover>
+    </div>
+    <div v-loading="loading">
+      <question-bubble
+        v-for="question in questions"
+        :key="question.id"
+        :content="question"
+      ></question-bubble>
+    </div>
     <div class="text-center">
       <p v-if="noMore">No more questions</p>
       <p v-if="scrollLoading"><i class="el-icon-loading"></i></p>
@@ -40,10 +56,16 @@ export default {
       limit: 5,
       lastDoc: null,
       questions: [],
+      filter: '',
+      userLanguages: [],
     };
   },
 
   computed: {
+    user() {
+      return this.$store.state.auth.user;
+    },
+
     isRefresh() {
       return this.$store.state.ui.isRefreshHome;
     },
@@ -76,6 +98,9 @@ export default {
   },
 
   mounted() {
+    const { nativeLanguage, interestLanguage } = this.user;
+    this.filter = interestLanguage;
+    this.userLanguages = this.userLanguages.concat([interestLanguage, nativeLanguage]);
     this.getData();
   },
 
@@ -130,6 +155,10 @@ export default {
       });
       this.questions = questions;
       this.loading = false;
+    },
+
+    filterLabel(lang) {
+      return `Question about ${this.$options.filters.languageName(lang)}`;
     },
   },
 };

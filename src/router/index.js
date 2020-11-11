@@ -58,6 +58,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "tags" */ '@/views/Tags.vue'),
   },
   {
+    path: '/notifications',
+    name: 'notifications',
+    component: () => import(/* webpackChunkName: "notifications" */ '@/views/Notifications.vue'),
+  },
+  {
     path: '/users',
     name: 'users',
     component: () => import(/* webpackChunkName: "users" */ '@/views/Users.vue'),

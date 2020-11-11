@@ -101,8 +101,6 @@
 import LevelIcon from '@/components/atoms/LevelIcon.vue';
 import { mapState } from 'vuex';
 import { db } from '@/firebase';
-import languages from '@/data/languages';
-import countries from '@/data/countries';
 
 export default {
   name: 'Profile',
@@ -150,16 +148,6 @@ export default {
             this.$router.push({ name: '404' });
           }
         });
-    },
-  },
-
-  filters: {
-    countryName(value) {
-      return countries.find((item) => item.code === value).name;
-    },
-
-    languageName(value) {
-      return languages.find((item) => item.code === value).name;
     },
   },
 };

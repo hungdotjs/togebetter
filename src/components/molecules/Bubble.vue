@@ -1,9 +1,17 @@
 <template>
   <div class="bubble">
-    <el-image class="bubble__avatar" :src="avatar" fit="cover" lazy> </el-image>
+    <el-image class="bubble__avatar" :src="avatar" fit="cover" lazy>
+      <div slot="error" class="w-100 text-center">
+        <i class="el-icon-picture-outline"></i>
+      </div>
+    </el-image>
 
     <div class="bubble__content">
-      <div class="bubble__question">
+      <div
+        class="bubble__question"
+        :class="[hasEffect && 'bubble__question--effect']"
+        :style="{ border: `1px solid ${borderColor}` }"
+      >
         <div class="bubble__header text-small">
           <p class="bubble__name" @click="goTo">{{ username }}</p>
           <div class="m-0">
@@ -11,11 +19,13 @@
           </div>
         </div>
         <div class="bubble__language">
-          <div class="center-y"><i class="el-icon-s-comment mr-8"></i>{{ nativeLanguage }}</div>
+          <div class="center-y">
+            <i class="iconfont icon-earth mr-8"></i>{{ knowingCountry | countryName }}
+          </div>
           <level-icon :level="interestLanguageLevel" v-if="!hideInterestLanguage">
             <template #prefix>
-              <i class="el-icon-edit mr-8"></i>
-              {{ interestLanguage }}
+              <i class="iconfont icon-edit mr-8"></i>
+              {{ interestLanguage | languageName }}
             </template>
           </level-icon>
         </div>
@@ -28,7 +38,6 @@
 
 <script>
 import LevelIcon from '@/components/atoms/LevelIcon.vue';
-import languages from '@/data/languages';
 import { database } from '@/firebase';
 
 export default {
@@ -49,6 +58,13 @@ export default {
       type: Boolean,
       default: false,
     },
+    hasEffect: {
+      type: Boolean,
+      default: false,
+    },
+    borderColor: {
+      type: String,
+    },
   },
 
   computed: {
@@ -65,6 +81,7 @@ export default {
       nativeLanguage: '',
       interestLanguage: '',
       interestLanguageLevel: 'beginner',
+      knowingCountry: '',
     };
   },
 
@@ -72,10 +89,12 @@ export default {
     const ref = database.ref(`users/${this.userID}`);
     ref.once('value').then((snapshot) => {
       const data = snapshot.val();
+      this.$store.dispatch('ui/addUser', { id: this.userID, ...data });
       this.avatar = data.photoURL;
       this.username = data.username;
-      this.nativeLanguage = languages.find((item) => item.code === data.nativeLanguage).name;
-      this.interestLanguage = languages.find((item) => item.code === data.interestLanguage).name;
+      this.nativeLanguage = data.nativeLanguage;
+      this.interestLanguage = data.interestLanguage;
+      this.knowingCountry = data.knowingCountry;
       this.interestLanguageLevel = data.interestLanguageLevel;
     });
   },

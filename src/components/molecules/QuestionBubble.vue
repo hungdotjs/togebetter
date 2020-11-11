@@ -5,6 +5,7 @@
       :userID="content.ownerID"
       :createdAt="content.createdAt"
       :hideInterestLanguage="true"
+      :hasEffect="true"
     >
       <div @click="goTo">
         <p class="color-secondary" v-if="content.questionType">{{ questionType }}</p>
