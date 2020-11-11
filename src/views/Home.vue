@@ -7,7 +7,7 @@
     infinite-scroll-disabled="disabled"
   >
     <div class="home__filter" v-if="user">
-      <el-select v-model="filter" placeholder="Select" class="mr-8 grow-1">
+      <el-select v-model="filter" placeholder="Select" class="mr-8 grow-1" @change="getData">
         <el-option
           v-for="(item, i) in userLanguages"
           :key="i"
@@ -56,7 +56,7 @@ export default {
       limit: 5,
       lastDoc: null,
       questions: [],
-      filter: '',
+      filter: 'en',
       userLanguages: [],
     };
   },
@@ -118,6 +118,7 @@ export default {
       const querySnapshot = await db
         .collection('questions')
         .orderBy('createdAt', 'desc')
+        .where('lang', '==', this.filter)
         .startAfter(this.lastDoc)
         .limit(this.limit)
         .get();
@@ -141,6 +142,7 @@ export default {
       this.loading = true;
       const querySnapshot = await db
         .collection('questions')
+        .where('lang', '==', this.filter)
         .orderBy('createdAt', 'desc')
         .limit(this.limit)
         .get();

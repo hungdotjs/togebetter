@@ -1,9 +1,10 @@
 <template>
-  <el-input placeholder="Search questions" v-model="searchKey" class="tb-search">
-    <el-select v-model="selectedLang" slot="prepend" placeholder="Select">
-      <el-option label="English (US)" value="en_us"></el-option>
-    </el-select>
-    <el-button slot="append" type="primary" icon="el-icon-search"></el-button>
+  <el-input
+    placeholder="Search questions"
+    v-model="searchKey"
+    class="tb-search"
+    prefix-icon="iconfont icon-search"
+  >
   </el-input>
 </template>
 
@@ -12,7 +13,6 @@ export default {
   data() {
     return {
       searchKey: '',
-      selectedLang: 'en_us',
     };
   },
 };

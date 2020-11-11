@@ -47,7 +47,6 @@
 <script>
 import { auth, db } from '@/firebase';
 import SocialLogin from '@/components/atoms/SocialLogin.vue';
-import { Message } from 'element-ui';
 
 export default {
   name: 'Login',
@@ -83,7 +82,10 @@ export default {
         })
         .catch((error) => {
           const errorMessage = error.message;
-          Message.error(errorMessage);
+          this.$message({
+            type: 'error',
+            message: errorMessage,
+          });
           this.loading = false;
         });
     },

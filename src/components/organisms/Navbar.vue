@@ -113,7 +113,11 @@
           <ul class="tb-navbar__operations" v-if="isLogin">
             <li class="tb-navbar__operations__item rspec-nav_activity">
               <router-link class="tb-navbar__operations__anchor" to="/notifications">
-                <i class="el-icon-bell"></i>
+                <i
+                  :class="
+                    isNotificationPage ? ['el-icon-message-solid', 'color-primary'] : 'el-icon-bell'
+                  "
+                ></i>
               </router-link>
             </li>
             <li class="tb-navbar__operations__item">
@@ -183,6 +187,7 @@ export default {
     return {
       isLandingPage: true,
       isSignUpPage: false,
+      isNotificationPage: false,
       openSidebar: false,
       showSearch: false,
     };
@@ -199,6 +204,7 @@ export default {
     $route(to) {
       this.isLandingPage = to.name === 'landing-page';
       this.isSignUpPage = to.name === 'signup';
+      this.isNotificationPage = to.name === 'notifications';
     },
   },
 

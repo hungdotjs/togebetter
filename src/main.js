@@ -24,10 +24,12 @@ import {
   Col,
   Image,
   Upload,
+  PageHeader,
   Tooltip,
   Loading,
   Popover,
   MessageBox,
+  Message,
 } from 'element-ui';
 import infiniteScroll from 'vue-infinite-scroll';
 import VueTimeago from 'vue-timeago';
@@ -69,11 +71,14 @@ Vue.use(Dialog);
 Vue.use(Row);
 Vue.use(Col);
 Vue.use(Upload);
+Vue.use(PageHeader);
 Vue.use(Tooltip);
 Vue.use(Image);
 Vue.use(Loading);
 Vue.use(Popover);
+
 Vue.prototype.$confirm = MessageBox.confirm;
+Vue.prototype.$message = Message;
 
 Vue.use(VueTimeago, {
   name: 'Timeago', // Component name, `Timeago` by default

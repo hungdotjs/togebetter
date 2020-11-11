@@ -1,6 +1,10 @@
 <template>
   <div class="vote">
-    <div class="vote__button" :class="{ 'vote__button--active': voted }" @click="handleVote">
+    <div
+      class="vote__button"
+      :class="[voted && 'vote__button--active', disabled && 'vote__button--disabled']"
+      @click="handleVote"
+    >
       <p><i class="iconfont" :class="voted ? 'icon-heart-solid' : 'icon-heart'"></i></p>
       <p class="vote__button__text">{{ point }}</p>
     </div>
@@ -16,6 +20,10 @@ export default {
     votes: {
       type: Array,
       required: true,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
 
@@ -45,6 +53,8 @@ export default {
 
   methods: {
     handleVote() {
+      if (this.disabled) return;
+
       if (this.voted) {
         this.point -= 1;
         this.voted = false;

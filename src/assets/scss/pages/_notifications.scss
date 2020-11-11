@@ -1,0 +1,10 @@
+.notifications {
+  padding: 16px;
+  text-align: center;
+  min-height: 100%;
+
+  &__image {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}

@@ -176,7 +176,6 @@ import SelectLanguage from '@/components/atoms/SelectLanguage.vue';
 import SelectCountry from '@/components/atoms/SelectCountry.vue';
 import SocialLogin from '@/components/atoms/SocialLogin.vue';
 import { db, auth, database, FieldValue } from '@/firebase';
-import { Message } from 'element-ui';
 
 export default {
   name: 'Signup',
@@ -255,7 +254,7 @@ export default {
             username,
             email,
             photoURL:
-              'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fdefault-avatar.png?alt=media&token=7e92b95b-0600-497c-8585-9d43d6ac40ff',
+              'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fdefault-avatar.png?alt=media&token=a6ed8c16-5e60-4ca9-aaad-0ddaadd675b1',
             ...profile,
           };
           // Save to Firestore
@@ -278,7 +277,10 @@ export default {
         })
         .catch((error) => {
           const errorMessage = error.message;
-          Message.error(errorMessage);
+          this.$message({
+            type: 'error',
+            message: errorMessage,
+          });
           this.loading = false;
         });
     },

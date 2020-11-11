@@ -47,16 +47,16 @@
     <div class="chat-bubble__command" v-if="user">
       <div class="chat-bubble__social">
         <vote
-          v-if="!isOwner"
           :votes="content.votes"
           @vote="handleVote"
           @unvote="handleUnvote"
+          :disabled="isOwner"
         ></vote>
         <div class="chat-bubble__button" v-if="!isOwner" @click="handleReply">
           <p><i class="iconfont icon-reply"></i></p>
           <p class="chat-bubble__button__text">Reply</p>
         </div>
-        <div class="chat-bubble__button" v-if="content.questionType">
+        <div class="chat-bubble__button">
           <p><i class="iconfont icon-bookmark"></i></p>
           <p class="chat-bubble__button__text">Save</p>
         </div>

@@ -51,11 +51,8 @@
       <div class="p-16">
         <div class="profile__bio">
           <p class="text-bold">About me</p>
-          <p class="profile__bio" v-if="currentUser.bio">
+          <p class="profile__bio">
             {{ currentUser.bio }}
-          </p>
-          <p class="color-secondary " v-else>
-            (Your about me is currently blank.)
           </p>
         </div>
         <el-divider></el-divider>

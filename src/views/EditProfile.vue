@@ -128,7 +128,6 @@
 import { mapState } from 'vuex';
 import SelectLanguage from '@/components/atoms/SelectLanguage.vue';
 import SelectCountry from '@/components/atoms/SelectCountry.vue';
-import { Message } from 'element-ui';
 import generateUID from '@/helpers/generateUID';
 import { db, database, storage, FieldValue } from '@/firebase';
 
@@ -220,12 +219,18 @@ export default {
       const isImage = file.raw.type.includes('image/');
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!isImage) {
-        Message.error('File must be an image!');
+        this.$message({
+          message: 'File must be an image!',
+          type: 'error',
+        });
         return;
       }
 
       if (!isLt2M) {
-        Message.error('Picture size can not exceed 2MB!');
+        this.$message({
+          message: 'Picture size can not exceed 2MB!',
+          type: 'error',
+        });
         return;
       }
 

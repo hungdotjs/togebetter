@@ -1,119 +1,121 @@
 <template>
   <div v-loading="loading" class="question-detail">
-    <div class="question-detail__content">
-      <chat-bubble
-        :content="question"
-        @delete="deleteQuestion(id)"
-        @reply="reply(question.ownerID)"
-        borderColor="#f65e39"
-      ></chat-bubble>
+    <div>
+      <div class="question-detail__content">
+        <chat-bubble
+          :content="question"
+          @delete="deleteQuestion(id)"
+          @reply="reply(question.ownerID)"
+          borderColor="#f65e39"
+        ></chat-bubble>
 
-      <div v-if="comments.length">
-        <transition-group name="flip-list">
-          <chat-bubble
-            v-for="comment in comments"
-            :key="comment.id"
-            :content="comment"
-            @delete="deleteComment(comment.id)"
-            @reply="reply(comment.ownerID)"
-          ></chat-bubble>
-        </transition-group>
-      </div>
-    </div>
-
-    <div class="answer-form">
-      <div v-if="!user" class="text-center py-16">
-        <p>
-          Log in or sign up to leave a comment
-        </p>
-        <router-link to="/login">
-          <el-button class="mr-16">Log in</el-button>
-        </router-link>
-        <router-link to="/signup">
-          <el-button type="primary">Sign up</el-button>
-        </router-link>
-      </div>
-      <div v-else>
-        <div v-if="photoURL" style="position: relative; width: fit-content;">
-          <el-image :src="photoURL" class="answer-form__image" fit="cover">
-            <div slot="placeholder" class="text-center p-16">
-              <i class="el-icon-loading"></i>
-            </div>
-          </el-image>
-          <span @click="removePhoto" class="answer-form__image__remove">
-            <i class="el-icon-error"></i>
-          </span>
+        <div v-if="comments.length">
+          <transition-group name="flip-list">
+            <chat-bubble
+              v-for="comment in comments"
+              :key="comment.id"
+              :content="comment"
+              @delete="deleteComment(comment.id)"
+              @reply="reply(comment.ownerID)"
+            ></chat-bubble>
+          </transition-group>
         </div>
-        <div class="answer-form__audio" v-if="audioURL">
-          <audio :src="audioURL" controls>
-            Your browser does not support the
-            <code>audio</code> element.
-          </audio>
-          <span class="answer-form__audio__remove" @click="removeAudio">
-            <i class="el-icon-error"></i>
-          </span>
-        </div>
-        <div class="answer-form__input-wrapper">
-          <mentionable
-            class="answer-form__input"
-            :keys="['@']"
-            :items="listUsers"
-            offset="6"
-            @open="onOpenMention"
-          >
-            <textarea
-              ref="answer"
-              v-model="answer"
-              rows="4"
-              autofocus
-              placeholder="Answer in his/her native language as he/she is a beginner speaker."
-            />
+      </div>
 
-            <template #item-@="{ item }">
-              <div class="center-y">
-                <el-avatar :src="item.photoURL" alt="#" :size="36" class="mr-8"></el-avatar>
-                {{ item.username }}
+      <div class="answer-form">
+        <div v-if="!user" class="text-center py-16">
+          <p>
+            Log in or sign up to leave a comment
+          </p>
+          <router-link to="/login">
+            <el-button class="mr-16">Log in</el-button>
+          </router-link>
+          <router-link to="/signup">
+            <el-button type="primary">Sign up</el-button>
+          </router-link>
+        </div>
+        <div v-else>
+          <div v-if="photoURL" style="position: relative; width: fit-content;">
+            <el-image :src="photoURL" class="answer-form__image" fit="cover">
+              <div slot="placeholder" class="text-center p-16">
+                <i class="el-icon-loading"></i>
               </div>
-            </template>
-          </mentionable>
-          <el-button
-            class="answer-form__send"
-            type="primary"
-            size="mini"
-            :loading="loadingSubmit"
-            :disabled="!alreadyInput"
-            @click="submit"
-          >
-            Send
-          </el-button>
-        </div>
-        <div class="button-group">
-          <div class="button-group__item">
-            <i class="iconfont icon-keyboard"></i>
+            </el-image>
+            <span @click="removePhoto" class="answer-form__image__remove">
+              <i class="el-icon-error"></i>
+            </span>
           </div>
-          <record-audio
-            @done="handleRecordAudio"
-            class="button-group__item"
-            :disable-preview="true"
-          >
-            <i class="iconfont icon-mic"></i>
-          </record-audio>
-          <el-upload
-            action="#"
-            accept="image/*"
-            :auto-upload="false"
-            :show-file-list="false"
-            :on-change="handleChangeUpload"
-          >
+          <div class="answer-form__audio" v-if="audioURL">
+            <audio :src="audioURL" controls>
+              Your browser does not support the
+              <code>audio</code> element.
+            </audio>
+            <span class="answer-form__audio__remove" @click="removeAudio">
+              <i class="el-icon-error"></i>
+            </span>
+          </div>
+          <div class="answer-form__input-wrapper">
+            <mentionable
+              class="answer-form__input"
+              :keys="['@']"
+              :items="listUsers"
+              offset="6"
+              @open="onOpenMention"
+            >
+              <textarea
+                ref="answer"
+                v-model="answer"
+                rows="4"
+                autofocus
+                placeholder="Answer in his/her native language as he/she is a beginner speaker."
+              />
+
+              <template #item-@="{ item }">
+                <div class="center-y">
+                  <el-avatar :src="item.photoURL" alt="#" :size="36" class="mr-8"></el-avatar>
+                  {{ item.username }}
+                </div>
+              </template>
+            </mentionable>
+            <el-button
+              class="answer-form__send"
+              type="primary"
+              size="mini"
+              :loading="loadingSubmit"
+              :disabled="!alreadyInput"
+              @click="submit"
+            >
+              Send
+            </el-button>
+          </div>
+          <div class="button-group">
             <div class="button-group__item">
-              <i class="iconfont icon-camera"></i>
+              <i class="iconfont icon-keyboard"></i>
             </div>
-          </el-upload>
-          <chat-sticker @select="selectSticker">
-            <div class="button-group__item">
-              <i class="iconfont icon-smile"></i>
-            </div>
-          </chat-sticker>
+            <record-audio
+              @done="handleRecordAudio"
+              class="button-group__item"
+              :disable-preview="true"
+            >
+              <i class="iconfont icon-mic"></i>
+            </record-audio>
+            <el-upload
+              action="#"
+              accept="image/*"
+              :auto-upload="false"
+              :show-file-list="false"
+              :on-change="handleChangeUpload"
+            >
+              <div class="button-group__item">
+                <i class="iconfont icon-camera"></i>
+              </div>
+            </el-upload>
+            <chat-sticker @select="selectSticker">
+              <div class="button-group__item">
+                <i class="iconfont icon-smile"></i>
+              </div>
+            </chat-sticker>
+          </div>
         </div>
       </div>
     </div>
