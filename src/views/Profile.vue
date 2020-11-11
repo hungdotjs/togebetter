@@ -1,5 +1,5 @@
 <template>
-  <div class="profile main-layout" v-loading="loading">
+  <div class="profile" v-loading="loading">
     <div class="profile__wrapper" v-if="currentUser">
       <div class="profile__overview">
         <div class="profile__avatar-wrapper">
@@ -51,11 +51,8 @@
       <div class="p-16">
         <div class="profile__bio">
           <p class="text-bold">About me</p>
-          <p class="profile__bio" v-if="currentUser.bio">
+          <p class="profile__bio">
             {{ currentUser.bio }}
-          </p>
-          <p class="color-secondary " v-else>
-            (Your about me is currently blank.)
           </p>
         </div>
         <el-divider></el-divider>
@@ -101,8 +98,6 @@
 import LevelIcon from '@/components/atoms/LevelIcon.vue';
 import { mapState } from 'vuex';
 import { db } from '@/firebase';
-import languages from '@/data/languages';
-import countries from '@/data/countries';
 
 export default {
   name: 'Profile',
@@ -150,16 +145,6 @@ export default {
             this.$router.push({ name: '404' });
           }
         });
-    },
-  },
-
-  filters: {
-    countryName(value) {
-      return countries.find((item) => item.code === value).name;
-    },
-
-    languageName(value) {
-      return languages.find((item) => item.code === value).name;
     },
   },
 };

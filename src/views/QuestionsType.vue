@@ -1,5 +1,5 @@
 <template>
-  <div class="questions-type main-layout">
+  <div class="questions-type">
     <h1>Choose a question template.</h1>
     <h2 class="title">Ask about grammar/vocab</h2>
     <question-tag

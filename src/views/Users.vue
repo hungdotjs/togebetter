@@ -1,5 +1,5 @@
 <template>
-  <div class="main-layout users-page">
+  <div class="users-page">
     <h1>Users</h1>
     <el-input placeholder="Search" prefix-icon="iconfont icon-search"></el-input>
     <div class="users__wrapper">

@@ -6,6 +6,41 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "4936651",
+      "name": "filter-fill",
+      "font_class": "filter-solid",
+      "unicode": "e867",
+      "unicode_decimal": 59495
+    },
+    {
+      "icon_id": "4766688",
+      "name": "filter",
+      "font_class": "filter",
+      "unicode": "e7c7",
+      "unicode_decimal": 59335
+    },
+    {
+      "icon_id": "256473",
+      "name": "reply",
+      "font_class": "reply",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "1624919",
+      "name": "icon_answer_hover",
+      "font_class": "a",
+      "unicode": "e685",
+      "unicode_decimal": 59013
+    },
+    {
+      "icon_id": "1624998",
+      "name": "icon_question_hover",
+      "font_class": "q",
+      "unicode": "e6a5",
+      "unicode_decimal": 59045
+    },
+    {
       "icon_id": "17605487",
       "name": "查找",
       "font_class": "search",

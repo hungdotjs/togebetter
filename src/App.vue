@@ -5,11 +5,13 @@
       <div :class="[!hideSidebar && 'left-sidebar']" v-if="!hideSidebar">
         <left-sidebar></left-sidebar>
       </div>
-      <transition name="page-transition" mode="out-in">
-        <keep-alive :include="['Home', 'Users']">
-          <router-view :key="$route.params.id"></router-view>
-        </keep-alive>
-      </transition>
+      <div class="main-layout">
+        <transition name="page-transition" mode="out-in">
+          <keep-alive :include="['Home', 'Users']">
+            <router-view :key="$route.params.id"></router-view>
+          </keep-alive>
+        </transition>
+      </div>
     </div>
   </div>
 </template>
@@ -45,11 +47,15 @@ export default {
           .doc(user.uid)
           .get()
           .then((res) => {
-            const userData = res.data();
-            this.$store.commit('auth/saveUser', { id: user.uid, ...userData });
+            const userData = {
+              id: user.uid,
+              ...res.data(),
+            };
+            this.$store.commit('auth/saveUser', { ...userData });
+            localStorage.setItem('user', JSON.stringify(userData));
           });
       } else {
-        this.$store.commit('auth/signOut');
+        this.$store.dispatch('auth/signOut');
       }
     });
   },

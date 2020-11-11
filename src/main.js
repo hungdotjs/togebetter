@@ -24,12 +24,17 @@ import {
   Col,
   Image,
   Upload,
+  PageHeader,
   Tooltip,
   Loading,
+  Popover,
   MessageBox,
+  Message,
 } from 'element-ui';
 import infiniteScroll from 'vue-infinite-scroll';
 import VueTimeago from 'vue-timeago';
+import languages from '@/data/languages';
+import countries from '@/data/countries';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -66,10 +71,14 @@ Vue.use(Dialog);
 Vue.use(Row);
 Vue.use(Col);
 Vue.use(Upload);
+Vue.use(PageHeader);
 Vue.use(Tooltip);
 Vue.use(Image);
 Vue.use(Loading);
+Vue.use(Popover);
+
 Vue.prototype.$confirm = MessageBox.confirm;
+Vue.prototype.$message = Message;
 
 Vue.use(VueTimeago, {
   name: 'Timeago', // Component name, `Timeago` by default
@@ -77,6 +86,16 @@ Vue.use(VueTimeago, {
 });
 
 Vue.config.productionTip = false;
+
+Vue.filter('countryName', (value) => {
+  if (!value) return '';
+  return countries.find((item) => item.code === value).name || '';
+});
+
+Vue.filter('languageName', (value) => {
+  if (!value) return '';
+  return languages.find((item) => item.code === value).name || '';
+});
 
 new Vue({
   router,

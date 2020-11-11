@@ -1,12 +1,13 @@
 import { auth } from '@/firebase.js';
 
 const state = () => ({
-  user: null,
+  user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null,
 });
 
 const actions = {
   signOut({ commit }) {
     auth.signOut().then(() => {
+      localStorage.removeItem('user');
       commit('signOut');
     });
   },

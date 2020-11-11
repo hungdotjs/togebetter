@@ -1,12 +1,12 @@
 <template>
-  <div class="vote">
+  <div class="bookmark">
     <div
-      class="vote__button"
-      :class="[voted && 'vote__button--active', disabled && 'vote__button--disabled']"
+      class="bookmark__button"
+      :class="{ 'bookmark__button--active': bookmarked }"
       @click="handleVote"
     >
-      <p><i class="iconfont" :class="voted ? 'icon-heart-solid' : 'icon-heart'"></i></p>
-      <p class="vote__button__text">{{ point }}</p>
+      <p><i class="iconfont" :class="bookmarkd ? 'icon-heart-solid' : 'icon-heart'"></i></p>
+      <p class="bookmark__button__text">{{ point }}</p>
     </div>
   </div>
 </template>
@@ -15,15 +15,11 @@
 import { mapState } from 'vuex';
 
 export default {
-  name: 'Vote',
+  name: 'Bookmark',
   props: {
-    votes: {
+    bookmarks: {
       type: Array,
       required: true,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
     },
   },
 
@@ -42,7 +38,7 @@ export default {
 
   watch: {
     user(value) {
-      if (value) this.voted = this.votes.indexOf(this.user.id) !== -1;
+      if (value) this.voted = this.bookmarks.indexOf(this.user.id) !== -1;
     },
   },
 
@@ -53,8 +49,6 @@ export default {
 
   methods: {
     handleVote() {
-      if (this.disabled) return;
-
       if (this.voted) {
         this.point -= 1;
         this.voted = false;
