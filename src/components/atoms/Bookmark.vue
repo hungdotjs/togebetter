@@ -1,12 +1,12 @@
 <template>
-  <div class="bookmark">
+  <div class="chat-bubble">
     <div
-      class="bookmark__button"
-      :class="{ 'bookmark__button--active': bookmarked }"
-      @click="handleVote"
+      class="chat-bubble__button"
+      :class="{ 'chat-bubble__button--active': bookmarked }"
+      @click="handleSave"
     >
-      <p><i class="iconfont" :class="bookmarkd ? 'icon-heart-solid' : 'icon-heart'"></i></p>
-      <p class="bookmark__button__text">{{ point }}</p>
+      <p><i class="iconfont" :class="bookmarked ? 'icon-bookmark-solid' : 'icon-bookmark'"></i></p>
+      <p class="chat-bubble__button__text">{{ bookmarked ? 'Saved' : 'Save' }}</p>
     </div>
   </div>
 </template>
@@ -19,14 +19,17 @@ export default {
   props: {
     bookmarks: {
       type: Array,
+      default: () => [],
       required: true,
+    },
+    id: {
+      type: String,
     },
   },
 
   data() {
     return {
-      point: 0,
-      voted: false,
+      bookmarked: false,
     };
   },
 
@@ -38,25 +41,22 @@ export default {
 
   watch: {
     user(value) {
-      if (value) this.voted = this.bookmarks.indexOf(this.user.id) !== -1;
+      if (value) this.bookmarked = this.bookmarks.indexOf(this.id) !== -1;
     },
   },
 
   mounted() {
-    this.point = this.votes.length;
-    if (this.user) this.voted = this.votes.indexOf(this.user.id) !== -1;
+    if (this.user) this.bookmarked = this.bookmarks.indexOf(this.id) !== -1;
   },
 
   methods: {
-    handleVote() {
-      if (this.voted) {
-        this.point -= 1;
-        this.voted = false;
-        this.$emit('unvote');
+    handleSave() {
+      if (this.bookmarked) {
+        this.bookmarked = false;
+        this.$emit('unsave');
       } else {
-        this.point += 1;
-        this.voted = true;
-        this.$emit('vote');
+        this.bookmarked = true;
+        this.$emit('save');
       }
     },
   },

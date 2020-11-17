@@ -15,7 +15,7 @@
         <div class="bubble__header text-small">
           <p class="bubble__name" @click="goTo">{{ username }}</p>
           <div class="m-0">
-            <timeago :datetime="time"> </timeago>
+            {{ time }}
           </div>
         </div>
         <div class="bubble__language">
@@ -38,6 +38,7 @@
 
 <script>
 import LevelIcon from '@/components/atoms/LevelIcon.vue';
+import timeago from '@/helpers/timeago';
 import { database } from '@/firebase';
 
 export default {
@@ -52,7 +53,7 @@ export default {
       required: true,
     },
     createdAt: {
-      required: true,
+      default: '',
     },
     hideInterestLanguage: {
       type: Boolean,
@@ -69,8 +70,8 @@ export default {
 
   computed: {
     time() {
-      if (this.createdAt) return this.createdAt.toDate();
-      return new Date();
+      if (this.createdAt) return timeago(this.createdAt.toDate());
+      return timeago(new Date());
     },
   },
 

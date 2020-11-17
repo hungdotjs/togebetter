@@ -37,8 +37,8 @@
 
 <script>
 import QuestionBubble from '@/components/molecules/QuestionBubble.vue';
-import { db } from '@/firebase';
 import savePosition from '@/mixins/savePosition';
+import { db } from '@/firebase';
 
 export default {
   name: 'Home',
@@ -89,6 +89,9 @@ export default {
   },
 
   activated() {
+    if (!this.user) {
+      this.$router.push({ name: 'login' });
+    }
     this.flag = true;
     this.$store.dispatch('ui/refreshHome', false);
   },
@@ -98,10 +101,12 @@ export default {
   },
 
   mounted() {
-    const { nativeLanguage, interestLanguage } = this.user;
-    this.filter = interestLanguage;
-    this.userLanguages = this.userLanguages.concat([interestLanguage, nativeLanguage]);
-    this.getData();
+    if (this.user) {
+      const { nativeLanguage, interestLanguage } = this.user;
+      this.filter = interestLanguage;
+      this.userLanguages = this.userLanguages.concat([interestLanguage, nativeLanguage]);
+      this.getData();
+    }
   },
 
   methods: {
@@ -117,8 +122,8 @@ export default {
 
       const querySnapshot = await db
         .collection('questions')
-        .orderBy('createdAt', 'desc')
         .where('lang', '==', this.filter)
+        .orderBy('createdAt', 'desc')
         .startAfter(this.lastDoc)
         .limit(this.limit)
         .get();

@@ -1,0 +1,15 @@
+.bookmarks {
+  padding: 16px;
+  min-height: 100%;
+
+  &__content {
+    &--empty {
+      text-align: center;
+    }
+  }
+
+  &__image {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}

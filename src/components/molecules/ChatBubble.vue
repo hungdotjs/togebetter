@@ -56,10 +56,13 @@
           <p><i class="iconfont icon-reply"></i></p>
           <p class="chat-bubble__button__text">Reply</p>
         </div>
-        <div class="chat-bubble__button">
-          <p><i class="iconfont icon-bookmark"></i></p>
-          <p class="chat-bubble__button__text">Save</p>
-        </div>
+        <bookmark
+          v-if="!isOwner"
+          :bookmarks="user.bookmarks"
+          :id="content.id"
+          @save="handleSave"
+          @unsave="handleUnsave"
+        ></bookmark>
       </div>
 
       <el-dropdown trigger="click" v-if="user" @command="handleCommand">
@@ -86,14 +89,17 @@
 <script>
 import Bubble from '@/components/molecules/Bubble.vue';
 import Vote from '@/components/atoms/Vote.vue';
+import Bookmark from '@/components/atoms/Bookmark.vue';
 import languages from '@/data/languages';
 import { mapState } from 'vuex';
 import { db, FieldValue } from '@/firebase';
+import { questionsIndex } from '@/algolia';
 
 export default {
   name: 'ChatBubble',
   components: {
     Bubble,
+    Bookmark,
     Vote,
   },
 
@@ -177,6 +183,50 @@ export default {
       this.$emit('reply');
     },
 
+    async handleSave() {
+      await db
+        .collection('bookmarks')
+        .doc(`${this.user.id}_${this.content.id}`)
+        .set({
+          userID: this.user.id,
+          id: this.content.id,
+          ownerID: this.content.ownerID,
+          questionID: this.content.questionID || this.content.id,
+          content: this.content.content,
+          audioURL: this.content.audioURL,
+          photoURL: this.content.photoURL,
+          createdAt: this.content.createdAt,
+          savedAt: FieldValue.serverTimestamp(),
+        });
+      await db
+        .collection('users')
+        .doc(this.user.id)
+        .update({
+          bookmarks: FieldValue.arrayUnion(this.content.id),
+        });
+      this.$message({
+        type: 'success',
+        message: 'Saved successfully',
+      });
+    },
+
+    async handleUnsave() {
+      await db
+        .collection('bookmarks')
+        .doc(`${this.user.id}_${this.content.id}`)
+        .delete();
+      await db
+        .collection('users')
+        .doc(this.user.id)
+        .update({
+          bookmarks: FieldValue.arrayRemove(this.content.id),
+        });
+      this.$message({
+        type: 'success',
+        message: 'Unsaved successfully',
+      });
+    },
+
     handleVote() {
       const ref = this.content.lang ? db.collection('questions') : db.collection('comments');
       ref
@@ -187,6 +237,17 @@ export default {
         .then(() => {
           this.adjustUserPoint(1);
         });
+
+      // If user vote an question
+      if (this.content.lang) {
+        questionsIndex.partialUpdateObject({
+          votes: {
+            _operation: 'Increment',
+            value: 1,
+          },
+          objectID: this.content.id,
+        });
+      }
     },
 
     handleUnvote() {
@@ -199,6 +260,17 @@ export default {
         .then(() => {
           this.adjustUserPoint(-1);
         });
+
+      // If user vote an question
+      if (this.content.lang) {
+        questionsIndex.partialUpdateObject({
+          votes: {
+            _operation: 'Decrement',
+            value: 1,
+          },
+          objectID: this.content.id,
+        });
+      }
     },
 
     async updateContent() {

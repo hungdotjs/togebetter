@@ -128,6 +128,7 @@ import RecordAudio from '@/components/atoms/RecordAudio.vue';
 import ChatSticker from '@/components/atoms/ChatSticker.vue';
 import { Mentionable } from 'vue-mention';
 import { db, FieldValue } from '@/firebase';
+import { questionsIndex } from '@/algolia';
 import { mapState } from 'vuex';
 import uploadMixin from '@/mixins/upload';
 import savePosition from '@/mixins/savePosition';
@@ -203,6 +204,7 @@ export default {
         };
         this.snapshot = await commentRef
           .where('questionID', '==', this.id)
+          .orderBy('createdAt', 'asc')
           .onSnapshot((querySnapshot) => {
             const comments = [];
             querySnapshot.forEach((doc) => {
@@ -213,7 +215,7 @@ export default {
               });
             });
             // Update comments
-            this.comments = comments.sort((a, b) => a.createdAt.seconds - b.createdAt.seconds);
+            this.comments = comments;
             this.loading = false;
           });
       } else {
@@ -244,12 +246,23 @@ export default {
           .update({
             comments: FieldValue.arrayRemove(commentID),
           });
+        questionsIndex.partialUpdateObject({
+          objectID: this.id,
+          comments: {
+            _operation: 'Decrement',
+            value: 1,
+          },
+        });
         await db
           .collection('users')
           .doc(this.user.id)
           .update({
             totalAnswers: FieldValue.increment(-1),
           });
+        this.$message({
+          message: 'Delete completed',
+          type: 'success',
+        });
       });
     },
 
@@ -264,11 +277,32 @@ export default {
           .doc(questionID)
           .delete();
         await db
+          .collection('comments')
+          .where('questionID', '==', questionID)
+          .get()
+          .then((querySnapshot) => {
+            // Once we get the results, begin a batch
+            const batch = db.batch();
+            querySnapshot.forEach((doc) => {
+              // For each doc, add a delete operation to the batch
+              batch.delete(doc.ref);
+            });
+            // Commit the batch
+            return batch.commit();
+          })
+          .then(() => {
+            this.$message({
+              message: 'Delete completed',
+              type: 'success',
+            });
+          });
+        await db
           .collection('users')
           .doc(this.user.id)
           .update({
             totalQuestions: FieldValue.increment(-1),
           });
+        questionsIndex.deleteObject(questionID);
         this.$router.push({ name: 'home' });
       });
     },
@@ -298,6 +332,13 @@ export default {
         .update({
           comments: FieldValue.arrayUnion(comment.id),
         });
+      questionsIndex.partialUpdateObject({
+        objectID: this.$route.params.id,
+        comments: {
+          _operation: 'Increment',
+          value: 1,
+        },
+      });
       await db
         .collection('users')
         .doc(this.user.id)
