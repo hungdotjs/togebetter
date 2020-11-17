@@ -9,6 +9,19 @@
   // transform: scale(0.99);
 }
 
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.35s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(5px);
+}
+
+.list-move {
+  translate: transform 0.35s;
+}
+
 .flip-list-move {
   translate: transform 1s;
 }

@@ -19,7 +19,7 @@
     >
       <i class="iconfont icon-earth"></i> Question
     </router-link> -->
-    <router-link
+    <!-- <router-link
       tag="li"
       to="/tags"
       class="left-sidebar__item"
@@ -27,20 +27,35 @@
       exact
     >
       <i class="iconfont icon-tags"></i> Tags
-    </router-link>
-    <router-link
+    </router-link> -->
+    <!-- <router-link
       tag="li"
       to="/users"
       class="left-sidebar__item"
       active-class="left-sidebar__item--active"
     >
       <i class="iconfont icon-user"></i> Users
+    </router-link> -->
+    <router-link
+      v-if="user"
+      tag="li"
+      to="/bookmarks"
+      class="left-sidebar__item"
+      active-class="left-sidebar__item--active"
+    >
+      <i class="iconfont icon-bookmark"></i> Bookmarked
     </router-link>
   </ol>
 </template>
 
 <script>
 export default {
+  computed: {
+    user() {
+      return this.$store.state.auth.user;
+    },
+  },
+
   methods: {
     refreshHome() {
       this.$store.dispatch('ui/refreshHome', true);

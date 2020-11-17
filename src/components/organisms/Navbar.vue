@@ -36,7 +36,11 @@
           </router-link>
         </li>
         <li class="tb-navbar__item">
-          <div class="tb-navbar__item__anchor" @click="openSearch">
+          <div
+            class="tb-navbar__item__anchor"
+            :class="[showSearch && 'tb-navbar__item--active']"
+            @click="openSearch"
+          >
             <i class="iconfont icon-search"></i>
           </div>
         </li>
@@ -75,6 +79,12 @@
                 </router-link>
               </el-dropdown-item>
               <el-dropdown-item>
+                <router-link tag="span" to="/bookmarks">
+                  <i class="el-icon-collection-tag"></i>
+                  Bookmark
+                </router-link>
+              </el-dropdown-item>
+              <el-dropdown-item>
                 <router-link tag="span" to="/settings">
                   <i class="el-icon-setting"></i>
                   Settings
@@ -91,9 +101,11 @@
         </li>
       </ul>
 
-      <div class="tb-navbar__search-popup" v-if="showSearch">
-        <el-input prefix-icon="el-icon-search" :autofocus="true"></el-input>
-      </div>
+      <transition name="el-fade-in-linear">
+        <div class="tb-navbar__search-popup" v-if="showSearch">
+          <tb-search @close="showSearch = false"></tb-search>
+        </div>
+      </transition>
     </div>
 
     <!-- Desktop  -->
@@ -106,7 +118,7 @@
         </div>
         <!-- search  -->
         <div class="tb-navbar__item--desktop tb-navbar__search">
-          <tb-search></tb-search>
+          <tb-search @close="showSearch = false"></tb-search>
         </div>
 
         <div class="tb-navbar__item--desktop">
@@ -122,13 +134,19 @@
             </li>
             <li class="tb-navbar__operations__item">
               <div class="tb-navbar__operations__anchor center-y">
-                <el-dropdown>
+                <el-dropdown trigger="click">
                   <el-image alt="user-image" class="tb-navbar__avatar" :src="user.photoURL" lazy />
                   <el-dropdown-menu>
                     <el-dropdown-item>
                       <router-link tag="span" :to="`/users/${user.id}`">
                         <i class="el-icon-user"></i>
                         Profile
+                      </router-link>
+                    </el-dropdown-item>
+                    <el-dropdown-item>
+                      <router-link tag="span" to="/bookmarks">
+                        <i class="el-icon-collection-tag"></i>
+                        Bookmark
                       </router-link>
                     </el-dropdown-item>
                     <el-dropdown-item>

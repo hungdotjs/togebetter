@@ -45,11 +45,10 @@ export default {
       if (user) {
         db.collection('users')
           .doc(user.uid)
-          .get()
-          .then((res) => {
+          .onSnapshot((doc) => {
             const userData = {
               id: user.uid,
-              ...res.data(),
+              ...doc.data(),
             };
             this.$store.commit('auth/saveUser', { ...userData });
             localStorage.setItem('user', JSON.stringify(userData));

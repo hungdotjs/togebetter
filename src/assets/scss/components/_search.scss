@@ -1,10 +1,31 @@
 .tb-search {
-  max-width: 700px;
+  max-width: 600px;
+  position: relative;
 
-  .el-input-group__prepend {
-    background-color: #fff;
+  &__input {
+    width: 100%;
   }
-  .el-select .el-input {
-    width: 120px;
+
+  &__popper {
+    li {
+      line-height: 1.8;
+      font-size: 1em;
+      padding: 8px 12px;
+      white-space: unset !important;
+      border-bottom: 1px solid #eee;
+
+      &:last-child {
+        border-bottom: unset;
+      }
+    }
+
+    b {
+      color: $--color-primary;
+      background-color: rgba($color: $--color-primary, $alpha: 0.05);
+    }
+
+    .el-autocomplete-suggestion__wrap {
+      max-height: unset;
+    }
   }
 }

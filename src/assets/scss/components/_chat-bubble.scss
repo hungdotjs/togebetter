@@ -49,6 +49,11 @@
     i {
       font-size: 1.4rem;
     }
+
+    &--active {
+      animation: heartbeat 1s;
+      color: $--color-primary;
+    }
   }
 
   &__image {

@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 102;
+  z-index: 2002;
   height: 56px;
   background-color: #fff;
   color: #333;
@@ -17,6 +17,8 @@
 
   &__search-popup {
     padding: 8px 12px;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
   }
 
   &__wrapper {

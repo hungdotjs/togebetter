@@ -2,6 +2,7 @@ import Vue from 'vue';
 import lang from 'element-ui/lib/locale/lang/en';
 import locale from 'element-ui/lib/locale';
 import {
+  Autocomplete,
   Avatar,
   Button,
   Input,
@@ -24,6 +25,7 @@ import {
   Col,
   Image,
   Upload,
+  Pagination,
   PageHeader,
   Tooltip,
   Loading,
@@ -32,7 +34,6 @@ import {
   Message,
 } from 'element-ui';
 import infiniteScroll from 'vue-infinite-scroll';
-import VueTimeago from 'vue-timeago';
 import languages from '@/data/languages';
 import countries from '@/data/countries';
 import App from './App.vue';
@@ -50,6 +51,7 @@ locale.use(lang);
 Vue.prototype.$ELEMENT = { size: 'medium', zIndex: 3000 };
 Vue.use(infiniteScroll);
 
+Vue.use(Autocomplete);
 Vue.use(Avatar);
 Vue.use(Button);
 Vue.use(Input);
@@ -72,6 +74,7 @@ Vue.use(Row);
 Vue.use(Col);
 Vue.use(Upload);
 Vue.use(PageHeader);
+Vue.use(Pagination);
 Vue.use(Tooltip);
 Vue.use(Image);
 Vue.use(Loading);
@@ -79,11 +82,6 @@ Vue.use(Popover);
 
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$message = Message;
-
-Vue.use(VueTimeago, {
-  name: 'Timeago', // Component name, `Timeago` by default
-  locale: 'en', // Default locale
-});
 
 Vue.config.productionTip = false;
 

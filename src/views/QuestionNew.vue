@@ -100,6 +100,7 @@ import SelectLanguage from '@/components/atoms/SelectLanguage.vue';
 import RecordAudio from '@/components/atoms/RecordAudio.vue';
 import { mapState } from 'vuex';
 import { db, FieldValue } from '@/firebase';
+import { questionsIndex } from '@/algolia';
 import uploadMixin from '@/mixins/upload';
 
 export default {
@@ -170,6 +171,17 @@ export default {
         .update({
           totalQuestions: FieldValue.increment(1),
         });
+      await questionsIndex.saveObject({
+        objectID: res.id,
+        ownerID: this.user.id,
+        lang: this.selectedLang,
+        content: this.question,
+        audioURL: this.audioURL,
+        photoURL: this.photoURL,
+        questionType: this.questionType,
+        votes: 0,
+        answers: 0,
+      });
       this.loadingSubmit = false;
       this.$router.push({ name: 'questions-detail', params: { id: res.id } });
     },
