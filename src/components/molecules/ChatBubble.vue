@@ -52,7 +52,7 @@
           @unvote="handleUnvote"
           :disabled="isOwner"
         ></vote>
-        <div class="chat-bubble__button" v-if="!isOwner" @click="handleReply">
+        <div class="chat-bubble__button" v-if="!isOwner && mode !== 'view'" @click="handleReply">
           <p><i class="iconfont icon-reply"></i></p>
           <p class="chat-bubble__button__text">Reply</p>
         </div>
@@ -104,6 +104,10 @@ export default {
   },
 
   props: {
+    mode: {
+      type: String,
+      default: 'default',
+    },
     content: {
       type: Object,
     },

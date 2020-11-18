@@ -8,15 +8,20 @@
     </div>
     <div class="search-page__content" v-loading="loading">
       <div>
-        <div v-for="item in hits" :key="item.objectID" class="search-page__item">
+        <div
+          v-for="item in hits"
+          :key="item.objectID"
+          class="search-page__item"
+          @click="goTo(item.objectID)"
+        >
           <div class="search-page__item__stat">
-            <div class="search-page__item__box">
+            <div class="search-page__item__box search-page__item__box--primary">
               <span>
                 {{ item.votes }}
               </span>
               <span class="text-small">votes</span>
             </div>
-            <div class="search-page__item__box">
+            <div class="search-page__item__box search-page__item__box--secondary">
               <span>
                 {{ item.comments }}
               </span>
@@ -82,6 +87,10 @@ export default {
   },
 
   methods: {
+    goTo(questionID) {
+      this.$router.push({ name: 'questions-detail', params: { id: questionID } });
+    },
+
     search() {
       this.loading = true;
       questionsIndex

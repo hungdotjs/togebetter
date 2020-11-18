@@ -18,6 +18,8 @@ import {
   Divider,
   Link,
   Tag,
+  Tabs,
+  TabPane,
   RadioGroup,
   RadioButton,
   Dialog,
@@ -67,6 +69,8 @@ Vue.use(Checkbox);
 Vue.use(Divider);
 Vue.use(Link);
 Vue.use(Tag);
+Vue.use(Tabs);
+Vue.use(TabPane);
 Vue.use(RadioGroup);
 Vue.use(RadioButton);
 Vue.use(Dialog);
