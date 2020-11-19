@@ -13,7 +13,13 @@
           {{ content.content }}
         </p>
         <div v-if="content.photoURL">
-          <el-image :src="content.photoURL" class="chat-bubble__image"></el-image>
+          <el-image :src="content.photoURL" class="chat-bubble__image" lazy></el-image>
+        </div>
+        <div class="question-bubble__sound-box" v-if="content.audioURL">
+          <el-image
+            src="https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fspeaker.png?alt=media&token=13ccd541-a4b0-45f9-8122-77f2308c3cd8"
+            style="width: 40px; height: 36px;"
+          ></el-image>
         </div>
         <div class="d-flex">
           <el-button
@@ -23,13 +29,13 @@
           >
             {{ totalAnswer }}
           </el-button>
-          <el-button
+          <!-- <el-button
             v-if="content.audioURL"
             class="question-bubble__number question-bubble__number--audio"
             icon="iconfont icon-sound"
             circle
           >
-          </el-button>
+          </el-button> -->
         </div>
       </div>
     </bubble>
