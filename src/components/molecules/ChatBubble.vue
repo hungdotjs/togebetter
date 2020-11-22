@@ -11,12 +11,6 @@
       </el-tag>
     </p>
     <p class="color-secondary" v-if="content.questionType">{{ questionType }}</p>
-    <div v-if="content.photoURL">
-      <el-image :src="content.photoURL" class="chat-bubble__image"></el-image>
-    </div>
-    <div v-if="content.audioURL">
-      <audio :src="content.audioURL" class="chat-bubble__audio" controls></audio>
-    </div>
     <div v-if="content.content">
       <div v-if="editVisible">
         <el-input
@@ -36,6 +30,12 @@
         {{ content.content }}
         <span v-if="content.updatedAt" class="text-small color-secondary"><br />(edited)</span>
       </p>
+    </div>
+    <div v-if="content.photoURL">
+      <el-image :src="content.photoURL" class="chat-bubble__image" lazy></el-image>
+    </div>
+    <div v-if="content.audioURL">
+      <audio :src="content.audioURL" class="chat-bubble__audio" controls></audio>
     </div>
     <p
       class="chat-bubble__content chat-bubble__additional-info"
@@ -165,6 +165,8 @@ export default {
     handleCommand(command) {
       switch (command) {
         case 'edit':
+          this.$emit('edit');
+          if (this.content.questionType) return;
           this.editVisible = true;
           this.editContent = this.content.content;
           break;
