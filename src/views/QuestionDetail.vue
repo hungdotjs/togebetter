@@ -6,6 +6,7 @@
           :content="question"
           @delete="deleteQuestion(id)"
           @reply="reply(question.ownerID)"
+          @edit="handleEditQuestion"
           borderColor="#f65e39"
         ></chat-bubble>
 
@@ -119,6 +120,18 @@
         </div>
       </div>
     </div>
+
+    <el-dialog
+      v-if="showEditQuesiton"
+      title="Edit Question"
+      :visible.sync="showEditQuesiton"
+      :append-to-body="true"
+      custom-class="edit-question"
+      top="80px"
+      width="90%"
+    >
+      <question-edit :question-data="question"></question-edit>
+    </el-dialog>
   </div>
 </template>
 
@@ -126,6 +139,7 @@
 import ChatBubble from '@/components/molecules/ChatBubble.vue';
 import RecordAudio from '@/components/atoms/RecordAudio.vue';
 import ChatSticker from '@/components/atoms/ChatSticker.vue';
+import QuestionEdit from '@/components/organisms/QuestionEdit.vue';
 import { Mentionable } from 'vue-mention';
 import { db, FieldValue } from '@/firebase';
 import { questionsIndex } from '@/algolia';
@@ -140,11 +154,13 @@ export default {
     RecordAudio,
     ChatSticker,
     Mentionable,
+    QuestionEdit,
   },
   mixins: [uploadMixin, savePosition],
 
   data() {
     return {
+      showEditQuesiton: false,
       loadingSubmit: false,
       answer: '',
       question: null,
@@ -305,6 +321,10 @@ export default {
         questionsIndex.deleteObject(questionID);
         this.$router.push({ name: 'home' });
       });
+    },
+
+    handleEditQuestion() {
+      this.showEditQuesiton = true;
     },
 
     reply(ownerID) {
