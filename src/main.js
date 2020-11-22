@@ -18,6 +18,8 @@ import {
   Divider,
   Link,
   Tag,
+  Tabs,
+  TabPane,
   RadioGroup,
   RadioButton,
   Dialog,
@@ -54,6 +56,7 @@ Vue.use(infiniteScroll);
 Vue.use(Autocomplete);
 Vue.use(Avatar);
 Vue.use(Button);
+Vue.use(Checkbox);
 Vue.use(Input);
 Vue.use(Select);
 Vue.use(Option);
@@ -63,10 +66,11 @@ Vue.use(DropdownMenu);
 Vue.use(DropdownItem);
 Vue.use(Form);
 Vue.use(FormItem);
-Vue.use(Checkbox);
 Vue.use(Divider);
 Vue.use(Link);
 Vue.use(Tag);
+Vue.use(Tabs);
+Vue.use(TabPane);
 Vue.use(RadioGroup);
 Vue.use(RadioButton);
 Vue.use(Dialog);

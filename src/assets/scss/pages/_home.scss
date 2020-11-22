@@ -15,5 +15,14 @@
     left: 0;
     right: 0;
     z-index: 100;
+
+    &__checkboxs {
+      display: flex;
+      flex-direction: column;
+
+      .el-checkbox {
+        padding: 8px;
+      }
+    }
   }
 }

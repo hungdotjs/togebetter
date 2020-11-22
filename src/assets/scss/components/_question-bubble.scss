@@ -19,4 +19,17 @@
   &__content {
     white-space: pre-wrap;
   }
+
+  &__sound-box {
+    margin-left: -16px;
+    margin-right: -16px;
+    margin-bottom: 8px;
+    padding: 5px;
+    background-color: #f5f5f5;
+    background-image: url(https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fsound-wave.png?alt=media&token=4e2c78d1-bcda-44a2-b25b-7cd1b54854ff);
+    background-repeat: no-repeat;
+    background-position: 0;
+    background-size: 160px auto;
+    background-position-x: 50px;
+  }
 }

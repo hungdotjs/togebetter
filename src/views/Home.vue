@@ -16,8 +16,18 @@
         >
         </el-option>
       </el-select>
-      <el-popover placement="bottom-end" trigger="click">
-        <div>Data</div>
+      <el-popover placement="bottom-end" trigger="click" v-model="popoverVisible">
+        <div>
+          <p>Question filters</p>
+          <div class="home__filter__checkboxs">
+            <el-checkbox v-model="filterUnanswer">Only unanswered questions</el-checkbox>
+            <el-checkbox v-model="filterVoice">Only voice questions</el-checkbox>
+            <div class="p-8 text-right">
+              <el-button size="mini" @click="popoverVisible = false">Cancel</el-button>
+              <el-button type="primary" size="mini" @click="getData">OK</el-button>
+            </div>
+          </div>
+        </div>
         <el-button slot="reference" icon="el-icon-set-up" plain>Filter</el-button>
       </el-popover>
     </div>
@@ -49,6 +59,7 @@ export default {
 
   data() {
     return {
+      popoverVisible: false,
       flag: false,
       loading: false,
       scrollLoading: false,
@@ -57,6 +68,8 @@ export default {
       lastDoc: null,
       questions: [],
       filter: 'en',
+      filterUnanswer: false,
+      filterVoice: false,
       userLanguages: [],
     };
   },
@@ -120,13 +133,22 @@ export default {
         return;
       }
 
-      const querySnapshot = await db
-        .collection('questions')
-        .where('lang', '==', this.filter)
+      let ref = db.collection('questions').where('lang', '==', this.filter);
+      if (this.filterUnanswer) {
+        ref = ref.where('comments', '==', []);
+      }
+
+      if (this.filterVoice) {
+        ref = ref.where('audioURL', '!=', '').orderBy('audioURL', 'asc');
+      }
+
+      ref = ref
         .orderBy('createdAt', 'desc')
         .startAfter(this.lastDoc)
-        .limit(this.limit)
-        .get();
+        .limit(this.limit);
+
+      const querySnapshot = await ref.get();
+
       // Get the last visible document
       this.lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
       const questions = [];
@@ -145,12 +167,19 @@ export default {
 
     async getData() {
       this.loading = true;
-      const querySnapshot = await db
-        .collection('questions')
-        .where('lang', '==', this.filter)
-        .orderBy('createdAt', 'desc')
-        .limit(this.limit)
-        .get();
+      let ref = db.collection('questions').where('lang', '==', this.filter);
+      if (this.filterUnanswer) {
+        ref = ref.where('comments', '==', []);
+      }
+
+      if (this.filterVoice) {
+        ref = ref.where('audioURL', '!=', '').orderBy('audioURL', 'asc');
+      }
+
+      ref = ref.orderBy('createdAt', 'desc').limit(this.limit);
+
+      const querySnapshot = await ref.get();
+
       const questions = [];
       // Get the last visible document
       this.lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
@@ -160,6 +189,7 @@ export default {
           ...doc.data(),
         });
       });
+      console.log(questions, ref);
       this.questions = questions;
       this.loading = false;
     },

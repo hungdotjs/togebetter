@@ -24,9 +24,14 @@
   }
 
   &__item {
-    padding: 8px 12px;
+    padding: 12px;
     border-bottom: 1px solid #eee;
     display: flex;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $background-primary;
+    }
 
     &:last-child {
       border-bottom: unset;
@@ -40,8 +45,17 @@
     &__box {
       display: flex;
       flex-direction: column;
-      padding: 8px;
+      padding: 4px;
       border: 1px solid #eee;
+
+      &--primary {
+        border: 1px solid $--color-primary;
+        margin-bottom: 4px;
+      }
+
+      &--secondary {
+        border: 1px solid $--color-secondary;
+      }
     }
   }
 }

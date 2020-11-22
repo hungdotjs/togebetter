@@ -67,6 +67,8 @@
             Language of interest
           </template>
 
+          <!-- <input-interest-language v-for="item in form.interest"></input-interest-language> -->
+
           <select-language :value.sync="form.interestLanguage"></select-language>
           <el-form-item class="ml-16">
             <template #label>
@@ -128,6 +130,7 @@
 import { mapState } from 'vuex';
 import SelectLanguage from '@/components/atoms/SelectLanguage.vue';
 import SelectCountry from '@/components/atoms/SelectCountry.vue';
+// import InputInterestLanguage from '@/components/molecules/InputInterestLanguage.vue';
 import generateUID from '@/helpers/generateUID';
 import { db, database, storage, FieldValue } from '@/firebase';
 
@@ -136,6 +139,7 @@ export default {
   components: {
     SelectLanguage,
     SelectCountry,
+    // InputInterestLanguage,
   },
 
   data() {
@@ -145,6 +149,7 @@ export default {
       form: {
         nativeLanguage: 'en',
         // nativeLanguageLevel: 'fluent',
+        // interestLanguages: [],
         interestLanguage: 'en',
         interestLanguageLevel: 'beginner',
         knowingCountry: 'US',

@@ -39,6 +39,15 @@
     <router-link
       v-if="user"
       tag="li"
+      to="/questions/type"
+      class="left-sidebar__item"
+      active-class="left-sidebar__item--active"
+    >
+      <i class="iconfont icon-question"></i> Ask Question
+    </router-link>
+    <router-link
+      v-if="user"
+      tag="li"
       to="/bookmarks"
       class="left-sidebar__item"
       active-class="left-sidebar__item--active"

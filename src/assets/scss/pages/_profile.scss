@@ -20,23 +20,22 @@
 
   &__avatar {
     border: 1px solid #eee;
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
     border-radius: 50%;
     cursor: pointer;
     margin-bottom: 8px;
+    box-shadow: $light-shadow;
   }
 
   &__avatar-wrapper {
     // border: 1px solid $--color-secondary;
-    box-shadow: $light-shadow;
     padding: 12px;
     text-align: center;
-    margin-right: 32px;
   }
 
-  &__time {
-    margin-bottom: 16px;
+  &__detail {
+    margin-bottom: 8px;
   }
 
   &__stats {
@@ -70,6 +69,19 @@
 
   &__bio {
     margin-bottom: 32px;
+  }
+
+  &__post {
+    &--error {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      img {
+        width: 100%;
+        max-width: 200px;
+      }
+    }
   }
 }
 
