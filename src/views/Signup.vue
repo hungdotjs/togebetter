@@ -266,6 +266,7 @@ export default {
               points: 0,
               totalQuestions: 0,
               totalAnswers: 0,
+              status: 'active',
               bio: '',
               ...user,
             });
