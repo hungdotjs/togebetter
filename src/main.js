@@ -29,6 +29,7 @@ import {
   Upload,
   Pagination,
   PageHeader,
+  Popconfirm,
   Tooltip,
   Loading,
   Popover,
@@ -79,6 +80,7 @@ Vue.use(Col);
 Vue.use(Upload);
 Vue.use(PageHeader);
 Vue.use(Pagination);
+Vue.use(Popconfirm);
 Vue.use(Tooltip);
 Vue.use(Image);
 Vue.use(Loading);

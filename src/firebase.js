@@ -8,7 +8,6 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
-import 'firebase/database';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -31,5 +30,4 @@ export const { FieldValue, FieldPath } = firebase.firestore;
 export const auth = firebase.auth();
 export const db = firebase.firestore();
 export const storage = firebase.storage();
-export const database = firebase.database();
 export const { GoogleAuthProvider, FacebookAuthProvider } = firebase.auth;

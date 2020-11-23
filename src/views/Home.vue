@@ -115,9 +115,10 @@ export default {
 
   mounted() {
     if (this.user) {
-      const { nativeLanguage, interestLanguage } = this.user;
-      this.filter = interestLanguage;
-      this.userLanguages = this.userLanguages.concat([interestLanguage, nativeLanguage]);
+      const { nativeLanguage, interestLanguages } = this.user;
+      const langs = interestLanguages.map((item) => item.lang);
+      if (!langs.includes(nativeLanguage)) langs.push(nativeLanguage);
+      this.userLanguages = this.userLanguages.concat(langs);
       this.getData();
     }
   },

@@ -32,14 +32,7 @@
 </template>
 
 <script>
-import {
-  auth,
-  db,
-  database,
-  GoogleAuthProvider,
-  FacebookAuthProvider,
-  FieldValue,
-} from '@/firebase';
+import { auth, db, GoogleAuthProvider, FacebookAuthProvider, FieldValue } from '@/firebase';
 
 export default {
   data() {
@@ -70,25 +63,22 @@ export default {
                 photoURL,
                 username: displayName,
                 nativeLanguage: 'en',
-                interestLanguage: 'en',
-                interestLanguageLevel: 'beginner',
+                interestLanguages: [{ lang: 'en', level: 'beginner' }],
                 knowingCountry: this.countryCode || 'US',
                 interestCountry: 'US',
               };
               // Save to Firestore
               await userRef.set({
                 email,
-                id: uid,
                 points: 0,
                 totalAnswers: 0,
                 totalQuestions: 0,
                 bio: '',
+                status: 'active',
                 createdAt: FieldValue.serverTimestamp(),
                 ...user,
               });
-              database.ref(`users/${uid}`).set({
-                ...user,
-              });
+
               this.$router.replace({ name: 'home' });
             }
           });
@@ -116,26 +106,24 @@ export default {
                 photoURL: `${photoURL}?access_token=${token}`,
                 username: displayName,
                 nativeLanguage: 'en',
-                interestLanguage: 'en',
-                interestLanguageLevel: 'beginner',
+                interestLanguages: [{ lang: 'en', level: 'beginner' }],
                 knowingCountry: this.countryCode || 'US',
                 interestCountry: 'US',
               };
               // Save to Firestore
               await userRef.set({
                 email,
-                id: uid,
                 points: 0,
                 totalAnswers: 0,
                 totalQuestions: 0,
                 bio: '',
+                status: 'active',
                 createdAt: FieldValue.serverTimestamp(),
                 ...user,
               });
-              database.ref(`users/${uid}`).set({
-                ...user,
-              });
-              this.$router.replace({ name: 'home' });
+
+              // this.$router.replace({ name: 'home' });
+              window.location.replace('/home');
             }
           })
           .catch((error) => {
