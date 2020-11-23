@@ -1,5 +1,5 @@
 <template>
-  <div class="center-y">
+  <div class="center-y mr-8">
     <slot name="prefix"></slot>
     <img :src="require(`@/assets/icons/${level}.svg`)" alt="#" :width="width" class="mx-8" />
     <slot></slot>

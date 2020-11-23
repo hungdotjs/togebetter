@@ -61,15 +61,14 @@
           </el-form-item> -->
         </el-form-item>
 
-        <el-form-item>
+        <el-form-item v-for="item in form.interestLanguages" :key="item.lang">
           <template #label>
             <i class="el-icon-edit"></i>
             Language of interest
           </template>
 
           <!-- <input-interest-language v-for="item in form.interest"></input-interest-language> -->
-
-          <select-language :value.sync="form.interestLanguage"></select-language>
+          <select-language :value.sync="item.lang"></select-language>
           <el-form-item class="ml-16">
             <template #label>
               <p>Level</p>
@@ -77,7 +76,7 @@
                 This will help other users when they answer your questions.
               </p>
             </template>
-            <el-radio-group v-model="form.interestLanguageLevel" class="custom-radio-group">
+            <el-radio-group v-model="item.level" class="custom-radio-group">
               <el-radio-button label="beginner">
                 <p class="text-bold">Beginner</p>
                 <small>Has difficulty understanding even short answers in this language.</small>
@@ -132,7 +131,7 @@ import SelectLanguage from '@/components/atoms/SelectLanguage.vue';
 import SelectCountry from '@/components/atoms/SelectCountry.vue';
 // import InputInterestLanguage from '@/components/molecules/InputInterestLanguage.vue';
 import generateUID from '@/helpers/generateUID';
-import { db, database, storage, FieldValue } from '@/firebase';
+import { db, storage, FieldValue } from '@/firebase';
 
 export default {
   name: 'EditProfile',
@@ -150,8 +149,7 @@ export default {
         nativeLanguage: 'en',
         // nativeLanguageLevel: 'fluent',
         // interestLanguages: [],
-        interestLanguage: 'en',
-        interestLanguageLevel: 'beginner',
+        interestLanguages: [],
         knowingCountry: 'US',
         interestCountry: 'US',
         photoURL: '',
@@ -184,8 +182,7 @@ export default {
     } else {
       this.form.nativeLanguage = this.user.nativeLanguage;
       // this.form.nativeLanguageLevel = this.user.nativeLanguageLevel;
-      this.form.interestLanguage = this.user.interestLanguage;
-      this.form.interestLanguageLevel = this.user.interestLanguageLevel;
+      this.form.interestLanguages = this.user.interestLanguages;
       this.form.knowingCountry = this.user.knowingCountry;
       this.form.interestCountry = this.user.interestCountry;
       this.form.photoURL = this.user.photoURL;
@@ -213,8 +210,6 @@ export default {
           updatedAt: FieldValue.serverTimestamp(),
           ...this.form,
         });
-
-      await database.ref(`users/${this.user.id}`).update({ ...this.form });
 
       this.loading = false;
       this.$router.replace({ name: 'profile', params: { id: this.user.id } });

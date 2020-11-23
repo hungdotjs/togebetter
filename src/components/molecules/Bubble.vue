@@ -22,12 +22,20 @@
           <div class="center-y">
             <i class="iconfont icon-earth mr-8"></i>{{ knowingCountry | countryName }}
           </div>
-          <level-icon :level="interestLanguageLevel" v-if="!hideInterestLanguage">
-            <template #prefix>
-              <i class="iconfont icon-edit mr-8"></i>
-              {{ interestLanguage | languageName }}
-            </template>
-          </level-icon>
+          <template v-if="!hideInterestLanguage">
+            <div class="d-flex">
+              <level-icon
+                v-for="(item, i) in interestLanguages"
+                :key="item.lang"
+                :level="item.level"
+              >
+                <template #prefix>
+                  <i v-if="i === 0" class="iconfont icon-edit mr-8"></i>
+                  {{ item.lang | languageName }}
+                </template>
+              </level-icon>
+            </div>
+          </template>
         </div>
         <!-- Slot  -->
         <slot />
@@ -39,7 +47,8 @@
 <script>
 import LevelIcon from '@/components/atoms/LevelIcon.vue';
 import timeago from '@/helpers/timeago';
-import { database } from '@/firebase';
+import { db } from '@/firebase';
+import { mapState } from 'vuex';
 
 export default {
   name: 'Bubble',
@@ -69,6 +78,10 @@ export default {
   },
 
   computed: {
+    ...mapState({
+      listUsers: (state) => state.ui.listUsers,
+    }),
+
     time() {
       if (this.createdAt) return timeago(this.createdAt.toDate());
       return timeago(new Date());
@@ -80,24 +93,31 @@ export default {
       avatar: '',
       username: '',
       nativeLanguage: '',
-      interestLanguage: '',
-      interestLanguageLevel: 'beginner',
+      interestLanguages: [],
       knowingCountry: '',
     };
   },
 
-  created() {
-    const ref = database.ref(`users/${this.userID}`);
-    ref.once('value').then((snapshot) => {
-      const data = snapshot.val();
-      this.$store.dispatch('ui/addUser', { id: this.userID, ...data });
-      this.avatar = data.photoURL;
-      this.username = data.username;
-      this.nativeLanguage = data.nativeLanguage;
-      this.interestLanguage = data.interestLanguage;
-      this.knowingCountry = data.knowingCountry;
-      this.interestLanguageLevel = data.interestLanguageLevel;
-    });
+  async created() {
+    const user = this.listUsers.find((item) => item.id === this.userID);
+    let data;
+    if (user) {
+      data = user;
+    } else {
+      const doc = await db
+        .collection('users')
+        .doc(this.userID)
+        .get();
+      if (doc.exists) data = doc.data();
+      else return;
+    }
+
+    this.$store.dispatch('ui/addUser', { id: this.userID, ...data });
+    this.avatar = data.photoURL;
+    this.username = data.username;
+    this.nativeLanguage = data.nativeLanguage;
+    this.interestLanguages = data.interestLanguages;
+    this.knowingCountry = data.knowingCountry;
   },
 
   methods: {

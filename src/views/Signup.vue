@@ -101,6 +101,7 @@
                 <small> Can understand long, complex answers. </small>
               </el-radio-button>
             </el-radio-group>
+            <span class="text-small color-secondary">You can add more later.</span>
           </el-form-item>
         </el-form-item>
 
@@ -175,7 +176,7 @@ import LevelIcon from '@/components/atoms/LevelIcon.vue';
 import SelectLanguage from '@/components/atoms/SelectLanguage.vue';
 import SelectCountry from '@/components/atoms/SelectCountry.vue';
 import SocialLogin from '@/components/atoms/SocialLogin.vue';
-import { db, auth, database, FieldValue } from '@/firebase';
+import { db, auth, FieldValue } from '@/firebase';
 
 export default {
   name: 'Signup',
@@ -245,34 +246,38 @@ export default {
     createUser() {
       this.loading = true;
       // eslint-disable-next-line object-curly-newline
-      const { email, password, username, ...profile } = this.form;
+      const {
+        email,
+        password,
+        username,
+        interestLanguage,
+        interestLanguageLevel,
+        ...profile
+      } = this.form;
+      const interestLanguages = [{ lang: interestLanguage, level: interestLanguageLevel }];
       auth
         .createUserWithEmailAndPassword(email, password)
         .then(async (res) => {
           const userID = res.user.uid;
-          const user = {
-            username,
-            email,
-            photoURL:
-              'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fdefault-avatar.png?alt=media&token=a6ed8c16-5e60-4ca9-aaad-0ddaadd675b1',
-            ...profile,
-          };
           // Save to Firestore
           await db
             .collection('users')
             .doc(userID)
             .set({
-              createdAt: FieldValue.serverTimestamp(),
+              ...profile,
+              email,
+              username,
+              photoURL:
+                'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fdefault-avatar.png?alt=media&token=a6ed8c16-5e60-4ca9-aaad-0ddaadd675b1',
+              interestLanguages,
               points: 0,
               totalQuestions: 0,
               totalAnswers: 0,
-              status: 'active',
               bio: '',
-              ...user,
+              status: 'active',
+              createdAt: FieldValue.serverTimestamp(),
             });
-          database.ref(`users/${userID}`).set({
-            ...user,
-          });
+
           this.loading = false;
           this.$router.push('/home');
         })

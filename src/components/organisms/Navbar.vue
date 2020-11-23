@@ -229,7 +229,7 @@ export default {
   methods: {
     signOut() {
       this.$store.dispatch('auth/signOut');
-      this.$router.push('/');
+      this.$router.push({ name: 'landing-page' });
     },
 
     openSearch() {

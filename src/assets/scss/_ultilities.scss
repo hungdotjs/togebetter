@@ -209,3 +209,16 @@
   background-color: $background-color;
   // padding: 16px;
 }
+
+.hover-text {
+  &--primary {
+    &:hover {
+      color: $--color-primary;
+      cursor: pointer;
+    }
+  }
+}
+
+.max-w-600 {
+  max-width: 600px;
+}

@@ -7,7 +7,7 @@
           <router-link
             tag="div"
             class="text-center"
-            v-if="user && currentUser.id === user.id"
+            v-if="isOwner"
             :to="{ name: 'edit-profile', params: { id: user.id } }"
           >
             <el-button size="mini" icon="iconfont icon-edit" plain>
@@ -46,6 +46,7 @@
       </div>
 
       <el-tabs v-model="activeName">
+        <!-- Tab Profile  -->
         <el-tab-pane label="Profile" name="profile">
           <div>
             <div class="profile__bio">
@@ -77,12 +78,50 @@
                 <i class="el-icon-edit mr-8"></i>
                 Languages of interest
               </p>
-              <level-icon :level="currentUser.interestLanguageLevel">
-                <b>{{ currentUser.interestLanguage | languageName }}</b>
+              <level-icon
+                v-for="item in currentUser.interestLanguages"
+                :key="item.lang"
+                :level="item.level"
+              >
+                <b>{{ item.lang | languageName }}</b>
+                <el-popconfirm
+                  v-if="isOwner && currentUser.interestLanguages.length > 1"
+                  title="Are you sure to delete this?"
+                  confirm-button-text="Yes"
+                  cancel-button-text="No"
+                  @onConfirm="removeLanguage(item)"
+                >
+                  <i slot="reference" class="el-icon-delete hover-text--primary p-8"></i>
+                </el-popconfirm>
               </level-icon>
+              <el-link
+                v-if="isOwner"
+                class="ml-8"
+                type="primary"
+                @click="addLanguageVisible = true"
+              >
+                + Add more
+              </el-link>
+
+              <div v-if="addLanguageVisible">
+                <el-dialog
+                  title="Add Language"
+                  :visible.sync="addLanguageVisible"
+                  top="60px"
+                  width="90%"
+                  custom-class="max-w-600"
+                  append-to-body
+                >
+                  <el-form label-position="top" size="medium">
+                    <input-interest-language @add="handleAddLanguage"></input-interest-language>
+                  </el-form>
+                </el-dialog>
+              </div>
             </div>
           </div>
         </el-tab-pane>
+
+        <!-- Tab Questions  -->
         <el-tab-pane
           v-loading="loadingTab"
           :label="currentUser.totalQuestions + ' Questions'"
@@ -115,6 +154,8 @@
             </el-button>
           </div>
         </el-tab-pane>
+
+        <!-- Tab Answers  -->
         <el-tab-pane
           v-loading="loadingTab"
           :label="currentUser.totalAnswers + ' Answers'"
@@ -158,6 +199,7 @@
 import LevelIcon from '@/components/atoms/LevelIcon.vue';
 import QuestionBubble from '@/components/molecules/QuestionBubble.vue';
 import ChatBubble from '@/components/molecules/ChatBubble.vue';
+import InputInterestLanguage from '@/components/molecules/InputInterestLanguage.vue';
 import { mapState } from 'vuex';
 import { db, FieldValue } from '@/firebase';
 import { questionsIndex } from '@/algolia';
@@ -169,10 +211,12 @@ export default {
     LevelIcon,
     QuestionBubble,
     ChatBubble,
+    InputInterestLanguage,
   },
 
   data() {
     return {
+      addLanguageVisible: false,
       currentUser: null,
       loading: false,
       loadingTab: false,
@@ -195,6 +239,10 @@ export default {
     time() {
       if (this.currentUser) return timeago(this.currentUser.createdAt.toDate());
       return timeago(new Date());
+    },
+
+    isOwner() {
+      return this.user && this.currentUser.id === this.user.id;
     },
   },
 
@@ -358,6 +406,48 @@ export default {
         });
         this.$router.go();
       });
+    },
+
+    async handleAddLanguage(data) {
+      console.log(data);
+      const isDuplicate = this.currentUser.interestLanguages.findIndex((item) => {
+        console.log(item);
+        return item.lang === data.lang;
+      });
+      if (isDuplicate !== -1) {
+        this.$message({
+          type: 'error',
+          message: "You've already added this language",
+        });
+      } else {
+        await db
+          .collection('users')
+          .doc(this.currentUser.id)
+          .update({
+            interestLanguages: FieldValue.arrayUnion(data),
+          });
+        this.$message({
+          type: 'success',
+          message: 'Added Successfully!!',
+        });
+        this.addLanguageVisible = false;
+        this.getData();
+      }
+    },
+
+    async removeLanguage(data) {
+      await db
+        .collection('users')
+        .doc(this.currentUser.id)
+        .update({
+          interestLanguages: FieldValue.arrayRemove(data),
+        });
+
+      this.$message({
+        type: 'success',
+        message: 'Remove Successfully!!',
+      });
+      this.getData();
     },
   },
 };
