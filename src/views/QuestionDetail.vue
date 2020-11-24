@@ -69,6 +69,7 @@
                 rows="4"
                 autofocus
                 placeholder="Answer in his/her native language as he/she is a beginner speaker."
+                @keyup.enter="submit"
               />
 
               <template #item-@="{ item }">
@@ -370,6 +371,8 @@ export default {
       this.photoURL = '';
       this.audioURL = '';
       this.answer = '';
+
+      // if(this.question.ownerID
     },
   },
 };

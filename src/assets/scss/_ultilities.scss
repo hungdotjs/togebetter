@@ -210,6 +210,16 @@
   // padding: 16px;
 }
 
+.base-link {
+  color: $--color-primary;
+  text-decoration: unset;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
 .hover-text {
   &--primary {
     &:hover {

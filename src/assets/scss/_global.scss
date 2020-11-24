@@ -89,3 +89,12 @@ p {
 .el-button {
   font-weight: bold;
 }
+
+.el-image-viewer__close {
+  color: #fff;
+
+  &:hover {
+    transform: scale(1.1);
+    transition: all 0.3s;
+  }
+}

@@ -26,13 +26,16 @@
         </el-button>
         <el-button size="small" plain @click="editVisible = false">Cancel</el-button>
       </div>
-      <p class="chat-bubble__content" v-else>
-        {{ content.content }}
-        <span v-if="content.updatedAt" class="text-small color-secondary"><br />(edited)</span>
-      </p>
+      <p class="chat-bubble__content" v-html="contentHTML" v-else></p>
+      <span v-if="content.updatedAt" class="text-small color-secondary">(edited)</span>
     </div>
     <div v-if="content.photoURL">
-      <el-image :src="content.photoURL" class="chat-bubble__image" lazy></el-image>
+      <el-image
+        class="chat-bubble__image"
+        :src="content.photoURL"
+        :preview-src-list="[content.photoURL]"
+        lazy
+      ></el-image>
     </div>
     <div v-if="content.audioURL">
       <audio :src="content.audioURL" class="chat-bubble__audio" controls></audio>
@@ -94,6 +97,7 @@ import languages from '@/data/languages';
 import { mapState } from 'vuex';
 import { db, FieldValue } from '@/firebase';
 import { questionsIndex } from '@/algolia';
+import urlDetect from '@/helpers/urlDetect';
 
 export default {
   name: 'ChatBubble',
@@ -137,6 +141,10 @@ export default {
 
     languageName() {
       return languages.find((item) => item.code === this.content.lang).name;
+    },
+
+    contentHTML() {
+      return urlDetect(this.content.content);
     },
 
     questionType() {
@@ -289,6 +297,7 @@ export default {
           updatedAt: FieldValue.serverTimestamp(),
         });
       this.content.content = this.editContent;
+      this.editVisible = false;
       this.loading = false;
     },
   },

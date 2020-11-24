@@ -59,6 +59,12 @@
   &__image {
     max-width: 100%;
     margin-bottom: 16px;
+    height: 340px;
+
+    img {
+      object-fit: cover;
+      object-position: 50% 50%;
+    }
   }
 
   &__audio {
