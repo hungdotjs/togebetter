@@ -62,8 +62,10 @@
             active-class="tb-navbar__item--active"
             to="/notifications"
           >
-            <div>
-              <i class="iconfont icon-bell"></i>
+            <div class="line-height-1">
+              <el-badge :value="notifications.length" :max="9" class="item">
+                <i class="iconfont icon-bell"></i>
+              </el-badge>
             </div>
             <!-- <div class="tb-navbar__item__label">Notifications</div> -->
           </router-link>
@@ -121,17 +123,34 @@
           <tb-search @close="showSearch = false"></tb-search>
         </div>
 
-        <div class="tb-navbar__item--desktop">
+        <div class="tb-navbar__item--desktop tb-navbar__right">
           <ul class="tb-navbar__operations" v-if="isLogin">
-            <li class="tb-navbar__operations__item rspec-nav_activity">
-              <router-link class="tb-navbar__operations__anchor" to="/notifications">
+            <li class="tb-navbar__operations__item">
+              <router-link class="tb-navbar__operations__anchor" tag="div" to="/notifications">
+                <el-badge v-if="notifications.length" :value="notifications.length" :max="9">
+                  <i
+                    class="el-icon-bell"
+                    :class="isNotificationPage && ['el-icon-message-solid', 'color-primary']"
+                  ></i>
+                </el-badge>
                 <i
-                  :class="
-                    isNotificationPage ? ['el-icon-message-solid', 'color-primary'] : 'el-icon-bell'
-                  "
+                  v-else
+                  class="el-icon-bell"
+                  :class="isNotificationPage && ['el-icon-message-solid', 'color-primary']"
                 ></i>
               </router-link>
             </li>
+
+            <li class="tb-navbar__operations__item">
+              <router-link
+                tag="div"
+                to="/questions/type"
+                class="tb-navbar__operations__anchor center-y"
+              >
+                <el-button type="primary" size="small" round>Ask</el-button>
+              </router-link>
+            </li>
+
             <li class="tb-navbar__operations__item">
               <div class="tb-navbar__operations__anchor center-y">
                 <el-dropdown trigger="click">
@@ -164,15 +183,6 @@
                   </el-dropdown-menu>
                 </el-dropdown>
               </div>
-            </li>
-            <li class="tb-navbar__operations__item">
-              <router-link
-                tag="div"
-                to="/questions/type"
-                class="tb-navbar__operations__anchor center-y"
-              >
-                <el-button type="primary" class="text-bold" round>Ask</el-button>
-              </router-link>
             </li>
           </ul>
 
@@ -215,6 +225,7 @@ export default {
     ...mapState({
       isLogin: (state) => !!state.auth.user,
       user: (state) => state.auth.user,
+      notifications: (state) => state.ui.notifications.filter((item) => !item.isRead),
     }),
   },
 

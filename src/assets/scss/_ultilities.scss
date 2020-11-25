@@ -12,7 +12,7 @@
 
 // Text
 .text-bold {
-  font-weight: bold !important;
+  font-weight: 500 !important;
 }
 
 .text-small {
@@ -169,6 +169,10 @@
 
 .p-0 {
   padding: 0 !important;
+}
+
+.line-height-1 {
+  line-height: 1;
 }
 
 .line-height-rs {

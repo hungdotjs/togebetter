@@ -7,6 +7,7 @@
           @delete="deleteQuestion(id)"
           @reply="reply(question.ownerID)"
           @edit="handleEditQuestion"
+          mode="view"
           borderColor="#f65e39"
         ></chat-bubble>
 
@@ -372,7 +373,22 @@ export default {
       this.audioURL = '';
       this.answer = '';
 
-      // if(this.question.ownerID
+      this.sendNotification();
+    },
+
+    sendNotification() {
+      if (this.question.ownerID !== this.user.id) {
+        // eslint-disable-next-line no-unused-vars
+        const noti = {
+          senderID: this.user.id,
+          receiveID: this.question.ownerID,
+          questionID: this.question.id,
+          message: 'answer',
+          isRead: false,
+          createdAt: FieldValue.serverTimestamp(),
+        };
+        db.collection('notifications').add(noti);
+      }
     },
   },
 };

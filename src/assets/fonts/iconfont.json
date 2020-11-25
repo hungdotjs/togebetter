@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "4766685",
+      "name": "home",
+      "font_class": "home",
+      "unicode": "e7c6",
+      "unicode_decimal": 59334
+    },
+    {
+      "icon_id": "4936656",
+      "name": "home-fill",
+      "font_class": "home-solid",
+      "unicode": "e868",
+      "unicode_decimal": 59496
+    },
+    {
+      "icon_id": "17412710",
+      "name": "Sticker",
+      "font_class": "Sticker",
+      "unicode": "e6dc",
+      "unicode_decimal": 59100
+    },
+    {
       "icon_id": "4936651",
       "name": "filter-fill",
       "font_class": "filter-solid",
@@ -158,20 +179,6 @@
       "font_class": "tags-solid",
       "unicode": "e86e",
       "unicode_decimal": 59502
-    },
-    {
-      "icon_id": "1112550",
-      "name": "home",
-      "font_class": "home-solid",
-      "unicode": "e612",
-      "unicode_decimal": 58898
-    },
-    {
-      "icon_id": "1112551",
-      "name": "home1",
-      "font_class": "home",
-      "unicode": "e613",
-      "unicode_decimal": 58899
     },
     {
       "icon_id": "348274",

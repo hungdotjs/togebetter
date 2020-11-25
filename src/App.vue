@@ -5,7 +5,7 @@
       <div :class="[!hideSidebar && 'left-sidebar']" v-if="!hideSidebar">
         <left-sidebar></left-sidebar>
       </div>
-      <div class="main-layout">
+      <div class="main-layout" v-loading="loading">
         <transition name="page-transition" mode="out-in">
           <keep-alive :include="['Home', 'Users']">
             <router-view :key="$route.params.id"></router-view>
@@ -31,6 +31,7 @@ export default {
   data() {
     return {
       blackList: ['landing-page', 'login', 'signup'],
+      loading: false,
     };
   },
 
@@ -38,12 +39,18 @@ export default {
     hideSidebar() {
       return this.blackList.includes(this.$route.name);
     },
+
+    notifications() {
+      return this.$store.state.ui.notifications;
+    },
   },
 
   mounted() {
-    auth.onAuthStateChanged((user) => {
+    auth.onAuthStateChanged(async (user) => {
       if (user) {
-        db.collection('users')
+        this.loading = true;
+        await db
+          .collection('users')
           .doc(user.uid)
           .onSnapshot((doc) => {
             const userData = {
@@ -53,6 +60,22 @@ export default {
             this.$store.commit('auth/saveUser', { ...userData });
             localStorage.setItem('user', JSON.stringify(userData));
           });
+        await db
+          .collection('notifications')
+          .where('receiveID', '==', user.uid)
+          .orderBy('createdAt', 'desc')
+          .limit(10)
+          .onSnapshot((querySnapshot) => {
+            const notifications = [];
+            querySnapshot.forEach((doc) => {
+              notifications.push({
+                id: doc.id,
+                ...doc.data(),
+              });
+            });
+            this.$store.dispatch('ui/addNotifications', notifications);
+          });
+        this.loading = false;
       } else {
         this.$store.dispatch('auth/signOut');
       }
