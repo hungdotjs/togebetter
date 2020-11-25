@@ -1,13 +1,9 @@
 <template>
   <div class="question-new" v-if="user">
     <div class="text-center mb-16">
-      <el-image
-        :src="imageURL"
-        fil="fill"
-        class="img-fluid"
-        style="max-width: 150px"
-        lazy
-      ></el-image>
+      <el-image :src="imageURL" fil="fill" class="img-fluid" style="max-width: 150px" lazy>
+        <div slot="placeholder" class="image-slot"><i class="el-icon-loading"></i></div>
+      </el-image>
     </div>
     <div class="mb-16 text-center">
       <h2 class="text-bold">{{ questionType | questionTitle }}</h2>

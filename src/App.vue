@@ -32,6 +32,7 @@ export default {
     return {
       blackList: ['landing-page', 'login', 'signup'],
       loading: false,
+      unsubcribe: null,
     };
   },
 
@@ -45,7 +46,7 @@ export default {
     },
   },
 
-  mounted() {
+  created() {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
         this.loading = true;
@@ -60,26 +61,38 @@ export default {
             this.$store.commit('auth/saveUser', { ...userData });
             localStorage.setItem('user', JSON.stringify(userData));
           });
-        await db
+        this.unsubcribe = await db
           .collection('notifications')
           .where('receiveID', '==', user.uid)
           .orderBy('createdAt', 'desc')
           .limit(10)
-          .onSnapshot((querySnapshot) => {
+          .onSnapshot((snapshot) => {
             const notifications = [];
-            querySnapshot.forEach((doc) => {
+            snapshot.docChanges().forEach((change) => {
+              if (change.type === 'modified') {
+                console.log('modified');
+              }
+            });
+
+            snapshot.forEach((doc) => {
               notifications.push({
                 id: doc.id,
                 ...doc.data(),
               });
             });
-            this.$store.dispatch('ui/addNotifications', notifications);
+
+            this.$store.dispatch('ui/fetchNotifications', notifications);
           });
         this.loading = false;
       } else {
+        this.$store.commit('ui/removeNotifications');
         this.$store.dispatch('auth/signOut');
       }
     });
+  },
+
+  beforeDestroy() {
+    if (this.unsubcribe) this.unsubcribe();
   },
 };
 </script>

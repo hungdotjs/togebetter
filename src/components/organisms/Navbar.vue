@@ -63,9 +63,10 @@
             to="/notifications"
           >
             <div class="line-height-1">
-              <el-badge :value="notifications.length" :max="9" class="item">
-                <i class="iconfont icon-bell"></i>
+              <el-badge v-if="notifications.length" :value="notifications.length" :max="9">
+                <i class="el-icon-bell" :class="isNotificationPage && 'color-primary'"></i>
               </el-badge>
+              <i v-else class="el-icon-bell" :class="isNotificationPage && 'color-primary'"></i>
             </div>
             <!-- <div class="tb-navbar__item__label">Notifications</div> -->
           </router-link>
@@ -126,29 +127,45 @@
         <div class="tb-navbar__item--desktop tb-navbar__right">
           <ul class="tb-navbar__operations" v-if="isLogin">
             <li class="tb-navbar__operations__item">
-              <router-link class="tb-navbar__operations__anchor" tag="div" to="/notifications">
-                <el-badge v-if="notifications.length" :value="notifications.length" :max="9">
-                  <i
-                    class="el-icon-bell"
-                    :class="isNotificationPage && ['el-icon-message-solid', 'color-primary']"
-                  ></i>
-                </el-badge>
-                <i
-                  v-else
-                  class="el-icon-bell"
-                  :class="isNotificationPage && ['el-icon-message-solid', 'color-primary']"
-                ></i>
-              </router-link>
+              <div class="tb-navbar__operations__anchor">
+                <el-popover
+                  placement="bottom-start"
+                  popper-class="tb-navbar__popover"
+                  width="400"
+                  trigger="click"
+                  v-model="showNotifications"
+                >
+                  <notifications></notifications>
+                  <div slot="reference">
+                    <el-badge v-if="notifications.length" :value="notifications.length" :max="9">
+                      <i
+                        class="el-icon-bell"
+                        :class="showNotifications && ['el-icon-message-solid', 'color-primary']"
+                      ></i>
+                    </el-badge>
+                    <i
+                      v-else
+                      class="el-icon-bell"
+                      :class="showNotifications && ['el-icon-message-solid', 'color-primary']"
+                    ></i>
+                  </div>
+                </el-popover>
+              </div>
             </li>
 
             <li class="tb-navbar__operations__item">
-              <router-link
-                tag="div"
-                to="/questions/type"
-                class="tb-navbar__operations__anchor center-y"
+              <el-popover
+                placement="bottom-start"
+                popper-class="tb-navbar__popover"
+                width="400"
+                trigger="click"
+                v-model="showQuestionsType"
               >
-                <el-button type="primary" size="small" round>Ask</el-button>
-              </router-link>
+                <questions-type class="p-16"></questions-type>
+                <el-button slot="reference" class="px-16" type="primary" size="small" round>
+                  Ask <i class="ml-8 el-icon-arrow-down"></i>
+                </el-button>
+              </el-popover>
             </li>
 
             <li class="tb-navbar__operations__item">
@@ -202,12 +219,16 @@
 <script>
 import TbSearch from '@/components/molecules/Search.vue';
 import LeftSidebar from '@/components/molecules/LeftSidebar.vue';
+import QuestionsType from '@/views/QuestionsType.vue';
+import Notifications from '@/views/Notifications.vue';
 import { mapState } from 'vuex';
 
 export default {
   name: 'Navbar',
   components: {
     LeftSidebar,
+    QuestionsType,
+    Notifications,
     TbSearch,
   },
 
@@ -218,6 +239,8 @@ export default {
       isNotificationPage: false,
       openSidebar: false,
       showSearch: false,
+      showNotifications: false,
+      showQuestionsType: false,
     };
   },
 
@@ -234,10 +257,18 @@ export default {
       this.isLandingPage = to.name === 'landing-page';
       this.isSignUpPage = to.name === 'signup';
       this.isNotificationPage = to.name === 'notifications';
+      this.showNotifications = false;
+      this.showQuestionsType = false;
     },
   },
 
   methods: {
+    goTo(name) {
+      if (this.$route.name === name) return;
+
+      this.$router.push({ name });
+    },
+
     signOut() {
       this.$store.dispatch('auth/signOut');
       this.$router.push({ name: 'landing-page' });

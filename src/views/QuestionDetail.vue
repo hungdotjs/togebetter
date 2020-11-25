@@ -70,7 +70,6 @@
                 rows="4"
                 autofocus
                 placeholder="Answer in his/her native language as he/she is a beginner speaker."
-                @keyup.enter="submit"
               />
 
               <template #item-@="{ item }">
@@ -148,6 +147,7 @@ import { questionsIndex } from '@/algolia';
 import { mapState } from 'vuex';
 import uploadMixin from '@/mixins/upload';
 import savePosition from '@/mixins/savePosition';
+import notiMixin from '@/mixins/notification';
 
 export default {
   name: 'QuestionDetail',
@@ -158,7 +158,7 @@ export default {
     Mentionable,
     QuestionEdit,
   },
-  mixins: [uploadMixin, savePosition],
+  mixins: [uploadMixin, savePosition, notiMixin],
 
   data() {
     return {
@@ -373,22 +373,20 @@ export default {
       this.audioURL = '';
       this.answer = '';
 
-      this.sendNotification();
+      this.notifyToUser(comment.id);
     },
 
-    sendNotification() {
-      if (this.question.ownerID !== this.user.id) {
-        // eslint-disable-next-line no-unused-vars
-        const noti = {
-          senderID: this.user.id,
-          receiveID: this.question.ownerID,
-          questionID: this.question.id,
-          message: 'answer',
-          isRead: false,
-          createdAt: FieldValue.serverTimestamp(),
-        };
-        db.collection('notifications').add(noti);
-      }
+    notifyToUser(id) {
+      if (this.question.ownerID === this.user.id) return;
+
+      const noti = {
+        senderID: this.user.id,
+        receiveID: this.question.ownerID,
+        questionID: this.question.id,
+        detectID: `${this.user.id}_${id}`,
+        message: 'answer',
+      };
+      this.sendNotification(noti);
     },
   },
 };

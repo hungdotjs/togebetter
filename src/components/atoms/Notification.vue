@@ -9,7 +9,7 @@
         <b>{{ user.username }}</b> {{ notification.message | messageFull }}
       </p>
       <p class="text-small" :class="[!notification.isRead && 'color-primary text-bold']">
-        {{ time }}
+        <i class="el-icon-timer"></i> {{ time }}
       </p>
       <span class="notifications__item__dot" v-if="!notification.isRead"></span>
     </div>
@@ -67,11 +67,15 @@ export default {
 
   methods: {
     go() {
-      db.collection('notifications')
-        .doc(this.notification.id)
-        .update({
-          isRead: true,
-        });
+      // User haven't read this notification -> change isRead status
+      if (!this.notification.isRead) {
+        db.collection('notifications')
+          .doc(this.notification.id)
+          .update({
+            isRead: true,
+          });
+      }
+
       this.$router.push({ name: 'questions-detail', params: { id: this.notification.questionID } });
     },
   },
@@ -81,6 +85,8 @@ export default {
       switch (value) {
         case 'answer':
           return 'answered your question.';
+        case 'like':
+          return 'liked your post.';
         default:
           return '';
       }
@@ -89,7 +95,9 @@ export default {
     iconType(value) {
       switch (value) {
         case 'answer':
-          return 'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/icon%2Fa.svg?alt=media&token=7af6793e-79fd-4104-8f2c-9193deb57546';
+          return 'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/icon%2Fchat.svg?alt=media&token=12714774-642c-4ca4-8010-7891f050af5b';
+        case 'like':
+          return 'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/icon%2Fheart.svg?alt=media&token=eb5b8b12-66eb-462f-b844-928275ebc047';
         default:
           return '';
       }

@@ -4,7 +4,9 @@
       <div>
         <h1>
           Notifications
-          <el-button icon="el-icon-check" class="ml-16" size="mini">Mark all as read</el-button>
+          <el-button icon="el-icon-check" class="ml-16 float-right" size="mini"
+            >Mark all as read</el-button
+          >
         </h1>
       </div>
       <el-divider></el-divider>

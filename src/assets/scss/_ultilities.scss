@@ -157,6 +157,16 @@
   padding-left: 8px !important;
 }
 
+.px-16 {
+  padding-right: 16px !important;
+  padding-left: 16px !important;
+}
+
+.px-24 {
+  padding-right: 24px !important;
+  padding-left: 24px !important;
+}
+
 .py-16 {
   padding-top: 16px !important;
   padding-bottom: 16px !important;
@@ -235,4 +245,8 @@
 
 .max-w-600 {
   max-width: 600px;
+}
+
+.image-slot {
+  font-size: 32px;
 }

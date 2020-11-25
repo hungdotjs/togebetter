@@ -16,6 +16,10 @@ const actions = {
     }
   },
 
+  fetchNotifications({ commit }, payload) {
+    commit('fetchNotifications', payload);
+  },
+
   addNotifications({ commit }, payload) {
     commit('addNotifications', payload);
     // localStorage.setItem('notifications', JSON.stringify(payload));
@@ -33,6 +37,14 @@ const mutations = {
 
   addNotifications(state, data) {
     state.notifications = state.notifications.concat(data);
+  },
+
+  fetchNotifications(state, data) {
+    state.notifications = data;
+  },
+
+  removeNotifications(state) {
+    state.notifications = [];
   },
 };
 

@@ -98,9 +98,11 @@ import { mapState } from 'vuex';
 import { db, FieldValue } from '@/firebase';
 import { questionsIndex } from '@/algolia';
 import urlDetect from '@/helpers/urlDetect';
+import notiMixins from '@/mixins/notification';
 
 export default {
   name: 'ChatBubble',
+  mixins: [notiMixins],
   components: {
     Bubble,
     Bookmark,
@@ -252,6 +254,15 @@ export default {
           this.adjustUserPoint(1);
         });
 
+      // Send Notification to owner
+      this.sendNotification({
+        message: 'like',
+        senderID: this.user.id,
+        receiveID: this.content.ownerID,
+        questionID: this.content.lang ? this.content.id : this.content.questionID,
+        detectID: `${this.user.id}_${this.content.id}`,
+      });
+
       // If user vote an question
       if (this.content.lang) {
         questionsIndex.partialUpdateObject({
@@ -274,6 +285,10 @@ export default {
         .then(() => {
           this.adjustUserPoint(-1);
         });
+
+      this.removeNotification({
+        detectID: `${this.user.id}_${this.content.id}`,
+      });
 
       // If user vote an question
       if (this.content.lang) {
