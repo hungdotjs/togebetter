@@ -7,6 +7,7 @@
           @delete="deleteQuestion(id)"
           @reply="reply(question.ownerID)"
           @edit="handleEditQuestion"
+          mode="view"
           borderColor="#f65e39"
         ></chat-bubble>
 
@@ -146,6 +147,7 @@ import { questionsIndex } from '@/algolia';
 import { mapState } from 'vuex';
 import uploadMixin from '@/mixins/upload';
 import savePosition from '@/mixins/savePosition';
+import notiMixin from '@/mixins/notification';
 
 export default {
   name: 'QuestionDetail',
@@ -156,7 +158,7 @@ export default {
     Mentionable,
     QuestionEdit,
   },
-  mixins: [uploadMixin, savePosition],
+  mixins: [uploadMixin, savePosition, notiMixin],
 
   data() {
     return {
@@ -370,6 +372,21 @@ export default {
       this.photoURL = '';
       this.audioURL = '';
       this.answer = '';
+
+      this.notifyToUser(comment.id);
+    },
+
+    notifyToUser(id) {
+      if (this.question.ownerID === this.user.id) return;
+
+      const noti = {
+        senderID: this.user.id,
+        receiveID: this.question.ownerID,
+        questionID: this.question.id,
+        detectID: `${this.user.id}_${id}`,
+        message: 'answer',
+      };
+      this.sendNotification(noti);
     },
   },
 };

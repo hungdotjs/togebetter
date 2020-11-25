@@ -25,10 +25,15 @@ body {
   font-size: 14px;
   line-height: 1.5;
   background-color: $body-background-color;
+  overflow-y: scroll;
   // background-color: #fff;
 
   @include res(md) {
     font-size: 15px;
+  }
+
+  .iconfont {
+    font-size: 100%;
   }
 }
 
@@ -88,4 +93,13 @@ p {
 
 .el-button {
   font-weight: bold;
+}
+
+.el-image-viewer__close {
+  color: #fff;
+
+  &:hover {
+    transform: scale(1.1);
+    transition: all 0.3s;
+  }
 }

@@ -74,6 +74,7 @@ export default {
                 totalAnswers: 0,
                 totalQuestions: 0,
                 bio: '',
+                loginBy: 'google',
                 status: 'active',
                 createdAt: FieldValue.serverTimestamp(),
                 ...user,
@@ -118,6 +119,7 @@ export default {
                 totalQuestions: 0,
                 bio: '',
                 status: 'active',
+                loginBy: 'facebook',
                 createdAt: FieldValue.serverTimestamp(),
                 ...user,
               });

@@ -1,6 +1,7 @@
 const state = () => ({
   isRefreshHome: false,
   listUsers: [],
+  notifications: [],
 });
 
 const actions = {
@@ -14,6 +15,15 @@ const actions = {
       commit('addUserToList', user);
     }
   },
+
+  fetchNotifications({ commit }, payload) {
+    commit('fetchNotifications', payload);
+  },
+
+  addNotifications({ commit }, payload) {
+    commit('addNotifications', payload);
+    // localStorage.setItem('notifications', JSON.stringify(payload));
+  },
 };
 
 const mutations = {
@@ -23,6 +33,18 @@ const mutations = {
 
   addUserToList(state, user) {
     state.listUsers.push(user);
+  },
+
+  addNotifications(state, data) {
+    state.notifications = state.notifications.concat(data);
+  },
+
+  fetchNotifications(state, data) {
+    state.notifications = data;
+  },
+
+  removeNotifications(state) {
+    state.notifications = [];
   },
 };
 

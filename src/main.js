@@ -5,6 +5,7 @@ import {
   Autocomplete,
   Avatar,
   Button,
+  Badge,
   Input,
   Select,
   Option,
@@ -57,6 +58,7 @@ Vue.use(infiniteScroll);
 Vue.use(Autocomplete);
 Vue.use(Avatar);
 Vue.use(Button);
+Vue.use(Badge);
 Vue.use(Checkbox);
 Vue.use(Input);
 Vue.use(Select);

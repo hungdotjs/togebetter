@@ -1,10 +1,58 @@
 .notifications {
   padding: 16px;
-  text-align: center;
   min-height: 100%;
 
   &__image {
     max-width: 500px;
     margin: 0 auto;
+  }
+
+  &__item {
+    padding: 12px;
+    display: flex !important;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-radius: 8px;
+    position: relative;
+
+    &:hover {
+      cursor: pointer;
+      transition: all 0.3s;
+      background-color: #f6f7f9;
+    }
+
+    &__icon {
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      bottom: -2px;
+      right: -6px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+    }
+
+    &__left {
+      position: relative;
+      height: fit-content;
+    }
+
+    &__right {
+      display: inline-block;
+      margin-left: 18px;
+      flex-grow: 1;
+      flex-basis: 0;
+      max-width: 100%;
+    }
+
+    &__dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: $--color-primary;
+      position: absolute;
+      top: 50%;
+      right: 8px;
+      transform: translate(0, -50%);
+    }
   }
 }

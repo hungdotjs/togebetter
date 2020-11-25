@@ -5,7 +5,7 @@
       <div :class="[!hideSidebar && 'left-sidebar']" v-if="!hideSidebar">
         <left-sidebar></left-sidebar>
       </div>
-      <div class="main-layout">
+      <div class="main-layout" v-loading="loading">
         <transition name="page-transition" mode="out-in">
           <keep-alive :include="['Home', 'Users']">
             <router-view :key="$route.params.id"></router-view>
@@ -31,6 +31,8 @@ export default {
   data() {
     return {
       blackList: ['landing-page', 'login', 'signup'],
+      loading: false,
+      unsubcribe: null,
     };
   },
 
@@ -38,12 +40,18 @@ export default {
     hideSidebar() {
       return this.blackList.includes(this.$route.name);
     },
+
+    notifications() {
+      return this.$store.state.ui.notifications;
+    },
   },
 
-  mounted() {
-    auth.onAuthStateChanged((user) => {
+  created() {
+    auth.onAuthStateChanged(async (user) => {
       if (user) {
-        db.collection('users')
+        this.loading = true;
+        await db
+          .collection('users')
           .doc(user.uid)
           .onSnapshot((doc) => {
             const userData = {
@@ -53,10 +61,38 @@ export default {
             this.$store.commit('auth/saveUser', { ...userData });
             localStorage.setItem('user', JSON.stringify(userData));
           });
+        this.unsubcribe = await db
+          .collection('notifications')
+          .where('receiveID', '==', user.uid)
+          .orderBy('createdAt', 'desc')
+          .limit(10)
+          .onSnapshot((snapshot) => {
+            const notifications = [];
+            snapshot.docChanges().forEach((change) => {
+              if (change.type === 'modified') {
+                console.log('modified');
+              }
+            });
+
+            snapshot.forEach((doc) => {
+              notifications.push({
+                id: doc.id,
+                ...doc.data(),
+              });
+            });
+
+            this.$store.dispatch('ui/fetchNotifications', notifications);
+          });
+        this.loading = false;
       } else {
+        this.$store.commit('ui/removeNotifications');
         this.$store.dispatch('auth/signOut');
       }
     });
+  },
+
+  beforeDestroy() {
+    if (this.unsubcribe) this.unsubcribe();
   },
 };
 </script>

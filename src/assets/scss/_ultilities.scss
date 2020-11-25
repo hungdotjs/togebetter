@@ -12,7 +12,7 @@
 
 // Text
 .text-bold {
-  font-weight: bold !important;
+  font-weight: 500 !important;
 }
 
 .text-small {
@@ -157,6 +157,16 @@
   padding-left: 8px !important;
 }
 
+.px-16 {
+  padding-right: 16px !important;
+  padding-left: 16px !important;
+}
+
+.px-24 {
+  padding-right: 24px !important;
+  padding-left: 24px !important;
+}
+
 .py-16 {
   padding-top: 16px !important;
   padding-bottom: 16px !important;
@@ -169,6 +179,10 @@
 
 .p-0 {
   padding: 0 !important;
+}
+
+.line-height-1 {
+  line-height: 1;
 }
 
 .line-height-rs {
@@ -210,6 +224,16 @@
   // padding: 16px;
 }
 
+.base-link {
+  color: $--color-primary;
+  text-decoration: unset;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
 .hover-text {
   &--primary {
     &:hover {
@@ -221,4 +245,8 @@
 
 .max-w-600 {
   max-width: 600px;
+}
+
+.image-slot {
+  font-size: 32px;
 }
