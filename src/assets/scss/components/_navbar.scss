@@ -105,10 +105,15 @@
     }
 
     &__anchor {
-      font-size: 24px;
+      font-size: 26px;
       line-height: 1;
       color: #333;
       cursor: pointer;
+
+      &:hover {
+        color: $--color-primary;
+        transition: all 0.3s;
+      }
     }
   }
 }

@@ -1,5 +1,10 @@
 <template>
-  <div class="notifications__item" v-if="user" @click="go">
+  <div
+    v-if="user"
+    class="notifications__item"
+    :class="!notification.isRead && 'notifications__item--active'"
+    @click="go"
+  >
     <div class="notifications__item__left">
       <el-avatar :size="54" :src="user.photoURL"></el-avatar>
       <img :src="notification.message | iconType" alt="#" class="notifications__item__icon" />

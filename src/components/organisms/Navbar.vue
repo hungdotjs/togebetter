@@ -169,7 +169,7 @@
             </li>
 
             <li class="tb-navbar__operations__item">
-              <div class="tb-navbar__operations__anchor center-y">
+              <div>
                 <el-dropdown trigger="click">
                   <el-image alt="user-image" class="tb-navbar__avatar" :src="user.photoURL" lazy />
                   <el-dropdown-menu>
