@@ -91,6 +91,17 @@ export default {
     });
   },
 
+  async mounted() {
+    const response = await fetch(
+      'https://api.ipdata.co?api-key=a6e846e2cf99d84c3bc1636f68fefbc3fb0bc9c18ac79971b99f4741',
+    ).then((res) => res.json());
+    // eslint-disable-next-line camelcase
+    const { country_code, languages } = response;
+    // eslint-disable-next-line camelcase
+    this.$store.commit('ui/changeCountryCode', country_code);
+    this.$store.dispatch('ui/changeLanguageCode', languages[0].name);
+  },
+
   beforeDestroy() {
     if (this.unsubcribe) this.unsubcribe();
   },

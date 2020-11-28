@@ -5,6 +5,7 @@
     infinite-scroll-immediate-check="false"
     infinite-scroll-throttle-delay="500"
     infinite-scroll-disabled="disabled"
+    infinite-scroll-distance="100"
   >
     <div class="home__filter" v-if="user">
       <el-select v-model="filter" placeholder="Select" class="mr-8 grow-1" @change="getData">
@@ -31,7 +32,13 @@
         <el-button slot="reference" icon="el-icon-set-up" plain>Filter</el-button>
       </el-popover>
     </div>
-    <div v-loading="loading">
+
+    <div v-if="loading" class="skeleton-wrapper">
+      <base-skeleton></base-skeleton>
+      <base-skeleton></base-skeleton>
+      <base-skeleton></base-skeleton>
+    </div>
+    <div v-else>
       <question-bubble
         v-for="question in questions"
         :key="question.id"
@@ -40,13 +47,17 @@
     </div>
     <div class="text-center">
       <p v-if="noMore">No more questions</p>
-      <p v-if="scrollLoading"><i class="el-icon-loading"></i></p>
+      <div v-if="scrollLoading" class="skeleton-wrapper">
+        <base-skeleton></base-skeleton>
+        <base-skeleton></base-skeleton>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import QuestionBubble from '@/components/molecules/QuestionBubble.vue';
+import BaseSkeleton from '@/components/atoms/BaseSkeleton.vue';
 import savePosition from '@/mixins/savePosition';
 import { db } from '@/firebase';
 
@@ -55,6 +66,7 @@ export default {
   mixins: [savePosition],
   components: {
     QuestionBubble,
+    BaseSkeleton,
   },
 
   data() {
@@ -159,11 +171,14 @@ export default {
           ...doc.data(),
         });
       });
-      this.questions = this.questions.concat(questions);
-      if (querySnapshot.docs.length < this.limit) {
-        this.noMore = true;
-      }
-      this.scrollLoading = false;
+      const timeout = setTimeout(() => {
+        this.questions = this.questions.concat(questions);
+        if (querySnapshot.docs.length < this.limit) {
+          this.noMore = true;
+        }
+        this.scrollLoading = false;
+        clearTimeout(timeout);
+      }, 1000);
     },
 
     async getData() {
@@ -191,8 +206,11 @@ export default {
         });
       });
       console.log(questions, ref);
-      this.questions = questions;
-      this.loading = false;
+      const timeout = setTimeout(() => {
+        this.questions = questions;
+        this.loading = false;
+        clearTimeout(timeout);
+      }, 1000);
     },
 
     filterLabel(lang) {

@@ -26,8 +26,29 @@
         </el-button>
         <el-button size="small" plain @click="editVisible = false">Cancel</el-button>
       </div>
-      <p class="chat-bubble__content" v-html="contentHTML" v-else></p>
-      <span v-if="content.updatedAt" class="text-small color-secondary">(edited)</span>
+      <div v-else>
+        <p class="chat-bubble__content" v-html="contentHTML"></p>
+        <span v-if="content.updatedAt" class="text-small color-secondary">(edited)</span>
+        <p class="py-8" v-loading="loadingTranslate">
+          <span v-if="showTranslate">
+            <el-divider>
+              <img
+                :src="require('@/assets/img/translated-by-google.png')"
+                width="120"
+                alt="translated-by-google"
+              />
+            </el-divider>
+            {{ translatedText }}
+            <br />
+            <span class="text-secondary pointer" @click="showTranslate = false"
+              >Hide translation</span
+            >
+          </span>
+          <span v-else class="text-secondary pointer" @click="translate">
+            See a translation
+          </span>
+        </p>
+      </div>
     </div>
     <div v-if="content.photoURL">
       <el-image
@@ -97,7 +118,9 @@ import languages from '@/data/languages';
 import { mapState } from 'vuex';
 import { db, FieldValue } from '@/firebase';
 import { questionsIndex } from '@/algolia';
+import translator from '@/translator';
 import urlDetect from '@/helpers/urlDetect';
+import detectLanguage from '@/helpers/detectLanguage';
 import notiMixins from '@/mixins/notification';
 
 export default {
@@ -126,14 +149,18 @@ export default {
   data() {
     return {
       loading: false,
+      loadingTranslate: false,
       editVisible: false,
       editContent: '',
+      showTranslate: false,
+      translatedText: '',
     };
   },
 
   computed: {
     ...mapState({
       user: (state) => state.auth.user,
+      languageCode: (state) => state.ui.languageCode,
     }),
 
     isOwner() {
@@ -314,6 +341,30 @@ export default {
       this.content.content = this.editContent;
       this.editVisible = false;
       this.loading = false;
+    },
+
+    translate() {
+      this.showTranslate = true;
+      if (this.translatedText) {
+        return;
+      }
+
+      this.loadingTranslate = true;
+      const text = urlDetect(this.content.content, true);
+      detectLanguage.detectCode(text).then((result) => {
+        this.contentLanguage = result;
+        const langpair = `${result}|${this.languageCode}`;
+        translator(text, langpair)
+          .then(({ data }) => {
+            const { responseData } = data;
+            this.translatedText = responseData.translatedText;
+            this.loadingTranslate = false;
+          })
+          .catch((error) => {
+            console.error(error);
+            this.loadingTranslate = false;
+          });
+      });
     },
   },
 };

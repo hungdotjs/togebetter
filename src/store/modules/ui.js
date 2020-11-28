@@ -1,7 +1,11 @@
+import languages from '@/data/languages';
+
 const state = () => ({
   isRefreshHome: false,
   listUsers: [],
   notifications: [],
+  languageCode: 'en',
+  countryCode: 'US',
 });
 
 const actions = {
@@ -13,6 +17,14 @@ const actions = {
     const index = state.listUsers.find((item) => item.id === user.id);
     if (!index) {
       commit('addUserToList', user);
+    }
+  },
+
+  changeLanguageCode({ commit }, payload) {
+    let lang = languages.find((item) => item.name === payload);
+    if (lang) {
+      lang = lang.code;
+      commit('changeLanguageCode', lang);
     }
   },
 
@@ -45,6 +57,14 @@ const mutations = {
 
   removeNotifications(state) {
     state.notifications = [];
+  },
+
+  changeLanguageCode(state, lang) {
+    state.languageCode = lang;
+  },
+
+  changeCountryCode(state, countryCode) {
+    state.countryCode = countryCode;
   },
 };
 

@@ -27,7 +27,6 @@
     flex-shrink: 1;
     padding: 8px;
     padding-right: 0;
-    cursor: pointer;
   }
 
   &__header {
@@ -55,6 +54,7 @@
 
     &--effect {
       &:hover {
+        cursor: pointer;
         border: 1px solid $--color-primary;
         background-color: rgba($color: $--color-primary, $alpha: 0.03);
         // transform: translateX(4px);

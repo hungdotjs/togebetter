@@ -1,27 +1,35 @@
 <template>
-  <div v-loading="loading" class="question-detail">
+  <div class="question-detail">
     <div>
       <div class="question-detail__content">
-        <chat-bubble
-          :content="question"
-          @delete="deleteQuestion(id)"
-          @reply="reply(question.ownerID)"
-          @edit="handleEditQuestion"
-          mode="view"
-          borderColor="#f65e39"
-        ></chat-bubble>
-
-        <div v-if="comments.length">
-          <transition-group name="flip-list">
-            <chat-bubble
-              v-for="comment in comments"
-              :key="comment.id"
-              :content="comment"
-              @delete="deleteComment(comment.id)"
-              @reply="reply(comment.ownerID)"
-            ></chat-bubble>
-          </transition-group>
+        <div v-if="loading" class="skeleton-wrapper">
+          <base-skeleton></base-skeleton>
+          <base-skeleton></base-skeleton>
+          <base-skeleton></base-skeleton>
         </div>
+
+        <template v-else>
+          <chat-bubble
+            :content="question"
+            @delete="deleteQuestion(id)"
+            @reply="reply(question.ownerID)"
+            @edit="handleEditQuestion"
+            mode="view"
+            borderColor="#f65e39"
+          ></chat-bubble>
+
+          <div v-if="comments.length">
+            <transition-group name="flip-list">
+              <chat-bubble
+                v-for="comment in comments"
+                :key="comment.id"
+                :content="comment"
+                @delete="deleteComment(comment.id)"
+                @reply="reply(comment.ownerID)"
+              ></chat-bubble>
+            </transition-group>
+          </div>
+        </template>
       </div>
 
       <div class="answer-form">
@@ -137,6 +145,7 @@
 </template>
 
 <script>
+import BaseSkeleton from '@/components/atoms/BaseSkeleton.vue';
 import ChatBubble from '@/components/molecules/ChatBubble.vue';
 import RecordAudio from '@/components/atoms/RecordAudio.vue';
 import ChatSticker from '@/components/atoms/ChatSticker.vue';
@@ -156,6 +165,7 @@ export default {
     RecordAudio,
     ChatSticker,
     Mentionable,
+    BaseSkeleton,
     QuestionEdit,
   },
   mixins: [uploadMixin, savePosition, notiMixin],
@@ -234,7 +244,10 @@ export default {
             });
             // Update comments
             this.comments = comments;
-            this.loading = false;
+            const timeout = setTimeout(() => {
+              this.loading = false;
+              clearTimeout(timeout);
+            }, 1000);
           });
       } else {
         this.$router.push({ name: '404' });

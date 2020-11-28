@@ -1,13 +1,11 @@
 <template>
-  <div class="chat-bubble">
-    <div
-      class="chat-bubble__button"
-      :class="{ 'chat-bubble__button--active': bookmarked }"
-      @click="handleSave"
-    >
-      <p><i class="iconfont" :class="bookmarked ? 'icon-bookmark-solid' : 'icon-bookmark'"></i></p>
-      <p class="chat-bubble__button__text">{{ bookmarked ? 'Saved' : 'Save' }}</p>
-    </div>
+  <div
+    class="chat-bubble__button"
+    :class="{ 'chat-bubble__button--active': bookmarked }"
+    @click="handleSave"
+  >
+    <p><i class="iconfont" :class="bookmarked ? 'icon-bookmark-solid' : 'icon-bookmark'"></i></p>
+    <p class="chat-bubble__button__text">{{ bookmarked ? 'Saved' : 'Save' }}</p>
   </div>
 </template>
 

@@ -33,18 +33,14 @@
 
 <script>
 import { auth, db, GoogleAuthProvider, FacebookAuthProvider, FieldValue } from '@/firebase';
+import { mapState } from 'vuex';
 
 export default {
-  data() {
-    return {
-      countryCode: 'US',
-    };
-  },
-
-  async created() {
-    const response = await fetch('https://extreme-ip-lookup.com/json/').then((res) => res.json());
-    const { countryCode } = response;
-    this.countryCode = countryCode;
+  computed: {
+    ...mapState({
+      countryCode: (state) => state.ui.countryCode,
+      languageCode: (state) => state.ui.languageCode,
+    }),
   },
 
   methods: {
