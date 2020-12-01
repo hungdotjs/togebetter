@@ -40,11 +40,11 @@
             </el-divider>
             {{ translatedText }}
             <br />
-            <span class="text-secondary pointer" @click="showTranslate = false"
-              >Hide translation</span
-            >
+            <span class="chat-bubble__translate-toggle" @click="showTranslate = false">
+              Hide translation
+            </span>
           </span>
-          <span v-else class="text-secondary pointer" @click="translate">
+          <span v-else class="chat-bubble__translate-toggle" @click="translate">
             See a translation
           </span>
         </p>

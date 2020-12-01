@@ -71,4 +71,12 @@
   &__audio {
     margin-bottom: 8px;
   }
+
+  &__translate-toggle {
+    color: $--color-secondary;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }

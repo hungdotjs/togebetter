@@ -52,7 +52,7 @@
               </div>
             </el-image>
             <span @click="removePhoto" class="answer-form__image__remove">
-              <i class="el-icon-error"></i>
+              <i class="el-icon-circle-close"></i>
             </span>
           </div>
           <div class="answer-form__audio" v-if="audioURL">

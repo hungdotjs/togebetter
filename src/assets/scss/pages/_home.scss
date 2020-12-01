@@ -2,19 +2,20 @@
   background-color: #fff;
   padding: 16px;
   padding-top: 0;
+  min-height: 100%;
 
   &__filter {
-    margin-bottom: 16px;
-    background-color: #fff;
+    max-width: 600px;
+    margin: 0 auto;
+    // background-color: #fff;
     // border-bottom: 1px solid $--color-border;
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding: 16px 0;
     display: flex;
-    position: sticky;
-    top: 56px;
-    left: 0;
-    right: 0;
-    z-index: 100;
+    // position: sticky;
+    // top: 56px;
+    // left: 0;
+    // right: 0;
+    // z-index: 100;
 
     &__checkboxs {
       display: flex;

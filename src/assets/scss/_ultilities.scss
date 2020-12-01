@@ -230,8 +230,12 @@
   width: 100%;
   min-height: calc(100vh - 56px);
   flex-grow: 1;
-  background-color: $background-color;
+  // background-color: $background-color;
   // padding: 16px;
+}
+
+.underline {
+  text-decoration: underline;
 }
 
 .base-link {
