@@ -28,11 +28,13 @@
   &__image {
     width: 64px;
     height: 64px;
+    border-radius: 8px;
 
     &__remove {
       position: absolute;
       top: -8px;
-      right: -8px;
+      right: -26px;
+      font-size: 24px;
 
       &:hover {
         cursor: pointer;

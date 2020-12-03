@@ -4,13 +4,21 @@
   margin: 16px auto;
   margin-top: 0;
 
+  &__left {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   &__avatar {
     width: 48px;
     height: 48px;
     border: 1px solid #eee;
+    background-color: #c0c4cc;
     border-radius: 50%;
     margin-top: 16px;
-    flex-shrink: 0;
+    margin-bottom: 8px;
     cursor: pointer;
 
     &--error {
@@ -18,7 +26,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: $--color-secondary;
     }
   }
 
@@ -27,7 +34,6 @@
     flex-shrink: 1;
     padding: 8px;
     padding-right: 0;
-    cursor: pointer;
   }
 
   &__header {
@@ -55,6 +61,7 @@
 
     &--effect {
       &:hover {
+        cursor: pointer;
         border: 1px solid $--color-primary;
         background-color: rgba($color: $--color-primary, $alpha: 0.03);
         // transform: translateX(4px);

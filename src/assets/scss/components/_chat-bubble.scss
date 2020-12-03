@@ -30,9 +30,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 8px;
     color: $--color-secondary;
     transition: all 0.3s;
+    padding: 0 12px;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #eee;
+    }
 
     &__text {
       font-size: 0.7em;
@@ -40,10 +46,8 @@
 
     p {
       margin: 0;
-    }
-
-    &:hover {
-      color: $--color-primary;
+      display: flex;
+      align-items: center;
     }
 
     i {
@@ -59,7 +63,7 @@
   &__image {
     max-width: 100%;
     margin-bottom: 16px;
-    height: 340px;
+    max-height: 340px;
 
     img {
       object-fit: cover;
@@ -69,5 +73,13 @@
 
   &__audio {
     margin-bottom: 8px;
+  }
+
+  &__translate-toggle {
+    color: $--color-secondary;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }

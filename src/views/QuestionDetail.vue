@@ -1,27 +1,35 @@
 <template>
-  <div v-loading="loading" class="question-detail">
+  <div class="question-detail">
     <div>
       <div class="question-detail__content">
-        <chat-bubble
-          :content="question"
-          @delete="deleteQuestion(id)"
-          @reply="reply(question.ownerID)"
-          @edit="handleEditQuestion"
-          mode="view"
-          borderColor="#f65e39"
-        ></chat-bubble>
+        <div v-if="loading" class="skeleton-wrapper">
+          <base-skeleton></base-skeleton>
+          <base-skeleton></base-skeleton>
+          <base-skeleton></base-skeleton>
+        </div>
 
-        <div v-if="comments.length">
-          <transition-group name="flip-list">
+        <template v-else>
+          <chat-bubble
+            :content="question"
+            @delete="deleteQuestion(id)"
+            @reply="reply(question.ownerID)"
+            @edit="handleEditQuestion"
+            mode="view"
+            borderColor="#f65e39"
+          ></chat-bubble>
+
+          <div v-if="comments.length">
             <chat-bubble
               v-for="comment in comments"
               :key="comment.id"
               :content="comment"
+              :is-featured="question.featuredAnswer === comment.id"
+              :questionOwnerID="question.ownerID"
               @delete="deleteComment(comment.id)"
               @reply="reply(comment.ownerID)"
             ></chat-bubble>
-          </transition-group>
-        </div>
+          </div>
+        </template>
       </div>
 
       <div class="answer-form">
@@ -44,7 +52,7 @@
               </div>
             </el-image>
             <span @click="removePhoto" class="answer-form__image__remove">
-              <i class="el-icon-error"></i>
+              <i class="el-icon-circle-close"></i>
             </span>
           </div>
           <div class="answer-form__audio" v-if="audioURL">
@@ -137,6 +145,7 @@
 </template>
 
 <script>
+import BaseSkeleton from '@/components/atoms/BaseSkeleton.vue';
 import ChatBubble from '@/components/molecules/ChatBubble.vue';
 import RecordAudio from '@/components/atoms/RecordAudio.vue';
 import ChatSticker from '@/components/atoms/ChatSticker.vue';
@@ -156,6 +165,7 @@ export default {
     RecordAudio,
     ChatSticker,
     Mentionable,
+    BaseSkeleton,
     QuestionEdit,
   },
   mixins: [uploadMixin, savePosition, notiMixin],
@@ -170,6 +180,7 @@ export default {
       snapshot: null,
       listIdUsers: new Set(),
       listUsers: [],
+      loading: false,
     };
   },
 
@@ -227,14 +238,24 @@ export default {
             const comments = [];
             querySnapshot.forEach((doc) => {
               this.listIdUsers.add(doc.data().ownerID);
-              comments.push({
+              const comment = {
                 id: doc.id,
                 ...doc.data(),
-              });
+              };
+
+              // Check if has the featured answer shift it to top
+              if (doc.id === this.question.featuredAnswer) {
+                comments.unshift(comment);
+              } else {
+                comments.push(comment);
+              }
             });
             // Update comments
             this.comments = comments;
-            this.loading = false;
+            const timeout = setTimeout(() => {
+              this.loading = false;
+              clearTimeout(timeout);
+            }, 500);
           });
       } else {
         this.$router.push({ name: '404' });

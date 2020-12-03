@@ -40,6 +40,11 @@
   -webkit-box-orient: vertical;
 }
 
+.text-secondary {
+  color: $--color-secondary;
+  font-size: 0.9em;
+}
+
 .color-secondary {
   color: $--color-secondary;
 }
@@ -167,6 +172,11 @@
   padding-left: 24px !important;
 }
 
+.py-8 {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
 .py-16 {
   padding-top: 16px !important;
   padding-bottom: 16px !important;
@@ -220,8 +230,12 @@
   width: 100%;
   min-height: calc(100vh - 56px);
   flex-grow: 1;
-  background-color: $background-color;
+  // background-color: $background-color;
   // padding: 16px;
+}
+
+.underline {
+  text-decoration: underline;
 }
 
 .base-link {
@@ -249,4 +263,8 @@
 
 .image-slot {
   font-size: 32px;
+}
+
+.pointer {
+  cursor: pointer;
 }

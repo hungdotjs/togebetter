@@ -5,8 +5,10 @@
       :class="[voted && 'vote__button--active', disabled && 'vote__button--disabled']"
       @click="handleVote"
     >
-      <p><i class="iconfont" :class="voted ? 'icon-heart-solid' : 'icon-heart'"></i></p>
-      <p class="vote__button__text">{{ point }}</p>
+      <p>
+        <i class="iconfont" :class="voted ? 'icon-heart-solid' : 'icon-heart'"></i>
+        <span class="ml-8">{{ point }}</span>
+      </p>
     </div>
   </div>
 </template>

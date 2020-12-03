@@ -37,6 +37,8 @@ import {
   MessageBox,
   Message,
 } from 'element-ui';
+// collapse
+import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 import infiniteScroll from 'vue-infinite-scroll';
 import languages from '@/data/languages';
 import countries from '@/data/countries';
@@ -90,6 +92,7 @@ Vue.use(Popover);
 
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$message = Message;
+Vue.component(CollapseTransition.name, CollapseTransition);
 
 Vue.config.productionTip = false;
 

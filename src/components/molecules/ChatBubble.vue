@@ -4,6 +4,7 @@
     :userID="content.ownerID"
     :createdAt="content.createdAt"
     :borderColor="borderColor"
+    :checked="isFeatured"
   >
     <p v-if="content.questionType">
       <el-tag type="success" effect="plain">
@@ -26,8 +27,29 @@
         </el-button>
         <el-button size="small" plain @click="editVisible = false">Cancel</el-button>
       </div>
-      <p class="chat-bubble__content" v-html="contentHTML" v-else></p>
-      <span v-if="content.updatedAt" class="text-small color-secondary">(edited)</span>
+      <div v-else>
+        <p class="chat-bubble__content" v-html="contentHTML"></p>
+        <span v-if="content.updatedAt" class="text-small color-secondary">(edited)</span>
+        <p class="py-8" v-loading="loadingTranslate">
+          <span v-if="showTranslate">
+            <el-divider>
+              <img
+                :src="require('@/assets/img/translated-by-google.png')"
+                width="120"
+                alt="translated-by-google"
+              />
+            </el-divider>
+            {{ translatedText }}
+            <br />
+            <span class="chat-bubble__translate-toggle" @click="showTranslate = false">
+              Hide translation
+            </span>
+          </span>
+          <span v-else class="chat-bubble__translate-toggle" @click="translate">
+            See a translation
+          </span>
+        </p>
+      </div>
     </div>
     <div v-if="content.photoURL">
       <el-image
@@ -55,25 +77,44 @@
           @unvote="handleUnvote"
           :disabled="isOwner"
         ></vote>
-        <div class="chat-bubble__button" v-if="!isOwner && mode !== 'view'" @click="handleReply">
-          <p><i class="iconfont icon-reply"></i></p>
-          <p class="chat-bubble__button__text">Reply</p>
-        </div>
-        <bookmark
-          v-if="!isOwner"
-          :bookmarks="user.bookmarks"
-          :id="content.id"
-          @save="handleSave"
-          @unsave="handleUnsave"
-        ></bookmark>
+
+        <!-- <el-tooltip content="Reply">
+          <div class="chat-bubble__button" v-if="!isOwner && mode !== 'view'" @click="handleReply">
+            <p><i class="iconfont icon-reply"></i></p>
+            <p class="chat-bubble__button__text">Reply</p>
+          </div>
+        </el-tooltip> -->
+
+        <el-tooltip content="Save">
+          <bookmark
+            v-if="!isOwner"
+            :bookmarks="user.bookmarks"
+            :id="content.id"
+            @save="handleSave"
+            @unsave="handleUnsave"
+          ></bookmark>
+        </el-tooltip>
+
+        <el-tooltip content="Make this the featured answer">
+          <div
+            class="chat-bubble__button"
+            v-if="!isOwner && isQuestionOwner && !isFeatured && mode !== 'view'"
+            @click="confirmAnswer"
+          >
+            <p><i class="iconfont icon-crown"></i></p>
+          </div>
+        </el-tooltip>
       </div>
 
       <el-dropdown trigger="click" v-if="user" @command="handleCommand">
         <div class="chat-bubble__button">
           <p><i class="iconfont icon-ellipsis"></i></p>
-          <p class="chat-bubble__button__text">More</p>
         </div>
+
         <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item icon="el-icon-circle-close" v-if="isOwner" command="close">
+            Close question
+          </el-dropdown-item>
           <el-dropdown-item icon="el-icon-edit" v-if="isOwner && content.content" command="edit">
             Edit
           </el-dropdown-item>
@@ -97,7 +138,9 @@ import languages from '@/data/languages';
 import { mapState } from 'vuex';
 import { db, FieldValue } from '@/firebase';
 import { questionsIndex } from '@/algolia';
+import translator from '@/translator';
 import urlDetect from '@/helpers/urlDetect';
+import detectLanguage from '@/helpers/detectLanguage';
 import notiMixins from '@/mixins/notification';
 
 export default {
@@ -121,23 +164,40 @@ export default {
       type: String,
       default: '#d7dae2',
     },
+    isFeatured: {
+      type: Boolean,
+      default: false,
+    },
+    questionOwnerID: {
+      type: String,
+      default: '',
+    },
   },
 
   data() {
     return {
       loading: false,
+      loadingTranslate: false,
       editVisible: false,
       editContent: '',
+      showTranslate: false,
+      translatedText: '',
     };
   },
 
   computed: {
     ...mapState({
       user: (state) => state.auth.user,
+      languageCode: (state) => state.ui.languageCode,
     }),
 
     isOwner() {
       if (this.user) return this.user.id === this.content.ownerID;
+      return false;
+    },
+
+    isQuestionOwner() {
+      if (this.user) return this.user.id === this.questionOwnerID;
       return false;
     },
 
@@ -302,6 +362,23 @@ export default {
       }
     },
 
+    confirmAnswer() {
+      this.$confirm('Make this the featured answer?', 'Are you sure?', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'info',
+      }).then(() => {
+        db.collection('questions')
+          .doc(this.content.questionID)
+          .update({
+            featuredAnswer: this.content.id,
+          })
+          .then(() => {
+            this.$router.go();
+          });
+      });
+    },
+
     async updateContent() {
       this.loading = true;
       await db
@@ -314,6 +391,30 @@ export default {
       this.content.content = this.editContent;
       this.editVisible = false;
       this.loading = false;
+    },
+
+    translate() {
+      this.showTranslate = true;
+      if (this.translatedText) {
+        return;
+      }
+
+      this.loadingTranslate = true;
+      const text = urlDetect(this.content.content, true);
+      detectLanguage.detectCode(text).then((result) => {
+        this.contentLanguage = result;
+        const langpair = `${result}|${this.languageCode}`;
+        translator(text, langpair)
+          .then(({ data }) => {
+            const { responseData } = data;
+            this.translatedText = responseData.translatedText;
+            this.loadingTranslate = false;
+          })
+          .catch((error) => {
+            console.error(error);
+            this.loadingTranslate = false;
+          });
+      });
     },
   },
 };

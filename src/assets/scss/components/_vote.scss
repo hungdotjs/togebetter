@@ -2,6 +2,11 @@
   display: flex;
   width: fit-content;
   align-items: center;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: #eee;
+  }
 
   &__button {
     display: flex;
@@ -10,6 +15,7 @@
     margin: 0 8px;
     color: $--color-secondary;
     transition: all 0.3s;
+    cursor: pointer;
 
     &--disabled {
       opacity: 0.8;
@@ -23,15 +29,12 @@
 
     p {
       margin: 0;
+      display: flex;
+      align-items: center;
     }
 
     i {
       font-size: 1.4rem;
-    }
-
-    &:hover {
-      cursor: pointer;
-      color: $--color-primary;
     }
 
     &--active {
