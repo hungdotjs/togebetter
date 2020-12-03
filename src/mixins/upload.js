@@ -4,7 +4,7 @@ import { storage } from '@/firebase';
 export default {
   data() {
     return {
-      loading: false,
+      loadingUpload: false,
       audioRef: null,
       photoRef: null,
       audioURL: '',
@@ -32,40 +32,40 @@ export default {
         return;
       }
 
-      this.loading = true;
+      this.loadingUpload = true;
       const uid = `${generateUID()}_${file.raw.uid}`;
       const storagePhotoRef = storage.ref(`assets/images/${uid}`);
       this.photoRef = storagePhotoRef;
       await storagePhotoRef.put(file.raw);
       const downloadURL = await storagePhotoRef.getDownloadURL();
       this.photoURL = downloadURL;
-      this.loading = false;
+      this.loadingUpload = false;
     },
 
     removePhoto() {
-      this.loading = true;
+      this.loadingUpload = true;
       this.photoRef.delete().then(() => {
         this.photoURL = '';
-        this.loading = false;
+        this.loadingUpload = false;
       });
     },
 
     async handleRecordAudio(file) {
-      this.loading = true;
+      this.loadingUpload = true;
       const uid = generateUID();
       const storageAudioRef = storage.ref(`assets/audio/${uid}`);
       this.audioRef = storageAudioRef;
       await storageAudioRef.put(file);
       const downloadURL = await storageAudioRef.getDownloadURL();
       this.audioURL = downloadURL;
-      this.loading = false;
+      this.loadingUpload = false;
     },
 
     removeAudio() {
-      this.loading = true;
+      this.loadingUpload = true;
       this.audioRef.delete().then(() => {
         this.audioURL = '';
-        this.loading = false;
+        this.loadingUpload = false;
       });
     },
   },

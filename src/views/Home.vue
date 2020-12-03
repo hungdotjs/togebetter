@@ -210,7 +210,7 @@ export default {
         this.questions = questions;
         this.loading = false;
         clearTimeout(timeout);
-      }, 1000);
+      }, 500);
     },
 
     filterLabel(lang) {

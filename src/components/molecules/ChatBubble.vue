@@ -4,6 +4,7 @@
     :userID="content.ownerID"
     :createdAt="content.createdAt"
     :borderColor="borderColor"
+    :checked="isFeatured"
   >
     <p v-if="content.questionType">
       <el-tag type="success" effect="plain">
@@ -76,25 +77,44 @@
           @unvote="handleUnvote"
           :disabled="isOwner"
         ></vote>
-        <div class="chat-bubble__button" v-if="!isOwner && mode !== 'view'" @click="handleReply">
-          <p><i class="iconfont icon-reply"></i></p>
-          <p class="chat-bubble__button__text">Reply</p>
-        </div>
-        <bookmark
-          v-if="!isOwner"
-          :bookmarks="user.bookmarks"
-          :id="content.id"
-          @save="handleSave"
-          @unsave="handleUnsave"
-        ></bookmark>
+
+        <!-- <el-tooltip content="Reply">
+          <div class="chat-bubble__button" v-if="!isOwner && mode !== 'view'" @click="handleReply">
+            <p><i class="iconfont icon-reply"></i></p>
+            <p class="chat-bubble__button__text">Reply</p>
+          </div>
+        </el-tooltip> -->
+
+        <el-tooltip content="Save">
+          <bookmark
+            v-if="!isOwner"
+            :bookmarks="user.bookmarks"
+            :id="content.id"
+            @save="handleSave"
+            @unsave="handleUnsave"
+          ></bookmark>
+        </el-tooltip>
+
+        <el-tooltip content="Make this the featured answer">
+          <div
+            class="chat-bubble__button"
+            v-if="!isOwner && isQuestionOwner && !isFeatured && mode !== 'view'"
+            @click="confirmAnswer"
+          >
+            <p><i class="iconfont icon-crown"></i></p>
+          </div>
+        </el-tooltip>
       </div>
 
       <el-dropdown trigger="click" v-if="user" @command="handleCommand">
         <div class="chat-bubble__button">
           <p><i class="iconfont icon-ellipsis"></i></p>
-          <p class="chat-bubble__button__text">More</p>
         </div>
+
         <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item icon="el-icon-circle-close" v-if="isOwner" command="close">
+            Close question
+          </el-dropdown-item>
           <el-dropdown-item icon="el-icon-edit" v-if="isOwner && content.content" command="edit">
             Edit
           </el-dropdown-item>
@@ -144,6 +164,14 @@ export default {
       type: String,
       default: '#d7dae2',
     },
+    isFeatured: {
+      type: Boolean,
+      default: false,
+    },
+    questionOwnerID: {
+      type: String,
+      default: '',
+    },
   },
 
   data() {
@@ -165,6 +193,11 @@ export default {
 
     isOwner() {
       if (this.user) return this.user.id === this.content.ownerID;
+      return false;
+    },
+
+    isQuestionOwner() {
+      if (this.user) return this.user.id === this.questionOwnerID;
       return false;
     },
 
@@ -327,6 +360,23 @@ export default {
           objectID: this.content.id,
         });
       }
+    },
+
+    confirmAnswer() {
+      this.$confirm('Make this the featured answer?', 'Are you sure?', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'info',
+      }).then(() => {
+        db.collection('questions')
+          .doc(this.content.questionID)
+          .update({
+            featuredAnswer: this.content.id,
+          })
+          .then(() => {
+            this.$router.go();
+          });
+      });
     },
 
     async updateContent() {

@@ -5,7 +5,7 @@
     @click="handleSave"
   >
     <p><i class="iconfont" :class="bookmarked ? 'icon-bookmark-solid' : 'icon-bookmark'"></i></p>
-    <p class="chat-bubble__button__text">{{ bookmarked ? 'Saved' : 'Save' }}</p>
+    <!-- <p class="chat-bubble__button__text">{{ bookmarked ? 'Saved' : 'Save' }}</p> -->
   </div>
 </template>
 

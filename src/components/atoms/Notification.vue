@@ -14,7 +14,7 @@
         <b>{{ user.username }}</b> {{ notification.message | messageFull }}
       </p>
       <p class="text-small" :class="[!notification.isRead && 'color-primary text-bold']">
-        <i class="el-icon-timer"></i> {{ time }}
+        <i class="el-icon-time"></i> {{ time }}
       </p>
       <span class="notifications__item__dot" v-if="!notification.isRead"></span>
     </div>

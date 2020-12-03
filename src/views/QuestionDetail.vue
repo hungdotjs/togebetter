@@ -19,15 +19,15 @@
           ></chat-bubble>
 
           <div v-if="comments.length">
-            <transition-group name="flip-list">
-              <chat-bubble
-                v-for="comment in comments"
-                :key="comment.id"
-                :content="comment"
-                @delete="deleteComment(comment.id)"
-                @reply="reply(comment.ownerID)"
-              ></chat-bubble>
-            </transition-group>
+            <chat-bubble
+              v-for="comment in comments"
+              :key="comment.id"
+              :content="comment"
+              :is-featured="question.featuredAnswer === comment.id"
+              :questionOwnerID="question.ownerID"
+              @delete="deleteComment(comment.id)"
+              @reply="reply(comment.ownerID)"
+            ></chat-bubble>
           </div>
         </template>
       </div>
@@ -180,6 +180,7 @@ export default {
       snapshot: null,
       listIdUsers: new Set(),
       listUsers: [],
+      loading: false,
     };
   },
 
@@ -237,17 +238,24 @@ export default {
             const comments = [];
             querySnapshot.forEach((doc) => {
               this.listIdUsers.add(doc.data().ownerID);
-              comments.push({
+              const comment = {
                 id: doc.id,
                 ...doc.data(),
-              });
+              };
+
+              // Check if has the featured answer shift it to top
+              if (doc.id === this.question.featuredAnswer) {
+                comments.unshift(comment);
+              } else {
+                comments.push(comment);
+              }
             });
             // Update comments
             this.comments = comments;
             const timeout = setTimeout(() => {
               this.loading = false;
               clearTimeout(timeout);
-            }, 1000);
+            }, 500);
           });
       } else {
         this.$router.push({ name: '404' });

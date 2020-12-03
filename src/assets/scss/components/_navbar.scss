@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   z-index: 1999;
-  height: 56px;
+  max-height: 56px;
   background-color: #fff;
   color: #333;
   transition: all 0.3s;
@@ -96,6 +96,7 @@
     display: flex;
     align-items: center;
     list-style: none;
+    padding: 0 12px;
 
     &__item {
       display: flex;

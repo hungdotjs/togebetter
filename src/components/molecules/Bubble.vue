@@ -1,10 +1,20 @@
 <template>
   <div class="bubble">
-    <el-image class="bubble__avatar" :src="avatar" fit="cover" lazy>
-      <div slot="error" class="bubble__avatar--error">
-        <i class="el-icon-picture-outline"></i>
-      </div>
-    </el-image>
+    <div class="bubble__left">
+      <el-image class="bubble__avatar" :src="avatar" fit="cover" lazy>
+        <div slot="error" class="bubble__avatar--error">
+          <i class="el-icon-picture-outline"></i>
+        </div>
+      </el-image>
+      <el-tooltip content="Featured answer" :open-delay="1000">
+        <img
+          v-if="checked"
+          src="https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/icon%2Ffeature-check.svg?alt=media&token=93bd0381-9270-4930-9135-1b2c17f9b893"
+          width="32"
+          height="32"
+        />
+      </el-tooltip>
+    </div>
 
     <div class="bubble__content">
       <div
@@ -69,6 +79,10 @@ export default {
       default: false,
     },
     hasEffect: {
+      type: Boolean,
+      default: false,
+    },
+    checked: {
       type: Boolean,
       default: false,
     },
