@@ -1,7 +1,7 @@
 <template>
   <div class="bubble">
     <div class="bubble__left">
-      <el-image class="bubble__avatar" :src="avatar" fit="cover" lazy>
+      <el-image class="bubble__avatar" :src="avatar" fit="cover">
         <div slot="error" class="bubble__avatar--error">
           <i class="el-icon-picture-outline"></i>
         </div>

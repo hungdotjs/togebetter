@@ -7,7 +7,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/home',
+    path: '/questions',
     name: 'home',
     component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
   },
@@ -27,9 +27,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "signup" */ '@/views/Signup.vue'),
   },
   {
-    path: '/questions/type',
+    path: '/questions-type',
     name: 'questions-type',
-    component: () => import(/* webpackChunkName: "questions" */ '@/views/QuestionsType.vue'),
+    component: () => import(/* webpackChunkName: "questions-type" */ '@/views/QuestionsType.vue'),
   },
   {
     path: '/questions/new/:type',

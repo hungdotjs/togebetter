@@ -1,6 +1,6 @@
 <template>
   <div class="users-page">
-    <h1>Users</h1>
+    <h1>Leaderboards</h1>
     <el-input placeholder="Search" prefix-icon="iconfont icon-search"></el-input>
     <div class="users__wrapper">
       <el-row v-if="users.length">

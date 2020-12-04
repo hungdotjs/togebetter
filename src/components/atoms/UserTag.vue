@@ -6,9 +6,9 @@
       <p class="user-tag__country">
         <i class="iconfont icon-earth mr-8"></i>{{ user.knowingCountry | countryName }}
       </p>
-      <p class="user-tag__country">
+      <!-- <p class="user-tag__country">
         <i class="iconfont icon-edit mr-8"></i>{{ user.interestLanguage | languageName }}
-      </p>
+      </p> -->
       <div class="user-tag__heart">
         <i class="iconfont icon-heart-solid mr-8"></i> {{ user.points }}
       </div>

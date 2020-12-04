@@ -13,7 +13,12 @@
           {{ content.content }}
         </p>
         <div v-if="content.photoURL">
-          <el-image :src="content.photoURL" class="chat-bubble__image" lazy></el-image>
+          <el-image
+            :src="content.photoURL"
+            fit="cover"
+            class="chat-bubble__question-image"
+            lazy
+          ></el-image>
         </div>
         <div class="question-bubble__sound-box" v-if="content.audioURL">
           <el-image
