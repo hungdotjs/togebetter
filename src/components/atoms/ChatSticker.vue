@@ -1,30 +1,23 @@
 <template>
-  <div @click="openDialog" class="chat-sticker">
-    <slot></slot>
-
-    <el-dialog
-      :visible.sync="dialogVisible"
-      custom-class="chat-sticker__dialog"
-      append-to-body
-      center
-    >
-      <div>
-        <el-image
-          v-for="sticker in stickerURLs"
-          :key="sticker.name"
-          :src="sticker.url"
-          fit="fill"
-          class="chat-sticker__image"
-          lazy
-          @click="selectSticker(sticker.url)"
-        >
-          <div slot="placeholder" class="text-center p-16">
-            <i class="el-icon-loading"></i>
-          </div>
-        </el-image>
-      </div>
-    </el-dialog>
-  </div>
+  <el-popover placement="top" width="320" trigger="click">
+    <div class="chat-sticker">
+      <el-image
+        v-for="sticker in stickerURLs"
+        :key="sticker.name"
+        :src="sticker.url"
+        fit="fill"
+        class="chat-sticker__image"
+        @click="selectSticker(sticker.url)"
+      >
+        <div slot="placeholder" class="text-center p-16">
+          <i class="el-icon-loading"></i>
+        </div>
+      </el-image>
+    </div>
+    <div slot="reference">
+      <slot></slot>
+    </div>
+  </el-popover>
 </template>
 
 <script>

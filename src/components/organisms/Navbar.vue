@@ -26,7 +26,7 @@
           <router-link
             class="tb-navbar__item__anchor"
             active-class="tb-navbar__item--active"
-            to="/home"
+            to="/questions"
             @click.native="refreshHome"
           >
             <div>
@@ -115,7 +115,7 @@
     <div class="hidden-xs-only">
       <div class="tb-navbar__wrapper tb-navbar__wrapper--desktop">
         <div class="tb-navbar__item--desktop tb-navbar__logo">
-          <router-link tag="div" class="tb-navbar__item__anchor" to="/home">
+          <router-link tag="div" class="tb-navbar__item__anchor" to="/questions">
             <img :src="require('@/assets/img/logo-black.png')" alt="#" class="tb-navbar__logo" />
           </router-link>
         </div>
@@ -257,6 +257,7 @@ export default {
       this.isNotificationPage = to.name === 'notifications';
       this.showNotifications = false;
       this.showQuestionsType = false;
+      this.openSidebar = false;
     },
   },
 

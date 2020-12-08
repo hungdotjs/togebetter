@@ -1,14 +1,30 @@
 <template>
   <ol class="left-sidebar__links">
     <router-link
+      v-if="user"
       tag="li"
-      to="/home"
-      class="left-sidebar__item"
+      :to="`/users/${user.id}`"
+      class="left-sidebar__item center-y"
       active-class="left-sidebar__item--active"
       exact
+    >
+      <el-avatar :src="user.photoURL" :size="32" class="mr-16"></el-avatar>
+      <span>{{ user.username }}</span>
+    </router-link>
+
+    <router-link
+      tag="li"
+      to="/questions"
+      class="left-sidebar__item"
+      active-class="left-sidebar__item--active"
       @click.native="refreshHome"
     >
-      <i class="iconfont icon-home"></i> Home
+      <img
+        :src="require('@/assets/icons/questions.svg')"
+        alt="#"
+        class="left-sidebar__item__icon"
+      />
+      <span>Questions</span>
     </router-link>
     <!-- <router-link
       tag="li"
@@ -28,32 +44,29 @@
     >
       <i class="iconfont icon-tags"></i> Tags
     </router-link> -->
-    <!-- <router-link
-      tag="li"
-      to="/users"
-      class="left-sidebar__item"
-      active-class="left-sidebar__item--active"
-    >
-      <i class="iconfont icon-user"></i> Users
-    </router-link> -->
+
     <router-link
       v-if="user"
       tag="li"
-      to="/questions/type"
+      to="/posts"
       class="left-sidebar__item"
       active-class="left-sidebar__item--active"
     >
-      <i class="iconfont icon-question"></i> Ask Question
+      <img :src="require('@/assets/icons/blog.svg')" alt="#" class="left-sidebar__item__icon" />
+      <span>Posts</span>
     </router-link>
+
     <router-link
       v-if="user"
       tag="li"
-      :to="`/users/${user.id}`"
+      to="/questions-type"
       class="left-sidebar__item"
       active-class="left-sidebar__item--active"
     >
-      <i class="iconfont icon-user"></i> Profile
+      <img :src="require('@/assets/icons/ask.svg')" alt="#" class="left-sidebar__item__icon" />
+      <span>Ask Questions</span>
     </router-link>
+
     <router-link
       v-if="user"
       tag="li"
@@ -61,7 +74,23 @@
       class="left-sidebar__item"
       active-class="left-sidebar__item--active"
     >
-      <i class="iconfont icon-bookmark"></i> Bookmarked
+      <img
+        :src="require('@/assets/icons/bookmarks.svg')"
+        alt="#"
+        class="left-sidebar__item__icon"
+      />
+      <span>Bookmarked</span>
+    </router-link>
+
+    <router-link
+      tag="li"
+      to="/users"
+      class="left-sidebar__item"
+      active-class="left-sidebar__item--active"
+      exact
+    >
+      <img :src="require('@/assets/icons/ranking.svg')" alt="#" class="left-sidebar__item__icon" />
+      <span>Leaderboard</span>
     </router-link>
   </ol>
 </template>

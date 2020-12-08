@@ -10,10 +10,18 @@
       <div @click="goTo">
         <p class="color-secondary" v-if="content.questionType">{{ questionType }}</p>
         <p v-if="content.content" class="question-bubble__content text-truncate">
-          {{ content.content }}
+          {{ filterContent }}
         </p>
+        <div v-if="haveBadWord" class="mb-8">
+          <el-tag size="small" type="danger">Have bad word</el-tag>
+        </div>
         <div v-if="content.photoURL">
-          <el-image :src="content.photoURL" class="chat-bubble__image" lazy></el-image>
+          <el-image
+            :src="content.photoURL"
+            fit="cover"
+            class="chat-bubble__question-image"
+            lazy
+          ></el-image>
         </div>
         <div class="question-bubble__sound-box" v-if="content.audioURL">
           <el-image
@@ -45,6 +53,7 @@
 <script>
 import Bubble from '@/components/molecules/Bubble.vue';
 import languages from '@/data/languages';
+import filterWords from '@/helpers/filterWords';
 
 export default {
   name: 'QuestionBubble',
@@ -90,6 +99,15 @@ export default {
         default:
           return '';
       }
+    },
+
+    haveBadWord() {
+      return filterWords.isProfane(this.content.content);
+    },
+
+    filterContent() {
+      if (this.haveBadWord) return filterWords.clean(this.content.content);
+      return this.content.content;
     },
   },
 

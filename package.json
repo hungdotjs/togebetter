@@ -12,6 +12,7 @@
     "@lottiefiles/lottie-player": "^0.5.1",
     "algoliasearch": "^4.6.0",
     "axios": "^0.21.0",
+    "bad-words": "^3.0.4",
     "core-js": "^3.6.5",
     "detectlanguage": "^2.0.0",
     "element-ui": "^2.13.2",

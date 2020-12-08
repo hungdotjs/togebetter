@@ -216,6 +216,10 @@ export default {
     filterLabel(lang) {
       return `Question about ${this.$options.filters.languageName(lang)}`;
     },
+
+    goTo(link) {
+      this.$router.push(link);
+    },
   },
 };
 </script>

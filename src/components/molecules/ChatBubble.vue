@@ -6,127 +6,140 @@
     :borderColor="borderColor"
     :checked="isFeatured"
   >
+    <!-- Question type -->
     <p v-if="content.questionType">
       <el-tag type="success" effect="plain">
         Question about <b>{{ languageName }}</b>
       </el-tag>
     </p>
-    <p class="color-secondary" v-if="content.questionType">{{ questionType }}</p>
-    <div v-if="content.content">
-      <div v-if="editVisible">
-        <el-input
-          type="textarea"
-          resize="none"
-          class="mb-8"
-          :rows="2"
-          :autosize="{ minRows: 4 }"
-          v-model="editContent"
-        ></el-input>
-        <el-button type="primary" size="small" @click="updateContent" :loading="loading" plain>
-          Save changes
-        </el-button>
-        <el-button size="small" plain @click="editVisible = false">Cancel</el-button>
-      </div>
-      <div v-else>
-        <p class="chat-bubble__content" v-html="contentHTML"></p>
-        <span v-if="content.updatedAt" class="text-small color-secondary">(edited)</span>
-        <p class="py-8" v-loading="loadingTranslate">
-          <span v-if="showTranslate">
-            <el-divider>
-              <img
-                :src="require('@/assets/img/translated-by-google.png')"
-                width="120"
-                alt="translated-by-google"
-              />
-            </el-divider>
-            {{ translatedText }}
-            <br />
-            <span class="chat-bubble__translate-toggle" @click="showTranslate = false">
-              Hide translation
+
+    <el-alert v-if="haveBadWord" type="error" class="mb-8" :closable="false">
+      <p slot="title">
+        We found that this content contains sensitive words, would you like to see it?
+        <span class="base-link color-secondary" @click="haveBadWord = false">Show content</span>
+      </p>
+    </el-alert>
+
+    <template v-else>
+      <p class="color-secondary" v-if="content.questionType">{{ questionType }}</p>
+      <div v-if="content.content">
+        <div v-if="editVisible">
+          <el-input
+            type="textarea"
+            resize="none"
+            class="mb-8"
+            :rows="2"
+            :autosize="{ minRows: 4 }"
+            v-model="editContent"
+          ></el-input>
+          <el-button type="primary" size="small" @click="updateContent" :loading="loading" plain>
+            Save changes
+          </el-button>
+          <el-button size="small" plain @click="editVisible = false">Cancel</el-button>
+        </div>
+        <div v-else>
+          <p class="chat-bubble__content" v-html="contentHTML"></p>
+          <span v-if="content.updatedAt" class="text-small color-secondary">(edited)</span>
+          <p class="py-8" v-loading="loadingTranslate">
+            <span v-if="showTranslate">
+              <el-divider>
+                <img
+                  :src="require('@/assets/img/translated-by-google.png')"
+                  width="120"
+                  alt="translated-by-google"
+                />
+              </el-divider>
+              {{ translatedText }}
+              <br />
+              <span class="chat-bubble__translate-toggle" @click="showTranslate = false">
+                Hide translation
+              </span>
             </span>
-          </span>
-          <span v-else class="chat-bubble__translate-toggle" @click="translate">
-            See a translation
-          </span>
-        </p>
+            <span v-else class="chat-bubble__translate-toggle" @click="translate">
+              See a translation
+            </span>
+          </p>
+        </div>
       </div>
-    </div>
-    <div v-if="content.photoURL">
-      <el-image
-        class="chat-bubble__image"
-        :src="content.photoURL"
-        :preview-src-list="[content.photoURL]"
-        lazy
-      ></el-image>
-    </div>
-    <div v-if="content.audioURL">
-      <audio :src="content.audioURL" class="chat-bubble__audio" controls></audio>
-    </div>
-    <p
-      class="chat-bubble__content chat-bubble__additional-info"
-      v-if="content.additionalInformation"
-    >
-      {{ content.additionalInformation }}
-    </p>
+      <div v-if="content.photoURL">
+        <el-image
+          class="chat-bubble__image"
+          :src="content.photoURL"
+          :preview-src-list="[content.photoURL]"
+          lazy
+        ></el-image>
+      </div>
+      <div v-if="content.audioURL">
+        <audio :src="content.audioURL" class="chat-bubble__audio" controls></audio>
+      </div>
 
-    <div class="chat-bubble__command" v-if="user">
-      <div class="chat-bubble__social">
-        <vote
-          :votes="content.votes"
-          @vote="handleVote"
-          @unvote="handleUnvote"
-          :disabled="isOwner"
-        ></vote>
+      <!-- Additional information  -->
+      <p
+        class="chat-bubble__content chat-bubble__additional-info"
+        v-if="content.additionalInformation"
+      >
+        {{ content.additionalInformation }}
+      </p>
 
-        <!-- <el-tooltip content="Reply">
+      <div class="chat-bubble__command" v-if="user">
+        <div class="chat-bubble__social">
+          <vote
+            :votes="content.votes"
+            @vote="handleVote"
+            @unvote="handleUnvote"
+            :disabled="isOwner"
+          ></vote>
+
+          <!-- <el-tooltip content="Reply">
           <div class="chat-bubble__button" v-if="!isOwner && mode !== 'view'" @click="handleReply">
             <p><i class="iconfont icon-reply"></i></p>
             <p class="chat-bubble__button__text">Reply</p>
           </div>
         </el-tooltip> -->
 
-        <el-tooltip content="Save">
-          <bookmark
-            v-if="!isOwner"
-            :bookmarks="user.bookmarks"
-            :id="content.id"
-            @save="handleSave"
-            @unsave="handleUnsave"
-          ></bookmark>
-        </el-tooltip>
+          <el-tooltip content="Save">
+            <bookmark
+              v-if="!isOwner"
+              :bookmarks="user.bookmarks"
+              :id="content.id"
+              @save="handleSave"
+              @unsave="handleUnsave"
+            ></bookmark>
+          </el-tooltip>
 
-        <el-tooltip content="Make this the featured answer">
-          <div
-            class="chat-bubble__button"
-            v-if="!isOwner && isQuestionOwner && !isFeatured && mode !== 'view'"
-            @click="confirmAnswer"
-          >
-            <p><i class="iconfont icon-crown"></i></p>
-          </div>
-        </el-tooltip>
-      </div>
-
-      <el-dropdown trigger="click" v-if="user" @command="handleCommand">
-        <div class="chat-bubble__button">
-          <p><i class="iconfont icon-ellipsis"></i></p>
+          <el-tooltip content="Accept this answer">
+            <div
+              class="chat-bubble__button"
+              v-if="!isOwner && isQuestionOwner && !isFeatured && mode !== 'view'"
+              @click="confirmAnswer"
+            >
+              <p><i class="iconfont icon-crown"></i></p>
+            </div>
+          </el-tooltip>
         </div>
 
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item icon="el-icon-circle-close" v-if="isOwner" command="close">
-            Close question
-          </el-dropdown-item>
-          <el-dropdown-item icon="el-icon-edit" v-if="isOwner && content.content" command="edit">
-            Edit
-          </el-dropdown-item>
-          <el-dropdown-item icon="el-icon-delete" v-if="isOwner" command="delete">
-            Delete
-          </el-dropdown-item>
-          <el-dropdown-item icon="el-icon-warning-outline" command="report">
-            Report
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </div>
+        <el-dropdown trigger="click" v-if="user" @command="handleCommand">
+          <div class="chat-bubble__button">
+            <p><i class="iconfont icon-ellipsis"></i></p>
+          </div>
+
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item icon="el-icon-circle-close" v-if="isOwner" command="close">
+              Close question
+            </el-dropdown-item>
+            <el-dropdown-item icon="el-icon-edit" v-if="isOwner && content.content" command="edit">
+              Edit
+            </el-dropdown-item>
+            <el-dropdown-item icon="el-icon-delete" v-if="isOwner" command="delete">
+              Delete
+            </el-dropdown-item>
+            <el-dropdown-item icon="el-icon-warning-outline" command="report">
+              Report
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
+    </template>
   </bubble>
 </template>
 
@@ -141,6 +154,7 @@ import { questionsIndex } from '@/algolia';
 import translator from '@/translator';
 import urlDetect from '@/helpers/urlDetect';
 import detectLanguage from '@/helpers/detectLanguage';
+import filterWords from '@/helpers/filterWords';
 import notiMixins from '@/mixins/notification';
 
 export default {
@@ -182,7 +196,12 @@ export default {
       editContent: '',
       showTranslate: false,
       translatedText: '',
+      haveBadWord: false,
     };
+  },
+
+  created() {
+    this.haveBadWord = filterWords.isProfane(this.content.content);
   },
 
   computed: {

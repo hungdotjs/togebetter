@@ -61,13 +61,24 @@
   }
 
   &__image {
-    max-width: 100%;
     margin-bottom: 16px;
-    max-height: 340px;
+    max-width: 100%;
+    cursor: pointer;
 
     img {
+      max-height: 510px;
+      margin: 0 auto !important;
       object-fit: cover;
       object-position: 50% 50%;
+    }
+  }
+
+  &__question-image {
+    width: 100%;
+    text-align: center;
+
+    img {
+      max-height: 300px;
     }
   }
 

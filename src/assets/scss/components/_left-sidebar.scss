@@ -1,8 +1,9 @@
 .left-sidebar {
   display: none;
-  width: 254px;
-  // background: #fff;
-  // border-right: 1px solid #eee;
+  max-width: 232px;
+  width: 100%;
+  background: #fff;
+  border-right: 1px solid #eee;
   position: relative;
 
   @include res(md) {
@@ -16,7 +17,8 @@
   }
 
   &__item {
-    padding: 8px 24px;
+    padding: 10px 24px;
+    font-weight: 500;
     cursor: pointer;
 
     i {
@@ -28,12 +30,19 @@
       color: $--color-primary;
       background-color: #eff0f1;
       background-color: #feefeb;
-      font-weight: bold;
       border-right: 3px solid $--color-primary;
     }
 
     &:hover {
       color: $--color-primary;
+      background-color: #feefeb;
+    }
+
+    &__icon {
+      margin-right: 12px;
+      width: 32px;
+      height: 32px;
+      padding: 4px;
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <navbar></navbar>
-    <div :class="{ container: !hideSidebar, 'd-flex': !hideSidebar }">
+    <div :class="[!hideSidebar && ['container', 'd-flex', 'p-0']]">
       <div :class="[!hideSidebar && 'left-sidebar']" v-if="!hideSidebar">
         <left-sidebar></left-sidebar>
       </div>

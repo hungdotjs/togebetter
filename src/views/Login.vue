@@ -77,7 +77,7 @@ export default {
             .get()
             .then(() => {
               this.loading = false;
-              this.$router.push('/home');
+              this.$router.push('/questions');
             });
         })
         .catch((error) => {

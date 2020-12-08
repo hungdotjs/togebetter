@@ -75,7 +75,7 @@
               <textarea
                 ref="answer"
                 v-model="answer"
-                rows="4"
+                rows="3"
                 autofocus
                 placeholder="Answer in his/her native language as he/she is a beginner speaker."
               />

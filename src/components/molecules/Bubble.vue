@@ -1,7 +1,7 @@
 <template>
   <div class="bubble">
     <div class="bubble__left">
-      <el-image class="bubble__avatar" :src="avatar" fit="cover" lazy>
+      <el-image class="bubble__avatar" :src="avatar" fit="cover">
         <div slot="error" class="bubble__avatar--error">
           <i class="el-icon-picture-outline"></i>
         </div>
@@ -22,6 +22,10 @@
         :class="[hasEffect && 'bubble__question--effect']"
         :style="{ border: `1px solid ${borderColor}` }"
       >
+        <div v-if="checked" class="bubble__featured-answer">
+          <i class="iconfont icon-crown"></i> Featured answer
+        </div>
+
         <div class="bubble__header text-small">
           <p class="bubble__name" @click="goTo">{{ username }}</p>
           <div class="m-0">
