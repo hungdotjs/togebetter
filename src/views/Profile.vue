@@ -122,12 +122,7 @@
         </el-tab-pane>
 
         <!-- Tab Questions  -->
-        <el-tab-pane
-          v-loading="loadingTab"
-          :label="currentUser.totalQuestions + ' Questions'"
-          name="questions"
-          lazy
-        >
+        <el-tab-pane v-loading="loadingTab" label="Questions" name="questions" lazy>
           <div v-if="!questions.length" class="profile__post--error">
             <el-image
               src="https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fhugo-292.png?alt=media&token=a02f5342-1704-4e81-ac7f-134feb83a105"
@@ -156,12 +151,7 @@
         </el-tab-pane>
 
         <!-- Tab Answers  -->
-        <el-tab-pane
-          v-loading="loadingTab"
-          :label="currentUser.totalAnswers + ' Answers'"
-          name="answers"
-          lazy
-        >
+        <el-tab-pane v-loading="loadingTab" label="Answers" name="answers" lazy>
           <div v-if="!answers.length" class="profile__post--error">
             <el-image
               src="https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fhugo-292.png?alt=media&token=a02f5342-1704-4e81-ac7f-134feb83a105"

@@ -19,7 +19,11 @@
       active-class="left-sidebar__item--active"
       @click.native="refreshHome"
     >
-      <img :src="require('@/assets/icons/qa.svg')" alt="#" class="left-sidebar__item__icon" />
+      <img
+        :src="require('@/assets/icons/questions.svg')"
+        alt="#"
+        class="left-sidebar__item__icon"
+      />
       <span>Questions</span>
     </router-link>
     <!-- <router-link
@@ -44,12 +48,23 @@
     <router-link
       v-if="user"
       tag="li"
+      to="/posts"
+      class="left-sidebar__item"
+      active-class="left-sidebar__item--active"
+    >
+      <img :src="require('@/assets/icons/blog.svg')" alt="#" class="left-sidebar__item__icon" />
+      <span>Posts</span>
+    </router-link>
+
+    <router-link
+      v-if="user"
+      tag="li"
       to="/questions-type"
       class="left-sidebar__item"
       active-class="left-sidebar__item--active"
     >
-      <img :src="require('@/assets/icons/book.svg')" alt="#" class="left-sidebar__item__icon" />
-      <span>Ask</span>
+      <img :src="require('@/assets/icons/ask.svg')" alt="#" class="left-sidebar__item__icon" />
+      <span>Ask Questions</span>
     </router-link>
 
     <router-link

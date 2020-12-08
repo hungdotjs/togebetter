@@ -257,6 +257,7 @@ export default {
       this.isNotificationPage = to.name === 'notifications';
       this.showNotifications = false;
       this.showQuestionsType = false;
+      this.openSidebar = false;
     },
   },
 

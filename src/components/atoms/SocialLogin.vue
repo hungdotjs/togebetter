@@ -121,7 +121,7 @@ export default {
               });
 
               // this.$router.replace({ name: 'home' });
-              window.location.replace('/home');
+              window.location.replace('/questions');
             }
           })
           .catch((error) => {

@@ -53,11 +53,22 @@
     }
   }
 
+  &__featured-answer {
+    margin: 0 -16px;
+    margin-top: -12px;
+    padding: 4px 16px;
+    margin-bottom: 8px;
+    font-weight: 500;
+    background-color: #25d700;
+    color: #fff;
+  }
+
   &__question {
     border: 1px solid $--color-border;
     padding: 12px 16px;
     border-radius: 8px;
     background-color: #fff;
+    overflow: hidden;
 
     &--effect {
       &:hover {

@@ -2,6 +2,7 @@ import Vue from 'vue';
 import lang from 'element-ui/lib/locale/lang/en';
 import locale from 'element-ui/lib/locale';
 import {
+  Alert,
   Autocomplete,
   Avatar,
   Button,
@@ -57,6 +58,7 @@ locale.use(lang);
 Vue.prototype.$ELEMENT = { size: 'medium', zIndex: 3000 };
 Vue.use(infiniteScroll);
 
+Vue.use(Alert);
 Vue.use(Autocomplete);
 Vue.use(Avatar);
 Vue.use(Button);

@@ -1,7 +1,6 @@
 <template>
   <div class="users-page">
     <h1>Leaderboards</h1>
-    <el-input placeholder="Search" prefix-icon="iconfont icon-search"></el-input>
     <div class="users__wrapper">
       <el-row v-if="users.length">
         <el-col :xs="24" :md="12" :lg="8" v-for="user in users" :key="user.id">
