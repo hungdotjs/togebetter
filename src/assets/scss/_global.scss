@@ -9,14 +9,14 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #a2a2a2;
-  border: 1px solid #e0e0e0;
+  background-color: #898989;
+  border: 1px solid #898989;
   border-radius: 16px;
 }
 
 ::-webkit-scrollbar-track {
   background-color: #f7f7f7;
-  border: 1px solid #efefef;
+  // border: 1px solid #efefef;
 }
 
 body {
@@ -93,6 +93,10 @@ p {
 
 .el-button {
   font-weight: bold;
+}
+
+.el-drawer__header {
+  margin-bottom: 0;
 }
 
 .el-image-viewer__close {

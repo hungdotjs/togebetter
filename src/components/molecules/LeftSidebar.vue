@@ -92,11 +92,21 @@
       <img :src="require('@/assets/icons/ranking.svg')" alt="#" class="left-sidebar__item__icon" />
       <span>Leaderboard</span>
     </router-link>
+
+    <li>
+      <credit></credit>
+    </li>
   </ol>
 </template>
 
 <script>
+import Credit from '@/components/atoms/Credit.vue';
+
 export default {
+  components: {
+    Credit,
+  },
+
   computed: {
     user() {
       return this.$store.state.auth.user;

@@ -1,134 +1,156 @@
 <template>
   <div class="question-detail">
-    <div>
-      <div class="question-detail__content">
-        <div v-if="loading" class="skeleton-wrapper">
-          <base-skeleton></base-skeleton>
-          <base-skeleton></base-skeleton>
-          <base-skeleton></base-skeleton>
-        </div>
+    <el-row class="question-detail__row">
+      <el-col :xs="24" :md="16">
+        <div class="question-detail__content">
+          <div v-if="loading" class="skeleton-wrapper">
+            <base-skeleton></base-skeleton>
+            <base-skeleton></base-skeleton>
+            <base-skeleton></base-skeleton>
+          </div>
 
-        <template v-else>
-          <chat-bubble
-            :content="question"
-            @delete="deleteQuestion(id)"
-            @reply="reply(question.ownerID)"
-            @edit="handleEditQuestion"
-            mode="view"
-            borderColor="#f65e39"
-          ></chat-bubble>
-
-          <div v-if="comments.length">
+          <template v-else>
             <chat-bubble
-              v-for="comment in comments"
-              :key="comment.id"
-              :content="comment"
-              :is-featured="question.featuredAnswer === comment.id"
-              :questionOwnerID="question.ownerID"
-              @delete="deleteComment(comment.id)"
-              @reply="reply(comment.ownerID)"
+              :content="question"
+              @delete="deleteQuestion(id)"
+              @reply="reply(question.ownerID)"
+              @edit="handleEditQuestion"
+              mode="view"
+              borderColor="#f65e39"
             ></chat-bubble>
-          </div>
-        </template>
-      </div>
 
-      <div class="answer-form">
-        <div v-if="!user" class="text-center py-16">
-          <p>
-            Log in or sign up to leave a comment
-          </p>
-          <router-link to="/login">
-            <el-button class="mr-16">Log in</el-button>
-          </router-link>
-          <router-link to="/signup">
-            <el-button type="primary">Sign up</el-button>
-          </router-link>
-        </div>
-        <div v-else>
-          <div v-if="photoURL" style="position: relative; width: fit-content;">
-            <el-image :src="photoURL" class="answer-form__image" fit="cover">
-              <div slot="placeholder" class="text-center p-16">
-                <i class="el-icon-loading"></i>
-              </div>
-            </el-image>
-            <span @click="removePhoto" class="answer-form__image__remove">
-              <i class="el-icon-circle-close"></i>
-            </span>
-          </div>
-          <div class="answer-form__audio" v-if="audioURL">
-            <audio :src="audioURL" controls>
-              Your browser does not support the
-              <code>audio</code> element.
-            </audio>
-            <span class="answer-form__audio__remove" @click="removeAudio">
-              <i class="el-icon-error"></i>
-            </span>
-          </div>
-          <div class="answer-form__input-wrapper">
-            <mentionable
-              class="answer-form__input"
-              :keys="['@']"
-              :items="listUsers"
-              offset="6"
-              @open="onOpenMention"
-            >
-              <textarea
-                ref="answer"
-                v-model="answer"
-                rows="3"
-                autofocus
-                placeholder="Answer in his/her native language as he/she is a beginner speaker."
-              />
-
-              <template #item-@="{ item }">
-                <div class="center-y">
-                  <el-avatar :src="item.photoURL" alt="#" :size="36" class="mr-8"></el-avatar>
-                  {{ item.username }}
-                </div>
-              </template>
-            </mentionable>
-            <el-button
-              class="answer-form__send"
-              type="primary"
-              size="mini"
-              :loading="loadingSubmit"
-              :disabled="!alreadyInput"
-              @click="submit"
-            >
-              Send
-            </el-button>
-          </div>
-          <div class="button-group">
-            <div class="button-group__item">
-              <i class="iconfont icon-keyboard"></i>
+            <div v-if="comments.length">
+              <chat-bubble
+                v-for="comment in comments"
+                type="comment"
+                :key="comment.id"
+                :content="comment"
+                :is-featured="question.featuredAnswer === comment.id"
+                :questionOwnerID="question.ownerID"
+                @delete="deleteComment(comment.id)"
+                @reply="reply(comment.ownerID)"
+              ></chat-bubble>
             </div>
-            <record-audio
-              @done="handleRecordAudio"
-              class="button-group__item"
-              :disable-preview="true"
-            >
-              <i class="iconfont icon-mic"></i>
-            </record-audio>
-            <el-upload
-              action="#"
-              accept="image/*"
-              :auto-upload="false"
-              :show-file-list="false"
-              :on-change="handleChangeUpload"
-            >
+          </template>
+        </div>
+
+        <div class="answer-form">
+          <div v-if="!user" class="text-center py-16">
+            <p>
+              Log in or sign up to leave a comment
+            </p>
+            <router-link to="/login">
+              <el-button class="mr-16">Log in</el-button>
+            </router-link>
+            <router-link to="/signup">
+              <el-button type="primary">Sign up</el-button>
+            </router-link>
+          </div>
+          <div v-else>
+            <div v-if="photoURL" style="position: relative; width: fit-content;">
+              <el-image :src="photoURL" class="answer-form__image" fit="cover">
+                <div slot="placeholder" class="text-center p-16">
+                  <i class="el-icon-loading"></i>
+                </div>
+              </el-image>
+              <span @click="removePhoto" class="answer-form__image__remove">
+                <i class="el-icon-circle-close"></i>
+              </span>
+            </div>
+            <div class="answer-form__audio" v-if="audioURL">
+              <audio :src="audioURL" controls>
+                Your browser does not support the
+                <code>audio</code> element.
+              </audio>
+              <span class="answer-form__audio__remove" @click="removeAudio">
+                <i class="el-icon-error"></i>
+              </span>
+            </div>
+            <div class="answer-form__input-wrapper">
+              <mentionable
+                class="answer-form__input"
+                :keys="['@']"
+                :items="listUsers"
+                offset="6"
+                @open="onOpenMention"
+              >
+                <textarea
+                  ref="answer"
+                  v-model="answer"
+                  rows="3"
+                  autofocus
+                  placeholder="Answer in his/her native language as he/she is a beginner speaker."
+                />
+
+                <template #item-@="{ item }">
+                  <div class="center-y">
+                    <el-avatar :src="item.photoURL" alt="#" :size="36" class="mr-8"></el-avatar>
+                    {{ item.username }}
+                  </div>
+                </template>
+              </mentionable>
+              <el-button
+                class="answer-form__send"
+                type="primary"
+                size="mini"
+                :loading="loadingSubmit"
+                :disabled="!alreadyInput"
+                @click="submit"
+              >
+                Send
+              </el-button>
+            </div>
+            <div class="button-group">
               <div class="button-group__item">
-                <i class="iconfont icon-camera"></i>
+                <i class="iconfont icon-keyboard"></i>
               </div>
-            </el-upload>
-            <chat-sticker @select="selectSticker">
-              <div class="button-group__item">
-                <i class="iconfont icon-smile"></i>
-              </div>
-            </chat-sticker>
+              <record-audio
+                @done="handleRecordAudio"
+                class="button-group__item"
+                :disable-preview="true"
+              >
+                <i class="iconfont icon-mic"></i>
+              </record-audio>
+              <el-upload
+                action="#"
+                accept="image/*"
+                :auto-upload="false"
+                :show-file-list="false"
+                :on-change="handleChangeUpload"
+              >
+                <div class="button-group__item">
+                  <i class="iconfont icon-camera"></i>
+                </div>
+              </el-upload>
+              <chat-sticker @select="selectSticker">
+                <div class="button-group__item">
+                  <i class="iconfont icon-smile"></i>
+                </div>
+              </chat-sticker>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </el-col>
+
+      <!-- Related post  -->
+      <el-col :xs="24" :md="8" class="question-detail__right">
+        <div class="question-related">
+          <question-related
+            v-if="question"
+            :lang="question.lang"
+            :questionType="question.questionType"
+            :currentQuestionID="question.id"
+          ></question-related>
+          <el-divider></el-divider>
+          <question-newest
+            v-if="question"
+            title="Newest Questions"
+            :lang="question.lang"
+            :currentQuestionID="question.id"
+          ></question-newest>
+        </div>
+      </el-col>
+    </el-row>
 
     <el-dialog
       v-if="showEditQuesiton"
@@ -147,6 +169,8 @@
 <script>
 import BaseSkeleton from '@/components/atoms/BaseSkeleton.vue';
 import ChatBubble from '@/components/molecules/ChatBubble.vue';
+import QuestionRelated from '@/components/molecules/QuestionRelated.vue';
+import QuestionNewest from '@/components/molecules/QuestionNewest.vue';
 import RecordAudio from '@/components/atoms/RecordAudio.vue';
 import ChatSticker from '@/components/atoms/ChatSticker.vue';
 import QuestionEdit from '@/components/organisms/QuestionEdit.vue';
@@ -166,6 +190,8 @@ export default {
     ChatSticker,
     Mentionable,
     BaseSkeleton,
+    QuestionRelated,
+    QuestionNewest,
     QuestionEdit,
   },
   mixins: [uploadMixin, savePosition, notiMixin],

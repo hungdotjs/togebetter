@@ -2,7 +2,6 @@
   &__command {
     display: flex;
     justify-content: space-between;
-    padding: 8px 0;
     flex-wrap: wrap;
   }
 
@@ -38,6 +37,7 @@
 
     &:hover {
       background-color: #eee;
+      color: $--color-primary;
     }
 
     &__text {
@@ -61,7 +61,6 @@
   }
 
   &__image {
-    margin-bottom: 16px;
     max-width: 100%;
     cursor: pointer;
 

@@ -15,10 +15,8 @@
               <h1 class="hero__title">A language learning Q&A app</h1>
               <p class="hero__subtitle">Learn foreign languages for free</p>
             </div>
-            <p>Search questions about</p>
-            <el-select placeholder="Select" class="hero__select" v-model="language" size="medium">
-              <el-option label="English (US)" value="en_us"> </el-option>
-            </el-select>
+            <p>Search questions</p>
+
             <el-input class="hero__search" placeholder="habit example" size="medium">
               <el-button slot="append" type="primary" icon="el-icon-search"></el-button>
             </el-input>

@@ -124,7 +124,11 @@
           </div>
 
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item icon="el-icon-circle-close" v-if="isOwner" command="close">
+            <el-dropdown-item
+              icon="el-icon-circle-close"
+              v-if="type === 'question' && isOwner"
+              command="close"
+            >
               Close question
             </el-dropdown-item>
             <el-dropdown-item icon="el-icon-edit" v-if="isOwner && content.content" command="edit">
@@ -185,6 +189,10 @@ export default {
     questionOwnerID: {
       type: String,
       default: '',
+    },
+    type: {
+      type: String,
+      default: 'question',
     },
   },
 
@@ -261,6 +269,9 @@ export default {
           break;
         case 'delete':
           this.$emit('delete');
+          break;
+        case 'close':
+          console.log('close question');
           break;
         default:
           break;
