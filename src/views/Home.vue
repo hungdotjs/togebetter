@@ -7,51 +7,56 @@
     infinite-scroll-disabled="disabled"
     infinite-scroll-distance="100"
   >
-    <div class="home__filter" v-if="user">
-      <el-select v-model="filter" placeholder="Select" class="mr-8 grow-1" @change="getData">
-        <el-option
-          v-for="(item, i) in userLanguages"
-          :key="i"
-          :value="item"
-          :label="filterLabel(item)"
-        >
-        </el-option>
-      </el-select>
-      <el-popover placement="bottom-end" trigger="click" v-model="popoverVisible">
-        <div>
-          <p>Question filters</p>
-          <div class="home__filter__checkboxs">
-            <el-checkbox v-model="filterUnanswer">Only unanswered questions</el-checkbox>
-            <el-checkbox v-model="filterVoice">Only voice questions</el-checkbox>
-            <div class="p-8 text-right">
-              <el-button size="mini" @click="popoverVisible = false">Cancel</el-button>
-              <el-button type="primary" size="mini" @click="getData">OK</el-button>
+    <el-row>
+      <el-col :xs="24" :md="16">
+        <div class="home__filter" v-if="user">
+          <el-select v-model="filter" placeholder="Select" class="mr-8 grow-1" @change="getData">
+            <el-option
+              v-for="(item, i) in userLanguages"
+              :key="i"
+              :value="item"
+              :label="filterLabel(item)"
+            >
+            </el-option>
+          </el-select>
+          <el-popover placement="bottom-end" trigger="click" v-model="popoverVisible">
+            <div>
+              <p>Question filters</p>
+              <div class="home__filter__checkboxs">
+                <el-checkbox v-model="filterUnanswer">Only unanswered questions</el-checkbox>
+                <el-checkbox v-model="filterVoice">Only voice questions</el-checkbox>
+                <div class="p-8 text-right">
+                  <el-button size="mini" @click="popoverVisible = false">Cancel</el-button>
+                  <el-button type="primary" size="mini" @click="getData">OK</el-button>
+                </div>
+              </div>
             </div>
+            <el-button slot="reference" icon="el-icon-set-up" plain>Filter</el-button>
+          </el-popover>
+        </div>
+
+        <div v-if="loading" class="skeleton-wrapper">
+          <base-skeleton></base-skeleton>
+          <base-skeleton></base-skeleton>
+          <base-skeleton></base-skeleton>
+        </div>
+        <div v-else>
+          <question-bubble
+            v-for="question in questions"
+            :key="question.id"
+            :content="question"
+          ></question-bubble>
+        </div>
+        <div class="text-center">
+          <p v-if="noMore">No more questions</p>
+          <div v-if="scrollLoading" class="skeleton-wrapper">
+            <base-skeleton></base-skeleton>
+            <base-skeleton></base-skeleton>
           </div>
         </div>
-        <el-button slot="reference" icon="el-icon-set-up" plain>Filter</el-button>
-      </el-popover>
-    </div>
-
-    <div v-if="loading" class="skeleton-wrapper">
-      <base-skeleton></base-skeleton>
-      <base-skeleton></base-skeleton>
-      <base-skeleton></base-skeleton>
-    </div>
-    <div v-else>
-      <question-bubble
-        v-for="question in questions"
-        :key="question.id"
-        :content="question"
-      ></question-bubble>
-    </div>
-    <div class="text-center">
-      <p v-if="noMore">No more questions</p>
-      <div v-if="scrollLoading" class="skeleton-wrapper">
-        <base-skeleton></base-skeleton>
-        <base-skeleton></base-skeleton>
-      </div>
-    </div>
+      </el-col>
+      <el-col :xs="24" :md="8"> </el-col>
+    </el-row>
   </div>
 </template>
 

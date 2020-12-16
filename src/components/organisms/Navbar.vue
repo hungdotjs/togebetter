@@ -116,7 +116,7 @@
       <div class="tb-navbar__wrapper tb-navbar__wrapper--desktop">
         <div class="tb-navbar__item--desktop tb-navbar__logo">
           <router-link tag="div" class="tb-navbar__item__anchor" to="/questions">
-            <img :src="require('@/assets/img/logo-black.png')" alt="#" class="tb-navbar__logo" />
+            <img :src="require('@/assets/img/logo-white.png')" alt="#" class="tb-navbar__logo" />
           </router-link>
         </div>
         <!-- search  -->
@@ -139,14 +139,14 @@
                   <div slot="reference">
                     <el-badge v-if="notifications.length" :value="notifications.length" :max="9">
                       <i
-                        class="el-icon-bell"
-                        :class="showNotifications && ['el-icon-message-solid', 'color-primary']"
+                        class="el-icon-message-solid"
+                        :class="showNotifications && ['color-primary']"
                       ></i>
                     </el-badge>
                     <i
                       v-else
-                      class="el-icon-bell"
-                      :class="showNotifications && ['el-icon-message-solid', 'color-primary']"
+                      class="el-icon-message-solid"
+                      :class="showNotifications && ['color-primary']"
                     ></i>
                   </div>
                 </el-popover>

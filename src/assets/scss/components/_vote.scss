@@ -4,45 +4,6 @@
   align-items: center;
   border-radius: 4px;
 
-  &:hover {
-    background-color: #eee;
-  }
-
-  &__button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 8px;
-    color: $--color-secondary;
-    transition: all 0.3s;
-    cursor: pointer;
-
-    &--disabled {
-      opacity: 0.8;
-      cursor: not-allowed !important;
-      color: $--color-secondary !important;
-    }
-
-    &__text {
-      font-size: 0.7em;
-    }
-
-    p {
-      margin: 0;
-      display: flex;
-      align-items: center;
-    }
-
-    i {
-      font-size: 1.4rem;
-    }
-
-    &--active {
-      animation: heartbeat 1s;
-      color: $--color-primary;
-    }
-  }
-
   &__point {
     padding: 0 4px;
     color: $--color-primary;

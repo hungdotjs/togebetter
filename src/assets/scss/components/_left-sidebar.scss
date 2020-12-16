@@ -1,6 +1,6 @@
 .left-sidebar {
   display: none;
-  max-width: 232px;
+  max-width: 212px;
   width: 100%;
   background: #fff;
   border-right: 1px solid #eee;
@@ -14,10 +14,11 @@
     position: sticky;
     top: 56px;
     padding-top: 16px;
+    min-height: calc(100vh - 56px);
   }
 
   &__item {
-    padding: 10px 24px;
+    padding: 10px 16px;
     font-weight: 500;
     cursor: pointer;
 

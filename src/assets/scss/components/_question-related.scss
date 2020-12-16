@@ -1,0 +1,22 @@
+.question-related {
+  padding: 8px;
+  margin-top: 36px;
+
+  @include res(md) {
+    margin-top: 0;
+    position: sticky;
+    top: 70px;
+    left: 0;
+    right: 0;
+  }
+}
+
+.question-simple {
+  margin-bottom: 8px;
+  transition: all 0.3s;
+
+  &:hover {
+    cursor: pointer;
+    color: $--color-primary;
+  }
+}

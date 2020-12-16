@@ -32,6 +32,7 @@
         <div class="d-flex">
           <el-button
             class="question-bubble__number"
+            :class="!totalAnswer && 'question-bubble__number--active'"
             :type="totalAnswer ? 'primary' : 'success'"
             circle
           >

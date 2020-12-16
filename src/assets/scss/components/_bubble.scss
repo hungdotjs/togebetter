@@ -73,8 +73,8 @@
     &--effect {
       &:hover {
         cursor: pointer;
-        border: 1px solid $--color-primary;
-        background-color: rgba($color: $--color-primary, $alpha: 0.03);
+        // border: 1px solid $--color-primary;
+        background-color: rgba($color: $--color-primary, $alpha: 0.05);
         // transform: translateX(4px);
         transition: all 0.3s;
       }

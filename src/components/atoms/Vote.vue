@@ -1,8 +1,8 @@
 <template>
   <div class="vote">
     <div
-      class="vote__button"
-      :class="[voted && 'vote__button--active', disabled && 'vote__button--disabled']"
+      class="chat-bubble__button"
+      :class="[voted && 'chat-bubble__button--active', disabled && 'chat-bubble__button--disabled']"
       @click="handleVote"
     >
       <p>

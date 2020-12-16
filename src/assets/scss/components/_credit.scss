@@ -1,0 +1,13 @@
+.credit {
+  text-align: center;
+  margin: 8px auto;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  a {
+    color: $--color-secondary;
+  }
+}
