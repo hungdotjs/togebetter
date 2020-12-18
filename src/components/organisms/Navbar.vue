@@ -48,7 +48,7 @@
           <router-link
             class="tb-navbar__item__anchor"
             active-class="tb-navbar__item--active"
-            to="/questions/type"
+            to="/questions-type"
           >
             <div>
               <i class="iconfont icon-question"></i>

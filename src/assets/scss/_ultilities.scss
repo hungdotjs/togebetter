@@ -65,6 +65,10 @@
   align-items: center;
 }
 
+.justify-between {
+  justify-content: space-between;
+}
+
 .center-x {
   display: flex;
   justify-content: center;
@@ -111,6 +115,10 @@
 
 .mr-8 {
   margin-right: 8px !important;
+}
+
+.mr-4 {
+  margin-right: 4px !important;
 }
 
 .ml-8 {

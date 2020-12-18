@@ -1,0 +1,251 @@
+.posts {
+  background-color: #fff;
+  padding: 16px;
+  min-height: 100%;
+}
+
+.post {
+  padding: 8px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+
+  @include res(md) {
+    padding: 16px;
+  }
+
+  &__user {
+    margin-bottom: 0;
+    font-weight: 500;
+    cursor: pointer;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__title {
+    margin-bottom: 8px;
+
+    &:hover {
+      cursor: pointer;
+      transition: all 0.3s;
+      color: $--color-primary;
+    }
+  }
+}
+
+.post-detail {
+  font-size: 1.2em;
+}
+
+.editor-menubar {
+  margin-bottom: 1rem;
+  transition: visibility 0.2s 0.4s, opacity 0.2s 0.4s;
+  border-bottom: 1px solid #eee;
+
+  &.is-hidden {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  &.is-focused {
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0.2s, opacity 0.2s;
+  }
+
+  &__button {
+    font-weight: bold;
+    display: inline-flex;
+    background: transparent;
+    border: 0;
+    color: #000;
+    padding: 6px 12px;
+    margin-right: 0.2em;
+    margin-bottom: 4px;
+    border-radius: 3px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(#000, 0.05);
+    }
+
+    &.is-active {
+      background-color: rgba(#000, 0.1);
+    }
+  }
+
+  span#{&}__button {
+    font-size: 13.3333px;
+  }
+}
+
+//  Editor wrapper
+.editor {
+  position: relative;
+  width: 100%;
+  padding: 12px;
+  min-height: 400px;
+  border: 1px solid #eee;
+
+  p.is-editor-empty:first-child::before {
+    content: attr(data-empty-text);
+    float: left;
+    color: #aaa;
+    pointer-events: none;
+    height: 0;
+    font-style: italic;
+  }
+
+  &__content {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+
+    * {
+      caret-color: currentColor;
+    }
+
+    pre {
+      display: block;
+      font-family: monospace;
+      white-space: pre;
+      margin: 1em 0px;
+    }
+
+    pre {
+      padding: 0.7rem 1rem;
+      border-radius: 5px;
+      background: #000;
+      color: #fff;
+      font-size: 0.8rem;
+      overflow-x: auto;
+
+      code {
+        display: block;
+      }
+    }
+
+    p code {
+      padding: 0.2rem 0.4rem;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      background: rgba(#000, 0.1);
+      color: rgba(#000, 0.8);
+    }
+
+    ul {
+      list-style-type: disc;
+    }
+
+    ol {
+      list-style: decimal;
+    }
+
+    ul,
+    ol {
+      display: block;
+      padding-left: 1rem;
+      margin-block-start: 1em;
+      margin-block-end: 1em;
+      margin-inline-start: 0px;
+      margin-inline-end: 0px;
+      padding-inline-start: 40px;
+    }
+
+    li > p,
+    li > ol,
+    li > ul {
+      margin: 0;
+    }
+
+    strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    blockquote {
+      border-left: 3px solid rgba(#000, 0.1);
+      color: rgba(#000, 0.8);
+      padding-left: 0.8rem;
+      font-style: italic;
+
+      p {
+        margin: 0;
+      }
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 3px;
+    }
+
+    table {
+      border-collapse: collapse;
+      table-layout: fixed;
+      width: 100%;
+      margin: 0;
+      overflow: hidden;
+
+      td,
+      th {
+        min-width: 1em;
+        border: 2px solid #eee;
+        padding: 3px 5px;
+        vertical-align: top;
+        box-sizing: border-box;
+        position: relative;
+        > * {
+          margin-bottom: 0;
+        }
+      }
+
+      th {
+        font-weight: bold;
+        text-align: left;
+      }
+
+      .selectedCell:after {
+        z-index: 2;
+        position: absolute;
+        content: '';
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: rgba(200, 200, 255, 0.4);
+        pointer-events: none;
+      }
+
+      .column-resize-handle {
+        position: absolute;
+        right: -2px;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        z-index: 20;
+        background-color: #adf;
+        pointer-events: none;
+      }
+    }
+
+    .tableWrapper {
+      margin: 1em 0;
+      overflow-x: auto;
+    }
+
+    .resize-cursor {
+      cursor: ew-resize;
+      cursor: col-resize;
+    }
+  }
+}

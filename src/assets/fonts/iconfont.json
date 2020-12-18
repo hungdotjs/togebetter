@@ -6,6 +6,104 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "15592083",
+      "name": "image-fill",
+      "font_class": "image-fill",
+      "unicode": "eaa9",
+      "unicode_decimal": 60073
+    },
+    {
+      "icon_id": "431967",
+      "name": "redo",
+      "font_class": "redo",
+      "unicode": "e7b7",
+      "unicode_decimal": 59319
+    },
+    {
+      "icon_id": "432083",
+      "name": "undo",
+      "font_class": "undo",
+      "unicode": "e824",
+      "unicode_decimal": 59428
+    },
+    {
+      "icon_id": "7617116",
+      "name": "hr",
+      "font_class": "hr",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "15590709",
+      "name": "code-box-line",
+      "font_class": "code-box-line",
+      "unicode": "e6dd",
+      "unicode_decimal": 59101
+    },
+    {
+      "icon_id": "15590711",
+      "name": "code-line",
+      "font_class": "code-line",
+      "unicode": "e6df",
+      "unicode_decimal": 59103
+    },
+    {
+      "icon_id": "15591194",
+      "name": "bold",
+      "font_class": "bold",
+      "unicode": "e825",
+      "unicode_decimal": 59429
+    },
+    {
+      "icon_id": "15591201",
+      "name": "double-quotes-r",
+      "font_class": "double-quotes-r",
+      "unicode": "e82b",
+      "unicode_decimal": 59435
+    },
+    {
+      "icon_id": "15591227",
+      "name": "italic",
+      "font_class": "italic",
+      "unicode": "e847",
+      "unicode_decimal": 59463
+    },
+    {
+      "icon_id": "15591235",
+      "name": "list-ordered",
+      "font_class": "list-ordered",
+      "unicode": "e84a",
+      "unicode_decimal": 59466
+    },
+    {
+      "icon_id": "15591236",
+      "name": "list-unordered",
+      "font_class": "list-unordered",
+      "unicode": "e84b",
+      "unicode_decimal": 59467
+    },
+    {
+      "icon_id": "15591254",
+      "name": "paragraph",
+      "font_class": "paragraph",
+      "unicode": "e85c",
+      "unicode_decimal": 59484
+    },
+    {
+      "icon_id": "15591269",
+      "name": "strikethrough",
+      "font_class": "strikethrough",
+      "unicode": "e86a",
+      "unicode_decimal": 59498
+    },
+    {
+      "icon_id": "15591283",
+      "name": "underline",
+      "font_class": "underline",
+      "unicode": "e878",
+      "unicode_decimal": 59512
+    },
+    {
       "icon_id": "4766685",
       "name": "home",
       "font_class": "home",
