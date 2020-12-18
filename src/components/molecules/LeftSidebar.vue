@@ -48,23 +48,23 @@
     <router-link
       v-if="user"
       tag="li"
-      to="/posts"
-      class="left-sidebar__item"
-      active-class="left-sidebar__item--active"
-    >
-      <img :src="require('@/assets/icons/blog.svg')" alt="#" class="left-sidebar__item__icon" />
-      <span>Posts</span>
-    </router-link>
-
-    <router-link
-      v-if="user"
-      tag="li"
       to="/questions-type"
       class="left-sidebar__item"
       active-class="left-sidebar__item--active"
     >
       <img :src="require('@/assets/icons/ask.svg')" alt="#" class="left-sidebar__item__icon" />
-      <span>Ask Questions</span>
+      <span>Ask </span>
+    </router-link>
+
+    <router-link
+      v-if="user"
+      tag="li"
+      to="/posts"
+      class="left-sidebar__item"
+      active-class="left-sidebar__item--active"
+    >
+      <img :src="require('@/assets/icons/blog.svg')" alt="#" class="left-sidebar__item__icon" />
+      <span>Discussions</span>
     </router-link>
 
     <router-link
@@ -79,7 +79,7 @@
         alt="#"
         class="left-sidebar__item__icon"
       />
-      <span>Bookmarked</span>
+      <span>Bookmark</span>
     </router-link>
 
     <router-link

@@ -58,6 +58,10 @@
       animation: heartbeat 1s;
       color: $--color-primary;
     }
+
+    &--disabled {
+      cursor: not-allowed;
+    }
   }
 
   &__image {
