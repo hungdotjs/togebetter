@@ -33,6 +33,7 @@
 
 <script>
 import { db } from '@/firebase';
+import { mapState } from 'vuex';
 import timeago from '@/helpers/timeago';
 
 export default {
@@ -50,6 +51,10 @@ export default {
   },
 
   computed: {
+    ...mapState({
+      listUsers: (state) => state.ui.listUsers,
+    }),
+
     time() {
       if (this.post.createdAt) return timeago(this.post.createdAt.toDate());
       return timeago(new Date());
@@ -57,20 +62,28 @@ export default {
   },
 
   created() {
-    db.collection('users')
-      .doc(this.post.author)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          this.user = {
-            id: this.post.author,
-            ...doc.data(),
-          };
-        } else {
-          // doc.data() will be undefined in this case
-          console.log('No such document!');
-        }
-      });
+    const user = this.listUsers.find((item) => item.id === this.post.author);
+
+    if (user) {
+      this.user = user;
+    } else {
+      db.collection('users')
+        .doc(this.post.author)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            this.user = {
+              id: this.post.author,
+              ...doc.data(),
+            };
+
+            this.$store.dispatch('ui/addUser', this.user);
+          } else {
+            // doc.data() will be undefined in this case
+            console.log('No such document!');
+          }
+        });
+    }
   },
 
   methods: {

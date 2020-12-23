@@ -47,6 +47,7 @@ export default {
   computed: {
     ...mapState({
       user: (state) => state.auth.user,
+      listUsers: (state) => state.ui.listUsers,
     }),
 
     postID() {
@@ -71,20 +72,28 @@ export default {
         if (doc.exists) {
           this.post = doc.data();
 
-          db.collection('users')
-            .doc(this.post.author)
-            .get()
-            .then((doc) => {
-              if (doc.exists) {
-                this.author = {
-                  id: this.post.author,
-                  ...doc.data(),
-                };
-              } else {
-                // doc.data() will be undefined in this case
-                console.log('No such document!');
-              }
-            });
+          const user = this.listUsers.find((item) => item.id === this.post.author);
+
+          if (user) {
+            this.author = user;
+          } else {
+            db.collection('users')
+              .doc(this.post.author)
+              .get()
+              .then((doc) => {
+                if (doc.exists) {
+                  this.author = {
+                    id: this.post.author,
+                    ...doc.data(),
+                  };
+
+                  this.$store.dispatch('ui/addUser', this.author);
+                } else {
+                  // doc.data() will be undefined in this case
+                  console.log('No such document!');
+                }
+              });
+          }
         }
       });
   },

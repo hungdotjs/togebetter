@@ -34,7 +34,7 @@
           </template>
         </div>
 
-        <div class="answer-form">
+        <div ref="answerForm" class="answer-form">
           <div v-if="!user" class="text-center py-16">
             <p>
               Log in or sign up to leave a comment
@@ -379,6 +379,7 @@ export default {
       this.answer = `@${user.username} `;
       const inputRef = this.$refs.answer;
       inputRef.focus();
+      this.$refs.answerForm.scrollIntoView(false, { behavior: 'smooth' });
     },
 
     async submit() {

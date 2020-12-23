@@ -7,7 +7,7 @@ export default {
 </script>
 
 <template>
-  <div class="p-16 border round mb-16">
+  <div class="p-16 border round bg-white mb-16">
     <content-loader
       :width="476"
       :height="124"

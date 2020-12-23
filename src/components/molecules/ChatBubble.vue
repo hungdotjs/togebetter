@@ -90,13 +90,6 @@
             :disabled="isOwner"
           ></vote>
 
-          <!-- <el-tooltip content="Reply">
-          <div class="chat-bubble__button" v-if="!isOwner && mode !== 'view'" @click="handleReply">
-            <p><i class="iconfont icon-reply"></i></p>
-            <p class="chat-bubble__button__text">Reply</p>
-          </div>
-        </el-tooltip> -->
-
           <el-tooltip content="Save">
             <bookmark
               v-if="!isOwner"
@@ -105,6 +98,12 @@
               @save="handleSave"
               @unsave="handleUnsave"
             ></bookmark>
+          </el-tooltip>
+
+          <el-tooltip content="Reply">
+            <div class="chat-bubble__button" v-if="!isOwner" @click="handleReply">
+              <p><i class="iconfont icon-reply"></i></p>
+            </div>
           </el-tooltip>
 
           <el-tooltip content="Accept this answer">

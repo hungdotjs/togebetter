@@ -135,7 +135,7 @@
                   trigger="click"
                   v-model="showNotifications"
                 >
-                  <notifications></notifications>
+                  <notifications class="p-8" mode="popover"></notifications>
                   <div slot="reference">
                     <el-badge v-if="notifications.length" :value="notifications.length" :max="9">
                       <i

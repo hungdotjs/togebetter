@@ -8,12 +8,12 @@
     margin-left: 16px;
   }
 
-  &__row {
-    @include res(lg) {
-      display: flex;
-      align-items: stretch;
-    }
-  }
+  // &__row {
+  //   @include res(lg) {
+  //     display: flex;
+  //     align-items: stretch;
+  //   }
+  // }
 
   &__content {
     min-height: 80vh;
