@@ -1,5 +1,5 @@
 <template>
-  <div class="users-page">
+  <div class="users-page box-content">
     <h1>Leaderboards</h1>
     <div class="users__wrapper">
       <el-row v-if="users.length">

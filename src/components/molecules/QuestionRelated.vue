@@ -1,6 +1,6 @@
 <template>
-  <div class="mb-16">
-    <h5 class="mb-8">{{ title }}</h5>
+  <div class="question-related__box">
+    <h5 class="question-related__box__title">{{ title }}</h5>
     <question-simple v-for="item in questions" :question="item" :key="item.id"></question-simple>
   </div>
 </template>

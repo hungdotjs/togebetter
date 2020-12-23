@@ -36,7 +36,7 @@
   overflow: hidden;
   display: -webkit-box;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
 }
 
@@ -143,6 +143,10 @@
 
 .ml-16 {
   margin-left: 16px !important;
+}
+
+.mt-8 {
+  margin-top: 8px !important;
 }
 
 .mt-16 {
@@ -275,4 +279,32 @@
 
 .pointer {
   cursor: pointer;
+}
+
+.border {
+  border: 1px solid #eee;
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.bs-border {
+  box-shadow: $border-shadow;
+}
+
+.round {
+  border-radius: 8px;
+}
+
+.box-content {
+  border-radius: 8px;
+  box-shadow: $border-shadow;
+  background-color: #fff;
+  margin: 0;
+  max-width: 800px;
+
+  @include res(md) {
+    margin: 16px;
+  }
 }

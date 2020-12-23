@@ -1,5 +1,5 @@
 <template>
-  <div class="question-new" v-if="user">
+  <div class="question-new box-content" v-if="user">
     <div class="text-center mb-16">
       <el-image :src="imageURL" fil="fill" class="img-fluid" style="max-width: 150px" lazy>
         <div slot="placeholder" class="image-slot"><i class="el-icon-loading"></i></div>
@@ -179,6 +179,14 @@ export default {
         answers: 0,
       });
       this.loadingSubmit = false;
+
+      // Analytics
+      this.$store.dispatch('analytics/ask', {
+        userID: this.user.id,
+        lang: this.selectedLang,
+        questionType: this.questionType,
+      });
+
       this.$router.push({ name: 'questions-detail', params: { id: res.id } });
     },
   },

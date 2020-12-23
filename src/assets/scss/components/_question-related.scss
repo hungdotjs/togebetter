@@ -1,22 +1,40 @@
 .question-related {
   padding: 8px;
-  margin-top: 36px;
+  margin-top: 24px;
 
-  @include res(md) {
+  @include res(lg) {
     margin-top: 0;
-    position: sticky;
-    top: 70px;
-    left: 0;
-    right: 0;
+    // position: sticky;
+    // top: 70px;
+    // left: 0;
+    // right: 0;
+  }
+
+  &__box {
+    border-radius: 12px;
+    border: 1px solid #eee;
+    box-shadow: $border-shadow;
+    margin-bottom: 32px;
+    overflow: hidden;
+
+    &__title {
+      padding: 10px 24px;
+      margin-bottom: 0;
+      background-color: #f9fafa;
+    }
   }
 }
 
 .question-simple {
-  margin-bottom: 8px;
+  padding: 8px 16px;
+  padding-bottom: 16px;
   transition: all 0.3s;
+  box-shadow: 0 0 0 1px #eee;
+  background-color: #fff;
 
   &:hover {
     cursor: pointer;
-    color: $--color-primary;
+    // color: $--color-primary;
+    background-color: #f9fafa;
   }
 }

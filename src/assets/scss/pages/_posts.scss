@@ -1,12 +1,14 @@
 .posts {
-  background-color: #fff;
+  // background-color: #fff;
   padding: 16px;
-  min-height: 100%;
 }
 
 .post {
   padding: 8px;
+  margin-bottom: 16px;
   border: 1px solid #eee;
+  background-color: #fff;
+  box-shadow: $border-shadow;
   border-radius: 8px;
 
   @include res(md) {
@@ -37,6 +39,10 @@
 
 .post-detail {
   font-size: 1.2em;
+
+  a {
+    color: $--color-primary;
+  }
 }
 
 .editor-menubar {

@@ -77,6 +77,10 @@ export default {
             .get()
             .then(() => {
               this.loading = false;
+
+              // Analytics
+              this.$store.dispatch('analytics/login', 'Togebetter');
+
               this.$router.push('/questions');
             });
         })

@@ -4,9 +4,14 @@
   align-items: center;
   border-radius: 4px;
 
+  &--active {
+    animation: heartbeat 1s;
+    color: rgb(237, 73, 86);
+  }
+
   &__point {
     padding: 0 4px;
-    color: $--color-primary;
+    color: rgb(237, 73, 86);
     font-weight: bold;
   }
 }

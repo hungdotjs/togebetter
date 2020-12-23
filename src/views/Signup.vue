@@ -279,6 +279,9 @@ export default {
             });
 
           this.loading = false;
+
+          this.$store.dispatch('analytics/signUp', 'Togebetter');
+
           this.$router.push('/questions');
         })
         .catch((error) => {

@@ -1,5 +1,5 @@
 <template>
-  <div class="questions-type">
+  <div class="questions-type" :class="mode === 'page' && 'box-content'">
     <h1>Choose a question template.</h1>
     <h2 class="title">Ask about grammar/vocab</h2>
     <question-tag
@@ -70,6 +70,13 @@ export default {
   name: 'QuestionsType',
   components: {
     QuestionTag,
+  },
+
+  props: {
+    mode: {
+      type: String,
+      default: 'page',
+    },
   },
 };
 </script>

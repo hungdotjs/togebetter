@@ -2,7 +2,7 @@
   <div class="vote">
     <div
       class="chat-bubble__button"
-      :class="[voted && 'chat-bubble__button--active', disabled && 'chat-bubble__button--disabled']"
+      :class="[voted && 'vote--active', disabled && 'chat-bubble__button--disabled']"
       @click="handleVote"
     >
       <p>

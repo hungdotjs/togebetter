@@ -1,5 +1,5 @@
 <template>
-  <div class="bookmarks" v-loading="loading">
+  <div class="bookmarks box-content" v-loading="loading">
     <div class="bookmarks__content--empty" v-if="!bookmarks.length">
       <div class="bookmarks__image">
         <el-image

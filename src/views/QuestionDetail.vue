@@ -1,7 +1,7 @@
 <template>
   <div class="question-detail">
     <el-row class="question-detail__row">
-      <el-col :xs="24" :md="16">
+      <el-col :xs="24" :md="16" class="bg-white round bs-border mt-8">
         <div class="question-detail__content">
           <div v-if="loading" class="skeleton-wrapper">
             <base-skeleton></base-skeleton>
@@ -78,7 +78,6 @@
                   ref="answer"
                   v-model="answer"
                   rows="3"
-                  autofocus
                   placeholder="Answer in his/her native language as he/she is a beginner speaker."
                 />
 
@@ -141,7 +140,6 @@
             :questionType="question.questionType"
             :currentQuestionID="question.id"
           ></question-related>
-          <el-divider></el-divider>
           <question-newest
             v-if="question"
             title="Newest Questions"

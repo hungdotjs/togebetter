@@ -1,7 +1,7 @@
 <template>
   <div v-if="user" class="post">
-    <div class="d-flex">
-      <el-avatar :src="user.photoURL"></el-avatar>
+    <div class="d-flex center-y">
+      <el-avatar :src="user.photoURL" :size="36"></el-avatar>
       <div class="ml-8">
         <p class="post__user">{{ user.username }}</p>
         <p class="text-small m-0">
@@ -12,9 +12,9 @@
     <div class="post__info">
       <p class="text-small"></p>
       <h1 class="post__title" @click="goTo(`/posts/${post.id}`)">{{ post.title }}</h1>
-      <div class="mb-8">
-        <el-tag v-for="(item, i) in post.tags" :key="i" type="success" size="small">
-          {{ item }}
+      <div class="mb-16">
+        <el-tag v-for="(item, i) in post.tags" :key="i" type="info" size="small" class="mr-8">
+          #{{ item }}
         </el-tag>
       </div>
       <div class="color-secondary">

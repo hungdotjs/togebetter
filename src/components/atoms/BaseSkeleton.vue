@@ -13,7 +13,7 @@ export default {
     :speed="2"
     primaryColor="#f3f3f3"
     secondaryColor="#ecebeb"
-    class="mb-16"
+    class="mb-16 w-100"
   >
     <rect x="48" y="8" rx="3" ry="3" width="88" height="6" />
     <rect x="48" y="26" rx="3" ry="3" width="52" height="6" />

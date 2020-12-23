@@ -1,5 +1,5 @@
 <template>
-  <div class="notifications">
+  <div class="notifications box-content">
     <div class="notifications__content" v-if="notifications.length">
       <div>
         <h1>
