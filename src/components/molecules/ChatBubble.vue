@@ -142,6 +142,22 @@
           </el-dropdown-menu>
         </el-dropdown>
       </div>
+
+      <report
+        v-if="type === 'question'"
+        :userID="user.id"
+        :visible.sync="openReport"
+        :url="$route.path"
+        @send="report"
+      ></report>
+
+      <report
+        v-else
+        :userID="user.id"
+        :visible.sync="openReport"
+        :url="`${$route.path}/comments/${content.id}`"
+        @send="report"
+      ></report>
     </template>
   </bubble>
 </template>
@@ -159,10 +175,11 @@ import urlDetect from '@/helpers/urlDetect';
 import detectLanguage from '@/helpers/detectLanguage';
 import filterWords from '@/helpers/filterWords';
 import notiMixins from '@/mixins/notification';
+import report from '@/mixins/report';
 
 export default {
   name: 'ChatBubble',
-  mixins: [notiMixins],
+  mixins: [notiMixins, report],
   components: {
     Bubble,
     Bookmark,
@@ -271,6 +288,9 @@ export default {
           break;
         case 'close':
           this.$emit('close');
+          break;
+        case 'report':
+          this.openReport = true;
           break;
         default:
           break;

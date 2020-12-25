@@ -48,6 +48,13 @@
           </el-dropdown>
         </div>
       </div>
+
+      <report
+        :userID="user.id"
+        :visible.sync="openReport"
+        :url="`${$route.path}/comments/${comment.id}`"
+        @send="report"
+      ></report>
     </template>
   </div>
 </template>
@@ -55,12 +62,14 @@
 <script>
 import { db, FieldValue } from '@/firebase';
 import timeago from '@/helpers/timeago';
+import report from '@/mixins/report';
 import Vote from '@/components/atoms/Vote.vue';
 import BaseSkeleton from '@/components/atoms/Skeleton/BaseSkeleton.vue';
 import { mapState } from 'vuex';
 
 export default {
   name: 'Comment',
+  mixins: [report],
   props: {
     id: {
       type: String,
@@ -166,7 +175,7 @@ export default {
           this.handleDelete();
           break;
         case 'report':
-          console.log('report');
+          this.openReport = true;
           break;
         default:
           break;

@@ -16,6 +16,7 @@ import {
   Drawer,
   FormItem,
   Form,
+  Radio,
   Checkbox,
   Divider,
   Link,
@@ -78,6 +79,7 @@ Vue.use(Link);
 Vue.use(Tag);
 Vue.use(Tabs);
 Vue.use(TabPane);
+Vue.use(Radio);
 Vue.use(RadioGroup);
 Vue.use(RadioButton);
 Vue.use(Dialog);
