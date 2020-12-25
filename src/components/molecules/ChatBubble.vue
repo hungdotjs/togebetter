@@ -101,7 +101,7 @@
           </el-tooltip>
 
           <el-tooltip content="Reply">
-            <div class="chat-bubble__button" v-if="!isOwner" @click="handleReply">
+            <div class="chat-bubble__button" v-if="!isOwner && !isClosed" @click="handleReply">
               <p><i class="iconfont icon-reply"></i></p>
             </div>
           </el-tooltip>
@@ -125,7 +125,7 @@
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item
               icon="el-icon-circle-close"
-              v-if="type === 'question' && isOwner"
+              v-if="type === 'question' && isOwner && !isClosed"
               command="close"
             >
               Close question
@@ -199,6 +199,10 @@ export default {
       default: '#d7dae2',
     },
     isFeatured: {
+      type: Boolean,
+      default: false,
+    },
+    isClosed: {
       type: Boolean,
       default: false,
     },
