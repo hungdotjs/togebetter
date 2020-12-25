@@ -116,7 +116,7 @@
       <div class="tb-navbar__wrapper tb-navbar__wrapper--desktop">
         <div class="tb-navbar__item--desktop tb-navbar__logo">
           <router-link tag="div" class="tb-navbar__item__anchor" to="/questions">
-            <img :src="require('@/assets/img/logo-white.png')" alt="#" class="tb-navbar__logo" />
+            <img :src="require('@/assets/img/logo-flat.png')" alt="#" class="tb-navbar__logo" />
           </router-link>
         </div>
         <!-- search  -->
@@ -135,7 +135,7 @@
                   trigger="click"
                   v-model="showNotifications"
                 >
-                  <notifications></notifications>
+                  <notifications class="p-8" mode="popover"></notifications>
                   <div slot="reference">
                     <el-badge v-if="notifications.length" :value="notifications.length" :max="9">
                       <i
@@ -161,7 +161,7 @@
                 trigger="click"
                 v-model="showQuestionsType"
               >
-                <questions-type class="p-16"></questions-type>
+                <questions-type class="p-16" mode="component"></questions-type>
                 <el-button slot="reference" class="px-16" type="primary" size="small" round>
                   Ask <i class="ml-8 el-icon-arrow-down"></i>
                 </el-button>

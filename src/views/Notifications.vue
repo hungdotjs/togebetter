@@ -1,5 +1,5 @@
 <template>
-  <div class="notifications">
+  <div class="notifications" :class="mode === 'page' && 'box-content'">
     <div class="notifications__content" v-if="notifications.length">
       <div>
         <h1>
@@ -36,6 +36,13 @@ export default {
   name: 'Notifications',
   components: {
     Notification,
+  },
+
+  props: {
+    mode: {
+      type: String,
+      default: 'page',
+    },
   },
 
   computed: {

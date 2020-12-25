@@ -1,5 +1,5 @@
 <template>
-  <div class="search-page">
+  <div class="search-page box-content">
     <div class="search-page__header">
       <p class="search-page__title">
         <i class="iconfont icon-q"></i> Results for<b class="ml-8 color-primary">{{ query }}</b>

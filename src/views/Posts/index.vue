@@ -13,19 +13,19 @@
           <h1 class="pt-16">Discussions</h1>
           <el-button type="primary" @click="createPost" size="small">Create a Post</el-button>
         </div>
-        <div v-if="loading" class="skeleton-wrapper">
-          <base-skeleton></base-skeleton>
-          <base-skeleton></base-skeleton>
-          <base-skeleton></base-skeleton>
+        <div v-if="loading">
+          <facebook-content-loader></facebook-content-loader>
+          <facebook-content-loader></facebook-content-loader>
+          <facebook-content-loader></facebook-content-loader>
         </div>
-        <div v-else>
+        <template v-else>
           <post v-for="post in posts" :key="post.id" :post="post"> </post>
-        </div>
+        </template>
         <div class="text-center">
           <p v-if="noMore">No more posts</p>
-          <div v-if="scrollLoading" class="skeleton-wrapper">
-            <base-skeleton></base-skeleton>
-            <base-skeleton></base-skeleton>
+          <div v-if="scrollLoading">
+            <facebook-content-loader></facebook-content-loader>
+            <facebook-content-loader></facebook-content-loader>
           </div>
         </div>
       </el-col>
@@ -36,12 +36,12 @@
 
 <script>
 import { db } from '@/firebase';
-import BaseSkeleton from '@/components/atoms/BaseSkeleton.vue';
+import FacebookContentLoader from '@/components/atoms/FacebookContentLoader.vue';
 import Post from '@/components/atoms/Post.vue';
 
 export default {
-  name: 'Discussions',
-  components: { BaseSkeleton, Post },
+  name: 'Posts',
+  components: { FacebookContentLoader, Post },
 
   data() {
     return {

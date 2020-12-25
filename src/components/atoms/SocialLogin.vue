@@ -53,6 +53,9 @@ export default {
           const userRef = db.collection('users').doc(uid);
           userRef.get().then(async (doc) => {
             if (doc.exists) {
+              // Analytics
+              this.$store.dispatch('analytics/login', 'Google');
+
               this.$router.replace({ name: 'home' });
             } else {
               const user = {
@@ -76,6 +79,9 @@ export default {
                 ...user,
               });
 
+              // Analytics
+              this.$store.dispatch('analytics/signUp', 'Google');
+
               this.$router.replace({ name: 'home' });
             }
           });
@@ -97,6 +103,9 @@ export default {
           .get()
           .then(async (doc) => {
             if (doc.exists) {
+              // Analytics
+              this.$store.dispatch('analytics/login', 'Facebook');
+
               this.$router.replace({ name: 'home' });
             } else {
               const user = {
@@ -119,6 +128,9 @@ export default {
                 createdAt: FieldValue.serverTimestamp(),
                 ...user,
               });
+
+              // Analytics
+              this.$store.dispatch('analytics/signUp', 'Facebook');
 
               // this.$router.replace({ name: 'home' });
               window.location.replace('/questions');

@@ -36,7 +36,7 @@
   overflow: hidden;
   display: -webkit-box;
   text-overflow: ellipsis;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
 }
 
@@ -145,6 +145,10 @@
   margin-left: 16px !important;
 }
 
+.mt-8 {
+  margin-top: 8px !important;
+}
+
 .mt-16 {
   margin-top: 16px !important;
 }
@@ -159,6 +163,12 @@
 
 .p-16 {
   padding: 16px !important;
+}
+
+.p-16-md {
+  @include res(md) {
+    padding: 16px !important;
+  }
 }
 
 .p-32 {
@@ -275,4 +285,36 @@
 
 .pointer {
   cursor: pointer;
+}
+
+.border {
+  border: 1px solid #eee;
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.bg-gray {
+  background-color: $body-background-color;
+}
+
+.bs-border {
+  box-shadow: $border-shadow;
+}
+
+.round {
+  border-radius: 8px;
+}
+
+.box-content {
+  border-radius: 8px;
+  box-shadow: $border-shadow;
+  background-color: #fff;
+  margin: 0;
+  max-width: 800px;
+
+  @include res(md) {
+    margin: 16px;
+  }
 }

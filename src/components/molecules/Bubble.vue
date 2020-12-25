@@ -17,11 +17,8 @@
     </div>
 
     <div class="bubble__content">
-      <div
-        class="bubble__question"
-        :class="[hasEffect && 'bubble__question--effect']"
-        :style="{ border: `1px solid ${borderColor}` }"
-      >
+      <!-- :style="{ border: `1px solid ${borderColor}` }" -->
+      <div class="bubble__question" :class="[hasEffect && 'bubble__question--effect']">
         <div v-if="checked" class="bubble__featured-answer">
           <i class="iconfont icon-crown"></i> Featured answer
         </div>
@@ -126,11 +123,12 @@ export default {
         .collection('users')
         .doc(this.userID)
         .get();
-      if (doc.exists) data = doc.data();
-      else return;
+      if (doc.exists) {
+        data = doc.data();
+        this.$store.dispatch('ui/addUser', { id: this.userID, ...data });
+      }
     }
 
-    this.$store.dispatch('ui/addUser', { id: this.userID, ...data });
     this.avatar = data.photoURL;
     this.username = data.username;
     this.nativeLanguage = data.nativeLanguage;

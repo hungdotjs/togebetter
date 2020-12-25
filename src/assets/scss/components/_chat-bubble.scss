@@ -3,6 +3,7 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    padding-top: 8px;
   }
 
   &__content {
@@ -28,6 +29,7 @@
   &__button {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     color: $--color-secondary;
     transition: all 0.3s;
@@ -79,6 +81,7 @@
   &__question-image {
     width: 100%;
     text-align: center;
+    margin: 8px 0;
 
     img {
       max-height: 300px;

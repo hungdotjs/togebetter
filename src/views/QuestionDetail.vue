@@ -1,7 +1,7 @@
 <template>
   <div class="question-detail">
     <el-row class="question-detail__row">
-      <el-col :xs="24" :md="16">
+      <el-col :xs="24" :md="16" class="bg-white round bs-border mt-8">
         <div class="question-detail__content">
           <div v-if="loading" class="skeleton-wrapper">
             <base-skeleton></base-skeleton>
@@ -15,6 +15,7 @@
               @delete="deleteQuestion(id)"
               @reply="reply(question.ownerID)"
               @edit="handleEditQuestion"
+              @close="handleCloseQuestion"
               mode="view"
               borderColor="#f65e39"
             ></chat-bubble>
@@ -34,7 +35,7 @@
           </template>
         </div>
 
-        <div class="answer-form">
+        <div ref="answerForm" class="answer-form">
           <div v-if="!user" class="text-center py-16">
             <p>
               Log in or sign up to leave a comment
@@ -78,7 +79,6 @@
                   ref="answer"
                   v-model="answer"
                   rows="3"
-                  autofocus
                   placeholder="Answer in his/her native language as he/she is a beginner speaker."
                 />
 
@@ -141,7 +141,6 @@
             :questionType="question.questionType"
             :currentQuestionID="question.id"
           ></question-related>
-          <el-divider></el-divider>
           <question-newest
             v-if="question"
             title="Newest Questions"
@@ -167,7 +166,7 @@
 </template>
 
 <script>
-import BaseSkeleton from '@/components/atoms/BaseSkeleton.vue';
+import BaseSkeleton from '@/components/atoms/Skeleton/BaseSkeleton.vue';
 import ChatBubble from '@/components/molecules/ChatBubble.vue';
 import QuestionRelated from '@/components/molecules/QuestionRelated.vue';
 import QuestionNewest from '@/components/molecules/QuestionNewest.vue';
@@ -295,6 +294,21 @@ export default {
       this.submit();
     },
 
+    handleCloseQuestion() {
+      this.$confirm('Are you sure you want to close this question?', 'Warning', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+        type: 'warning',
+      }).then(async () => {
+        await db
+          .collection('questions')
+          .doc(this.id)
+          .update({
+            status: 'closed',
+          });
+      });
+    },
+
     deleteComment(commentID) {
       this.$confirm('Are you sure you want to delete?', 'Warning', {
         confirmButtonText: 'OK',
@@ -376,11 +390,13 @@ export default {
       this.showEditQuesiton = true;
     },
 
+    // eslint-disable-next-line no-unused-vars
     reply(ownerID) {
-      const user = this.listUsersCached.find((item) => item.id === ownerID);
-      this.answer = `@${user.username} `;
+      // const user = this.listUsersCached.find((item) => item.id === ownerID);
+      // this.answer = `@${user.username} `;
       const inputRef = this.$refs.answer;
       inputRef.focus();
+      this.$refs.answerForm.scrollIntoView(false, { behavior: 'smooth' });
     },
 
     async submit() {

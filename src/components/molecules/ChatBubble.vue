@@ -8,7 +8,7 @@
   >
     <!-- Question type -->
     <p v-if="content.questionType">
-      <el-tag type="success" effect="plain">
+      <el-tag type="success">
         Question about <b>{{ languageName }}</b>
       </el-tag>
     </p>
@@ -90,13 +90,6 @@
             :disabled="isOwner"
           ></vote>
 
-          <!-- <el-tooltip content="Reply">
-          <div class="chat-bubble__button" v-if="!isOwner && mode !== 'view'" @click="handleReply">
-            <p><i class="iconfont icon-reply"></i></p>
-            <p class="chat-bubble__button__text">Reply</p>
-          </div>
-        </el-tooltip> -->
-
           <el-tooltip content="Save">
             <bookmark
               v-if="!isOwner"
@@ -105,6 +98,12 @@
               @save="handleSave"
               @unsave="handleUnsave"
             ></bookmark>
+          </el-tooltip>
+
+          <el-tooltip content="Reply">
+            <div class="chat-bubble__button" v-if="!isOwner" @click="handleReply">
+              <p><i class="iconfont icon-reply"></i></p>
+            </div>
           </el-tooltip>
 
           <el-tooltip content="Accept this answer">
@@ -271,7 +270,7 @@ export default {
           this.$emit('delete');
           break;
         case 'close':
-          console.log('close question');
+          this.$emit('close');
           break;
         default:
           break;

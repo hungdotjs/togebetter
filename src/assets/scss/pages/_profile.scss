@@ -1,11 +1,15 @@
 .profile {
-  background: #fff;
-  padding: 16px;
+  // background: #fff;
+  // padding: 16px;
   min-height: 100%;
 
   &__wrapper {
+    padding: 16px 24px;
+    background: #fff;
+    border-radius: 8px;
     max-width: 800px;
-    margin: 0 auto;
+    margin: 16px;
+    box-shadow: $border-shadow;
   }
 
   &__overview {
@@ -92,7 +96,7 @@
   padding: 16px;
 
   &__wrapper {
-    max-width: 600px;
+    padding: 8px;
 
     p {
       margin-bottom: 0;

@@ -1,12 +1,14 @@
 .posts {
-  background-color: #fff;
+  // background-color: #fff;
   padding: 16px;
-  min-height: 100%;
 }
 
 .post {
   padding: 8px;
+  margin-bottom: 16px;
   border: 1px solid #eee;
+  background-color: #fff;
+  box-shadow: $border-shadow;
   border-radius: 8px;
 
   @include res(md) {
@@ -36,7 +38,56 @@
 }
 
 .post-detail {
-  font-size: 1.2em;
+  font-size: 1.1em;
+  min-height: 100%;
+
+  a {
+    color: $--color-primary;
+  }
+
+  &__comment-form {
+    display: flex;
+    margin-bottom: 24px;
+    font-size: 16px;
+
+    &__avatar {
+      display: inline-block;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+
+    &__input-wrapper {
+      background-color: $body-background-color;
+      padding: 6px;
+      margin-bottom: 8px;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+
+    &__button {
+      border: 0;
+      color: #555;
+      background-color: transparent;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.9em;
+
+      &:hover {
+        color: #333;
+        background-color: #eee;
+      }
+    }
+
+    .el-textarea__inner {
+      background-color: $body-background-color;
+      border: none;
+
+      &:focus {
+        background-color: #fff;
+        box-shadow: $border-shadow;
+      }
+    }
+  }
 }
 
 .editor-menubar {

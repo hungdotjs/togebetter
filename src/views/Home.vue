@@ -62,7 +62,7 @@
 
 <script>
 import QuestionBubble from '@/components/molecules/QuestionBubble.vue';
-import BaseSkeleton from '@/components/atoms/BaseSkeleton.vue';
+import BaseSkeleton from '@/components/atoms/Skeleton/BaseSkeleton.vue';
 import savePosition from '@/mixins/savePosition';
 import { db } from '@/firebase';
 
