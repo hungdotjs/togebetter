@@ -23,7 +23,7 @@
           <span class="text-small"> votes</span>
         </span>
         <span>
-          <i class="el-icon-chat-round mr-4"></i>{{ post.replies.length }}
+          <i class="el-icon-chat-round mr-4"></i>{{ post.comments.length }}
           <span class="text-small"> comments</span>
         </span>
       </div>

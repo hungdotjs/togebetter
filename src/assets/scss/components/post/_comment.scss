@@ -1,0 +1,45 @@
+.post-comment {
+  display: flex;
+  font-size: 0.9em;
+
+  &__avatar {
+    flex-shrink: 0 !important;
+    margin-right: 8px;
+    margin-top: 8px;
+    cursor: pointer;
+  }
+
+  &__username {
+    font-weight: 500;
+    color: #555;
+
+    &:hover {
+      cursor: pointer;
+      color: #222;
+    }
+  }
+
+  &__handle {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__button {
+    padding: 6px 12px;
+    border: none;
+    display: inline-block;
+    border-radius: 8px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $body-background-color;
+    }
+  }
+
+  &__content {
+    width: 100%;
+    padding: 8px 16px;
+    box-shadow: $border-shadow;
+    border-radius: 8px;
+  }
+}

@@ -60,17 +60,22 @@ const routes = [
   {
     path: '/posts',
     name: 'posts',
-    component: () => import(/* webpackChunkName: "posts" */ '@/views/Posts.vue'),
+    component: () => import(/* webpackChunkName: "posts" */ '@/views/Posts/index.vue'),
   },
   {
     path: '/posts/:id',
     name: 'post-detail',
-    component: () => import(/* webpackChunkName: "posts" */ '@/views/Post.vue'),
+    component: () => import(/* webpackChunkName: "posts" */ '@/views/Posts/PostDetail.vue'),
+  },
+  {
+    path: '/posts/edit/:id',
+    name: 'edit-post',
+    component: () => import(/* webpackChunkName: "posts" */ '@/views/Posts/EditPost.vue'),
   },
   {
     path: '/posts/create',
     name: 'create-post',
-    component: () => import(/* webpackChunkName: "posts" */ '@/views/CreatePost.vue'),
+    component: () => import(/* webpackChunkName: "posts" */ '@/views/Posts/CreatePost.vue'),
   },
   {
     path: '/search',

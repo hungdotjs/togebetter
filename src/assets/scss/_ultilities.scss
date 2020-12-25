@@ -165,6 +165,12 @@
   padding: 16px !important;
 }
 
+.p-16-md {
+  @include res(md) {
+    padding: 16px !important;
+  }
+}
+
 .p-32 {
   padding: 32px !important;
 }
@@ -287,6 +293,10 @@
 
 .bg-white {
   background-color: #fff;
+}
+
+.bg-gray {
+  background-color: $body-background-color;
 }
 
 .bs-border {

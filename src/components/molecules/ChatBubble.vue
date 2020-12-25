@@ -270,7 +270,7 @@ export default {
           this.$emit('delete');
           break;
         case 'close':
-          console.log('close question');
+          this.$emit('close');
           break;
         default:
           break;

@@ -149,7 +149,7 @@ const languages = [
   { code: 'sl', name: 'Slovene', nativeName: 'slovenščina' },
   { code: 'so', name: 'Somali', nativeName: 'Soomaaliga, af Soomaali' },
   { code: 'st', name: 'Southern Sotho', nativeName: 'Sesotho' },
-  { code: 'es', name: 'Spanish; Castilian', nativeName: 'español, castellano' },
+  { code: 'es', name: 'Spanish', nativeName: 'español, castellano' },
   { code: 'su', name: 'Sundanese', nativeName: 'Basa Sunda' },
   { code: 'sw', name: 'Swahili', nativeName: 'Kiswahili' },
   { code: 'ss', name: 'Swati', nativeName: 'SiSwati' },

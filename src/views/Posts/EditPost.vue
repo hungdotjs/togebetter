@@ -1,6 +1,6 @@
 <template>
   <div class="posts box-content">
-    <h1>Write a new post</h1>
+    <h1>Edit post</h1>
 
     <!-- <el-upload
           class="mb-16"
@@ -162,7 +162,9 @@
 
       <editor-content class="editor__content" :editor="editor"></editor-content>
     </div>
-    <el-button class="mt-16" type="primary" @click="publishPost">Publish</el-button>
+    <el-button class="mt-16" type="primary" @click="publishPost" :loading="loading">
+      Update
+    </el-button>
   </div>
 </template>
 
@@ -195,7 +197,7 @@ import { db, FieldValue } from '@/firebase';
 import { mapState } from 'vuex';
 
 export default {
-  name: 'CreateDiscussion',
+  name: 'EditPost',
   mixins: [upload],
   components: {
     EditorContent,
@@ -204,6 +206,8 @@ export default {
 
   data() {
     return {
+      loading: false,
+      post: null,
       title: '',
       tags: [],
       editor: new Editor({
@@ -246,9 +250,32 @@ export default {
     ...mapState({
       user: (state) => state.auth.user,
     }),
+
+    postID() {
+      return this.$route.params.id;
+    },
+  },
+
+  created() {
+    this.getData();
   },
 
   methods: {
+    getData() {
+      db.collection('posts')
+        .doc(this.postID)
+        .get()
+        .then((doc) => {
+          this.post = {
+            id: doc.id,
+            ...doc.data(),
+          };
+          this.editor.setContent(this.post.html);
+          this.title = this.post.title;
+          this.tags = this.post.tags;
+        });
+    },
+
     showImagePrompt(command) {
       const src = prompt('Enter the url of your image here');
       if (src !== null) {
@@ -257,27 +284,28 @@ export default {
     },
 
     async publishPost() {
+      this.loading = true;
       const input = {
         title: this.title,
         html: this.html,
       };
-      await db.collection('posts').add({
-        ...input,
-        author: this.user.id,
-        tags: this.tags,
-        votes: [],
-        totalVotes: 0,
-        replies: [],
-        status: 'open',
-        createdAt: FieldValue.serverTimestamp(),
-      });
+      await db
+        .collection('posts')
+        .doc(this.postID)
+        .update({
+          ...input,
+          tags: this.tags,
+          status: 'open',
+          updatedAt: FieldValue.serverTimestamp(),
+        });
 
       this.$message({
         type: 'success',
-        message: 'Your post has been published successfully',
+        message: 'Your post has been updated successfully',
       });
 
-      this.$router.push({ name: 'posts' });
+      this.loading = false;
+      this.$router.push({ name: 'post-detail', params: { id: this.postID } });
     },
   },
 

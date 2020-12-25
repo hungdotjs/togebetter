@@ -123,11 +123,12 @@ export default {
         .collection('users')
         .doc(this.userID)
         .get();
-      if (doc.exists) data = doc.data();
-      else return;
+      if (doc.exists) {
+        data = doc.data();
+        this.$store.dispatch('ui/addUser', { id: this.userID, ...data });
+      }
     }
 
-    this.$store.dispatch('ui/addUser', { id: this.userID, ...data });
     this.avatar = data.photoURL;
     this.username = data.username;
     this.nativeLanguage = data.nativeLanguage;

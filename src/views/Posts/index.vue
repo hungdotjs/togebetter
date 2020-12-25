@@ -40,7 +40,7 @@ import FacebookContentLoader from '@/components/atoms/FacebookContentLoader.vue'
 import Post from '@/components/atoms/Post.vue';
 
 export default {
-  name: 'Discussions',
+  name: 'Posts',
   components: { FacebookContentLoader, Post },
 
   data() {
