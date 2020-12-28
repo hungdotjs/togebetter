@@ -29,7 +29,6 @@
               @reply="reply(question.ownerID)"
               @edit="handleEditQuestion"
               @close="handleCloseQuestion"
-              mode="view"
               borderColor="#f65e39"
             ></chat-bubble>
 
@@ -42,6 +41,7 @@
                 :isClosed="isClosed"
                 :is-featured="question.featuredAnswer === comment.id"
                 :questionOwnerID="question.ownerID"
+                :questionContent="question.content"
                 @delete="deleteComment(comment.id)"
                 @reply="reply(comment.ownerID)"
               ></chat-bubble>

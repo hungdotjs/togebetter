@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "15592693",
+      "name": "share-fill",
+      "font_class": "share-fill",
+      "unicode": "ec4a",
+      "unicode_decimal": 60490
+    },
+    {
+      "icon_id": "15592701",
+      "name": "share-line",
+      "font_class": "share-line",
+      "unicode": "ec51",
+      "unicode_decimal": 60497
+    },
+    {
       "icon_id": "15592083",
       "name": "image-fill",
       "font_class": "image-fill",
@@ -424,13 +438,6 @@
       "font_class": "ellipsis",
       "unicode": "e61c",
       "unicode_decimal": 58908
-    },
-    {
-      "icon_id": "959410",
-      "name": "share",
-      "font_class": "share",
-      "unicode": "e655",
-      "unicode_decimal": 58965
     },
     {
       "icon_id": "1381351",

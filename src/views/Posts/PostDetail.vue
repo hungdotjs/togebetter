@@ -14,8 +14,10 @@
       </div>
       <div v-html="post.html"></div>
       <div class="d-flex mt-16 justify-between">
-        <vote :votes="post.votes" @vote="handleVote" @unvote="handleUnvote"></vote>
-
+        <div class="d-flex">
+          <vote :votes="post.votes" @vote="handleVote" @unvote="handleUnvote"></vote>
+          <social-share :title="post.title" :description="post.html"></social-share>
+        </div>
         <div class="d-flex">
           <el-tooltip content="Edit" v-if="isOwner" :open-delay="500">
             <div class="chat-bubble__button" @click="handleEdit">
@@ -65,6 +67,7 @@ import timeago from '@/helpers/timeago';
 import report from '@/mixins/report';
 import Vote from '@/components/atoms/Vote.vue';
 import PostSkeleton from '@/components/atoms/Skeleton/PostSkeleton.vue';
+import SocialShare from '@/components/atoms/SocialShare.vue';
 import InputReply from '@/components/molecules/Post/InputReply.vue';
 import Comment from '@/components/molecules/Post/Comment.vue';
 import { mapState } from 'vuex';
@@ -76,6 +79,7 @@ export default {
   components: {
     Vote,
     InputReply,
+    SocialShare,
     Comment,
     PostSkeleton,
   },

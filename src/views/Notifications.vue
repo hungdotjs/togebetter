@@ -9,7 +9,6 @@
           </el-button> -->
         </h1>
       </div>
-      <el-divider></el-divider>
       <div v-for="item in notifications" :key="item.id">
         <notification :notification="item"></notification>
       </div>

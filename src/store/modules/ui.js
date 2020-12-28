@@ -4,7 +4,7 @@ const state = () => ({
   isRefreshHome: false,
   listUsers: [],
   notifications: [],
-  languageCode: 'en',
+  languageCode: localStorage.getItem('languageCode') ? localStorage.getItem('languageCode') : '',
   countryCode: 'US',
 });
 
@@ -60,6 +60,7 @@ const mutations = {
   },
 
   changeLanguageCode(state, lang) {
+    localStorage.setItem('languageCode', lang);
     state.languageCode = lang;
   },
 
