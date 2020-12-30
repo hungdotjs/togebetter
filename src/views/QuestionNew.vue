@@ -128,19 +128,19 @@ export default {
     imageURL() {
       switch (this.questionType) {
         case 'sound-natural':
-          return 'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fconversation.svg?alt=media&token=3bad62ee-816a-4aa6-b8cd-3b1b80c27c96';
+          return 'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fchat.svg?alt=media&token=4ca928b9-2f7a-419f-914d-8f0c29484ad9';
         case 'difference':
-          return 'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fcompare.svg?alt=media&token=197f4896-d8da-41b2-84a4-e45216bfc68e';
+          return 'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fshapes.svg?alt=media&token=0c8424a0-b3a7-43b0-9ad4-ed207ade5464';
         case 'example':
-          return 'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fnotes.svg?alt=media&token=a46b3ca0-a2d5-4df4-b625-1d80754ad0f1';
+          return 'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fpost-it.svg?alt=media&token=5c381344-6f76-41bf-8f8c-22f03b208328';
         case 'free-question':
-          return 'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fnative.svg?alt=media&token=24f165f8-0db1-4e73-8381-513952c630a8';
+          return 'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fsend.svg?alt=media&token=b2ee83e1-823f-4405-aa21-e9521748d767';
         case 'my-pronounce':
-          return 'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fspeaker.svg?alt=media&token=c5714976-8c54-48e4-bf20-53392b6c7b04';
+          return 'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fmicrophone.svg?alt=media&token=13a380ea-8eb0-4107-9ea4-e775f793ad87';
         case 'your-pronounce':
-          return 'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fmicrophone.svg?alt=media&token=80d1bc6d-0a91-4b0d-a051-b8d001ac587a';
+          return 'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fheadphones.svg?alt=media&token=2167ee6a-d119-47a3-8ae8-52c5910c80cd';
         default:
-          return 'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fmessage.svg?alt=media&token=b0bb027d-a095-497c-be66-0f2c2c90eea2';
+          return 'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fquestion2.svg?alt=media&token=414d8810-6e33-4d61-8810-404575cdfcac';
       }
     },
   },

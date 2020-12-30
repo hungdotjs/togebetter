@@ -108,6 +108,10 @@ const routes = [
     component: () => import(/* webpackChunkName: "404" */ '@/views/404.vue'),
   },
   {
+    path: '*',
+    component: () => import(/* webpackChunkName: "404" */ '@/views/404.vue'),
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting

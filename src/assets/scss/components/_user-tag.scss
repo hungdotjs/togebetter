@@ -19,19 +19,27 @@
   }
 
   &__heart {
-    color: #6a737c;
+    color: #ed4956;
     display: flex;
     align-items: center;
+  }
+
+  &__answers {
+    color: #8bc34a;
+  }
+
+  &__questions {
+    color: #409eff;
   }
 
   &__username {
     text-decoration: none;
     font-weight: 600;
-    color: $--color-primary;
+    color: #444;
     margin-bottom: 0;
 
     &:hover {
-      opacity: 0.8;
+      color: #222;
     }
   }
 

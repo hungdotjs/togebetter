@@ -13,6 +13,7 @@ const actions = {
     commit('refreshHome', flag);
   },
 
+  // Cache User
   addUser({ state, commit }, user) {
     const index = state.listUsers.find((item) => item.id === user.id);
     if (!index) {

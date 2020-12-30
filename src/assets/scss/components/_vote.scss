@@ -6,12 +6,12 @@
 
   &--active {
     animation: heartbeat 1s;
-    color: rgb(237, 73, 86);
+    color: #ed4956;
   }
 
   &__point {
     padding: 0 4px;
-    color: rgb(237, 73, 86);
+    color: #ed4956;
     font-weight: bold;
   }
 }
