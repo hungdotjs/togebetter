@@ -17,6 +17,7 @@
   }
 
   &__content {
+    margin-bottom: 16px;
     b {
       color: $--color-primary;
       background-color: rgba($color: $--color-primary, $alpha: 0.05);
@@ -26,11 +27,12 @@
   &__item {
     padding: 12px;
     border-bottom: 1px solid #eee;
+    border-radius: 8px;
     display: flex;
 
     &:hover {
       cursor: pointer;
-      background-color: $background-primary;
+      background-color: #f6f7f9;
     }
 
     &:last-child {
@@ -45,16 +47,21 @@
     &__box {
       display: flex;
       flex-direction: column;
-      padding: 4px;
-      border: 1px solid #eee;
+      padding: 4px 8px;
+      border-radius: 8px;
 
       &--primary {
-        border: 1px solid $--color-primary;
         margin-bottom: 4px;
       }
 
       &--secondary {
         border: 1px solid $--color-secondary;
+      }
+
+      &--featured {
+        background-color: #67c23a;
+        color: #fff;
+        border: none;
       }
     }
   }

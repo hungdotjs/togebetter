@@ -210,7 +210,6 @@ export default {
           ...doc.data(),
         });
       });
-      console.log(questions, ref);
       const timeout = setTimeout(() => {
         this.questions = questions;
         this.loading = false;

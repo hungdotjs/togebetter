@@ -30,7 +30,7 @@
             {{ item.votes }} votes
           </el-tag>
           <el-tag type="info" size="small" class="mr-8" effect="plain">
-            {{ item.comments }} answers
+            {{ item.answers }} answers
           </el-tag>
         </div>
       </template>
@@ -75,7 +75,6 @@ export default {
         .then(({ hits }) => {
           this.hits = hits;
           cb(hits);
-          console.log(hits);
         });
     },
 

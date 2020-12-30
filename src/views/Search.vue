@@ -2,45 +2,53 @@
   <div class="search-page box-content">
     <div class="search-page__header">
       <p class="search-page__title">
-        <i class="iconfont icon-q"></i> Results for<b class="ml-8 color-primary">{{ query }}</b>
+        <i class="iconfont icon-q"></i> Search Results for
+        <b class="ml-8 color-primary">
+          {{ query }}
+        </b>
       </p>
+      <div class="mb-16" style="max-width: 300px">
+        <p class="text-secondary">Filter by Language</p>
+        <select-language
+          :value.sync="filter.lang"
+          style="max-width: 200px"
+          @change="applyFilter"
+        ></select-language>
+      </div>
       <p class="px-8 color-secondary">{{ total }} results</p>
     </div>
     <div class="search-page__content" v-loading="loading">
-      <div>
-        <div
-          v-for="item in hits"
-          :key="item.objectID"
-          class="search-page__item"
-          @click="goTo(item.objectID)"
-        >
-          <div class="search-page__item__stat">
-            <div class="search-page__item__box search-page__item__box--primary">
-              <span>
-                {{ item.votes }}
-              </span>
-              <span class="text-small">votes</span>
-            </div>
-            <div class="search-page__item__box search-page__item__box--secondary">
-              <span>
-                {{ item.comments }}
-              </span>
-              <span class="text-small">answers</span>
-            </div>
+      <div
+        v-for="item in hits"
+        :key="item.objectID"
+        class="search-page__item"
+        @click="goTo(item.objectID)"
+      >
+        <div class="search-page__item__stat">
+          <div class="search-page__item__box search-page__item__box--primary">
+            <strong> {{ item.votes }} </strong>
+            <span class="text-small">votes</span>
           </div>
-          <div>
-            <p class="color-secondary" style="font-size: 0.9em">
-              {{ questionType(item.questionType) }}
-            </p>
-            <div
-              v-if="item.content"
-              class="text-truncate mb-8"
-              v-html="highlightQuery(item.content)"
-            ></div>
-            <el-tag type="success" size="small" class="mr-8" effect="plain">
-              {{ item.lang | languageName }}
-            </el-tag>
+          <div
+            class="search-page__item__box search-page__item__box--secondary"
+            :class="item.haveFeatured && 'search-page__item__box--featured'"
+          >
+            <strong> {{ item.answers }} </strong>
+            <span class="text-small">answers</span>
           </div>
+        </div>
+        <div>
+          <p class="color-secondary" style="font-size: 0.9em">
+            {{ questionType(item.questionType) }}
+          </p>
+          <div
+            v-if="item.content"
+            class="text-truncate mb-8"
+            v-html="highlightQuery(item.content)"
+          ></div>
+          <el-tag type="success" size="small" class="mr-8" effect="plain">
+            {{ item.lang | languageName }}
+          </el-tag>
         </div>
       </div>
     </div>
@@ -59,16 +67,24 @@
 
 <script>
 import { questionsIndex } from '@/algolia';
+import SelectLanguage from '@/components/atoms/SelectLanguage.vue';
 
 export default {
   name: 'Search',
+  components: {
+    SelectLanguage,
+  },
+
   data() {
     return {
       query: '',
       hits: [],
       total: 0,
-      pageSize: 10,
+      pageSize: 5,
       loading: false,
+      filter: {
+        lang: 'en',
+      },
     };
   },
 
@@ -95,13 +111,16 @@ export default {
       this.loading = true;
       questionsIndex
         .search(this.query, {
+          filters: `lang:${this.filter.lang}`,
           hitsPerPage: this.pageSize,
         })
         .then((res) => {
           this.hits = res.hits;
           this.total = res.nbHits;
-          this.loading = false;
-          console.log(res);
+          const timeout = setTimeout(() => {
+            this.loading = false;
+            clearTimeout(timeout);
+          }, 500);
         });
     },
 
@@ -109,6 +128,7 @@ export default {
       this.loading = true;
       questionsIndex
         .search(this.query, {
+          filters: `lang:${this.filter.lang}`,
           hitsPerPage: this.pageSize,
           page: value - 1,
         })
@@ -116,6 +136,10 @@ export default {
           this.hits = res.hits;
           this.loading = false;
         });
+    },
+
+    applyFilter() {
+      this.search();
     },
 
     highlightQuery(value) {

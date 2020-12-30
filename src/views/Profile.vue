@@ -399,9 +399,7 @@ export default {
     },
 
     async handleAddLanguage(data) {
-      console.log(data);
       const isDuplicate = this.currentUser.interestLanguages.findIndex((item) => {
-        console.log(item);
         return item.lang === data.lang;
       });
       if (isDuplicate !== -1) {

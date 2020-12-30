@@ -91,7 +91,6 @@ export default {
           });
 
           this.lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
-          console.log(bookmarks);
 
           this.bookmarks = this.bookmarks.concat(bookmarks);
           this.loading = false;
