@@ -114,8 +114,6 @@ export default {
         });
       });
 
-      console.log(posts);
-
       const timeout = setTimeout(() => {
         this.posts = posts;
         this.loading = false;

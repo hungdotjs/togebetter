@@ -162,7 +162,9 @@
 
       <editor-content class="editor__content" :editor="editor"></editor-content>
     </div>
-    <el-button class="mt-16" type="primary" @click="publishPost">Publish</el-button>
+    <el-button class="mt-16" type="primary" @click="publishPost" :disabled="havedInput">
+      Publish
+    </el-button>
   </div>
 </template>
 
@@ -246,6 +248,10 @@ export default {
     ...mapState({
       user: (state) => state.auth.user,
     }),
+
+    havedInput() {
+      return this.html && this.title;
+    },
   },
 
   methods: {

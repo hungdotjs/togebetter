@@ -71,7 +71,14 @@
       ></el-input>
     </div>
     <div class="text-center">
-      <el-button type="primary" size="medium" :loading="loadingSubmit" round @click="submit">
+      <el-button
+        type="primary"
+        size="medium"
+        :loading="loadingSubmit"
+        :disabled="havedInput"
+        round
+        @click="submit"
+      >
         Ask
       </el-button>
     </div>
@@ -123,6 +130,10 @@ export default {
 
     questionType() {
       return this.$route.params.type;
+    },
+
+    havedInput() {
+      return this.photoURL || this.audioURL || this.question;
     },
 
     imageURL() {

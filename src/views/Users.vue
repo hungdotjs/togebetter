@@ -92,7 +92,6 @@ export default {
           }
 
           this.users = users;
-          console.log(users);
         });
       const timeout = setTimeout(() => {
         this.loading = false;

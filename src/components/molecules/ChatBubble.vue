@@ -438,15 +438,20 @@ export default {
         confirmButtonText: 'OK',
         cancelButtonText: 'Cancel',
         type: 'info',
-      }).then(() => {
-        db.collection('questions')
+      }).then(async () => {
+        await db
+          .collection('questions')
           .doc(this.content.questionID)
           .update({
             featuredAnswer: this.content.id,
-          })
-          .then(() => {
-            this.$router.go();
           });
+
+        await questionsIndex.partialUpdateObject({
+          haveFeatured: true,
+          objectID: this.content.questionID,
+        });
+
+        this.$router.go();
       });
     },
 

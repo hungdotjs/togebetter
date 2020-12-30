@@ -353,7 +353,7 @@ export default {
           });
         questionsIndex.partialUpdateObject({
           objectID: this.id,
-          comments: {
+          answers: {
             _operation: 'Decrement',
             value: 1,
           },
@@ -445,7 +445,7 @@ export default {
         });
       questionsIndex.partialUpdateObject({
         objectID: this.$route.params.id,
-        comments: {
+        answers: {
           _operation: 'Increment',
           value: 1,
         },
