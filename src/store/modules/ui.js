@@ -4,7 +4,7 @@ const state = () => ({
   isRefreshHome: false,
   listUsers: [],
   notifications: [],
-  languageCode: 'en',
+  languageCode: localStorage.getItem('languageCode') ? localStorage.getItem('languageCode') : '',
   countryCode: 'US',
 });
 
@@ -13,6 +13,7 @@ const actions = {
     commit('refreshHome', flag);
   },
 
+  // Cache User
   addUser({ state, commit }, user) {
     const index = state.listUsers.find((item) => item.id === user.id);
     if (!index) {
@@ -60,6 +61,7 @@ const mutations = {
   },
 
   changeLanguageCode(state, lang) {
+    localStorage.setItem('languageCode', lang);
     state.languageCode = lang;
   },
 

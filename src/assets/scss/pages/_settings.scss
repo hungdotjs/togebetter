@@ -1,0 +1,7 @@
+.settings {
+  padding: 8px 16px;
+
+  @include res(md) {
+    padding: 16px;
+  }
+}

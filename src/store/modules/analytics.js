@@ -23,6 +23,6 @@ const actions = {
 };
 
 export default {
-  namespace: true,
+  namespaced: true,
   actions,
 };

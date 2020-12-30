@@ -16,6 +16,7 @@ import {
   Drawer,
   FormItem,
   Form,
+  Radio,
   Checkbox,
   Divider,
   Link,
@@ -37,10 +38,13 @@ import {
   Popover,
   MessageBox,
   Message,
+  Collapse,
+  CollapseItem,
 } from 'element-ui';
 // collapse
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 import infiniteScroll from 'vue-infinite-scroll';
+import VueSocialSharing from 'vue-social-sharing';
 import languages from '@/data/languages';
 import countries from '@/data/countries';
 import App from './App.vue';
@@ -56,6 +60,7 @@ import '@/assets/fonts/iconfont.css';
 locale.use(lang);
 
 Vue.prototype.$ELEMENT = { size: 'medium', zIndex: 3000 };
+Vue.use(VueSocialSharing);
 Vue.use(infiniteScroll);
 
 Vue.use(Alert);
@@ -64,6 +69,8 @@ Vue.use(Avatar);
 Vue.use(Button);
 Vue.use(Badge);
 Vue.use(Checkbox);
+Vue.use(Collapse);
+Vue.use(CollapseItem);
 Vue.use(Input);
 Vue.use(Select);
 Vue.use(Option);
@@ -78,6 +85,7 @@ Vue.use(Link);
 Vue.use(Tag);
 Vue.use(Tabs);
 Vue.use(TabPane);
+Vue.use(Radio);
 Vue.use(RadioGroup);
 Vue.use(RadioButton);
 Vue.use(Dialog);

@@ -10,7 +10,7 @@
             v-if="isOwner"
             :to="{ name: 'edit-profile', params: { id: user.id } }"
           >
-            <el-button size="mini" icon="iconfont icon-edit" plain>
+            <el-button size="mini" icon="iconfont icon-edit" type="primary">
               Edit Profile
             </el-button>
           </router-link>

@@ -10,13 +10,25 @@
           </div>
 
           <template v-else>
+            <el-alert
+              v-if="isClosed"
+              title="Closed question"
+              type="info"
+              description="Edit existing answers to improve this post. It is not currently accepting new answers."
+              show-icon
+              effect="dark"
+              :closable="false"
+              class="mb-16"
+            >
+            </el-alert>
+
             <chat-bubble
               :content="question"
+              :isClosed="isClosed"
               @delete="deleteQuestion(id)"
               @reply="reply(question.ownerID)"
               @edit="handleEditQuestion"
               @close="handleCloseQuestion"
-              mode="view"
               borderColor="#f65e39"
             ></chat-bubble>
 
@@ -26,8 +38,10 @@
                 type="comment"
                 :key="comment.id"
                 :content="comment"
+                :isClosed="isClosed"
                 :is-featured="question.featuredAnswer === comment.id"
                 :questionOwnerID="question.ownerID"
+                :questionContent="question.content"
                 @delete="deleteComment(comment.id)"
                 @reply="reply(comment.ownerID)"
               ></chat-bubble>
@@ -35,7 +49,7 @@
           </template>
         </div>
 
-        <div ref="answerForm" class="answer-form">
+        <div ref="answerForm" class="answer-form" v-if="!isClosed">
           <div v-if="!user" class="text-center py-16">
             <p>
               Log in or sign up to leave a comment
@@ -222,6 +236,13 @@ export default {
     alreadyInput() {
       return !!this.answer || !!this.audioURL || !!this.photoURL;
     },
+
+    isClosed() {
+      if (this.question) {
+        return this.question.status === 'closed';
+      }
+      return false;
+    },
   },
 
   created() {
@@ -295,17 +316,22 @@ export default {
     },
 
     handleCloseQuestion() {
-      this.$confirm('Are you sure you want to close this question?', 'Warning', {
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancel',
-        type: 'warning',
-      }).then(async () => {
+      this.$confirm(
+        'You cannot undo this action! Are you sure to close this question?',
+        'Warning',
+        {
+          confirmButtonText: 'OK',
+          cancelButtonText: 'Cancel',
+          type: 'warning',
+        },
+      ).then(async () => {
         await db
           .collection('questions')
           .doc(this.id)
           .update({
             status: 'closed',
           });
+        this.question.status = 'closed';
       });
     },
 

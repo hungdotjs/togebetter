@@ -83,6 +83,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "search" */ '@/views/Search.vue'),
   },
   {
+    path: '/settings',
+    name: 'settings',
+    component: () => import(/* webpackChunkName: "settings" */ '@/views/Settings.vue'),
+  },
+  {
     path: '/bookmarks',
     name: 'bookmarks',
     component: () => import(/* webpackChunkName: "bookmarks" */ '@/views/Bookmarks.vue'),
@@ -100,6 +105,10 @@ const routes = [
   {
     path: '/404',
     name: '404',
+    component: () => import(/* webpackChunkName: "404" */ '@/views/404.vue'),
+  },
+  {
+    path: '*',
     component: () => import(/* webpackChunkName: "404" */ '@/views/404.vue'),
   },
   {

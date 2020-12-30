@@ -101,7 +101,7 @@
           </el-tooltip>
 
           <el-tooltip content="Reply">
-            <div class="chat-bubble__button" v-if="!isOwner" @click="handleReply">
+            <div class="chat-bubble__button" v-if="!isOwner && !isClosed" @click="handleReply">
               <p><i class="iconfont icon-reply"></i></p>
             </div>
           </el-tooltip>
@@ -109,7 +109,7 @@
           <el-tooltip content="Accept this answer">
             <div
               class="chat-bubble__button"
-              v-if="!isOwner && isQuestionOwner && !isFeatured && mode !== 'view'"
+              v-if="!isOwner && isQuestionOwner && !isFeatured && type !== 'question'"
               @click="confirmAnswer"
             >
               <p><i class="iconfont icon-crown"></i></p>
@@ -117,31 +117,59 @@
           </el-tooltip>
         </div>
 
-        <el-dropdown trigger="click" v-if="user" @command="handleCommand">
-          <div class="chat-bubble__button">
-            <p><i class="iconfont icon-ellipsis"></i></p>
-          </div>
+        <div class="chat-bubble__social">
+          <social-share
+            v-if="type === 'question'"
+            :description="content.content"
+            :title="questionType"
+          ></social-share>
 
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item
-              icon="el-icon-circle-close"
-              v-if="type === 'question' && isOwner"
-              command="close"
-            >
-              Close question
-            </el-dropdown-item>
-            <el-dropdown-item icon="el-icon-edit" v-if="isOwner && content.content" command="edit">
-              Edit
-            </el-dropdown-item>
-            <el-dropdown-item icon="el-icon-delete" v-if="isOwner" command="delete">
-              Delete
-            </el-dropdown-item>
-            <el-dropdown-item icon="el-icon-warning-outline" command="report">
-              Report
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
+          <el-dropdown trigger="click" v-if="user && mode !== 'view'" @command="handleCommand">
+            <div class="chat-bubble__button">
+              <p><i class="iconfont icon-ellipsis"></i></p>
+            </div>
+
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item
+                icon="el-icon-circle-close"
+                v-if="type === 'question' && isOwner && !isClosed"
+                command="close"
+              >
+                Close question
+              </el-dropdown-item>
+              <el-dropdown-item
+                icon="el-icon-edit"
+                v-if="isOwner && content.content"
+                command="edit"
+              >
+                Edit
+              </el-dropdown-item>
+              <el-dropdown-item icon="el-icon-delete" v-if="isOwner" command="delete">
+                Delete
+              </el-dropdown-item>
+              <el-dropdown-item icon="el-icon-warning-outline" command="report">
+                Report
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
       </div>
+
+      <report
+        v-if="type === 'question'"
+        :userID="user.id"
+        :visible.sync="openReport"
+        :url="$route.path"
+        @send="report"
+      ></report>
+
+      <report
+        v-else
+        :userID="user.id"
+        :visible.sync="openReport"
+        :url="`${$route.path}/comments/${content.id}`"
+        @send="report"
+      ></report>
     </template>
   </bubble>
 </template>
@@ -150,6 +178,7 @@
 import Bubble from '@/components/molecules/Bubble.vue';
 import Vote from '@/components/atoms/Vote.vue';
 import Bookmark from '@/components/atoms/Bookmark.vue';
+import SocialShare from '@/components/atoms/SocialShare.vue';
 import languages from '@/data/languages';
 import { mapState } from 'vuex';
 import { db, FieldValue } from '@/firebase';
@@ -159,14 +188,16 @@ import urlDetect from '@/helpers/urlDetect';
 import detectLanguage from '@/helpers/detectLanguage';
 import filterWords from '@/helpers/filterWords';
 import notiMixins from '@/mixins/notification';
+import report from '@/mixins/report';
 
 export default {
   name: 'ChatBubble',
-  mixins: [notiMixins],
+  mixins: [notiMixins, report],
   components: {
     Bubble,
     Bookmark,
     Vote,
+    SocialShare,
   },
 
   props: {
@@ -185,7 +216,15 @@ export default {
       type: Boolean,
       default: false,
     },
+    isClosed: {
+      type: Boolean,
+      default: false,
+    },
     questionOwnerID: {
+      type: String,
+      default: '',
+    },
+    questionContent: {
       type: String,
       default: '',
     },
@@ -271,6 +310,9 @@ export default {
           break;
         case 'close':
           this.$emit('close');
+          break;
+        case 'report':
+          this.openReport = true;
           break;
         default:
           break;

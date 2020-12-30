@@ -104,7 +104,7 @@
         </li>
       </ul>
 
-      <transition name="el-fade-in-linear">
+      <transition name="el-zoom-in-top">
         <div class="tb-navbar__search-popup" v-if="showSearch">
           <tb-search @close="showSearch = false"></tb-search>
         </div>

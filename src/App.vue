@@ -99,6 +99,9 @@ export default {
     const { country_code, languages } = response;
     // eslint-disable-next-line camelcase
     this.$store.commit('ui/changeCountryCode', country_code);
+
+    if (this.$store.state.ui.languageCode) return;
+
     this.$store.dispatch('ui/changeLanguageCode', languages[0].name);
   },
 
