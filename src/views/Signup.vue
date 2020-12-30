@@ -9,7 +9,7 @@
         <el-form-item prop="username">
           <template #label>
             <i class=" el-icon-user"></i>
-            Username
+            Name
             <p class="text-small">From <b>3 to 26</b> characters.</p>
           </template>
           <el-input

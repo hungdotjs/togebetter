@@ -57,7 +57,6 @@
     </router-link>
 
     <router-link
-      v-if="user"
       tag="li"
       to="/posts"
       class="left-sidebar__item"

@@ -50,6 +50,7 @@
       </div>
 
       <report
+        v-if="user"
         :userID="user.id"
         :visible.sync="openReport"
         :url="`${$route.path}/comments/${comment.id}`"
@@ -102,7 +103,10 @@ export default {
     },
 
     isOwner() {
-      return this.user.id === this.author.id;
+      if (this.user) {
+        return this.user.id === this.author.id;
+      }
+      return false;
     },
   },
 

@@ -156,18 +156,10 @@
       </div>
 
       <report
-        v-if="type === 'question'"
+        v-if="user"
         :userID="user.id"
         :visible.sync="openReport"
-        :url="$route.path"
-        @send="report"
-      ></report>
-
-      <report
-        v-else
-        :userID="user.id"
-        :visible.sync="openReport"
-        :url="`${$route.path}/comments/${content.id}`"
+        :url="type === 'question' ? $route.path : `${$route.path}/comments/${content.id}`"
         @send="report"
       ></report>
     </template>

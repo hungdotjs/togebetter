@@ -8,7 +8,7 @@
         </el-tag>
         {{ user.username }}
         <el-tag
-          v-if="user.id === $store.state.auth.user.id"
+          v-if="$store.state.auth.user && user.id === $store.state.auth.user.id"
           type="success"
           size="mini"
           effect="dark"

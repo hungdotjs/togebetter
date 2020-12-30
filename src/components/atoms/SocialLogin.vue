@@ -55,8 +55,6 @@ export default {
             if (doc.exists) {
               // Analytics
               this.$store.dispatch('analytics/login', 'Google');
-
-              this.$router.replace({ name: 'home' });
             } else {
               const user = {
                 photoURL,
@@ -78,12 +76,11 @@ export default {
                 createdAt: FieldValue.serverTimestamp(),
                 ...user,
               });
-
               // Analytics
               this.$store.dispatch('analytics/signUp', 'Google');
-
-              this.$router.replace({ name: 'home' });
             }
+
+            this.$router.replace({ name: 'home' });
           });
         })
         .catch((error) => {
@@ -97,7 +94,8 @@ export default {
       provider.addScope('email');
       auth.signInWithPopup(provider).then((result) => {
         const token = result.credential.accessToken;
-        const { uid, email, displayName, photoURL } = result.user;
+        const { email } = result.additionalUserInfo.profile;
+        const { uid, displayName, photoURL } = result.user;
         const userRef = db.collection('users').doc(uid);
         userRef
           .get()
