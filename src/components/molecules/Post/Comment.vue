@@ -54,6 +54,8 @@
         :userID="user.id"
         :visible.sync="openReport"
         :url="`${$route.path}/comments/${comment.id}`"
+        type="post-comment"
+        :contentID="comment.id"
         @send="report"
       ></report>
     </template>

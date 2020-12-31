@@ -44,6 +44,14 @@ export default {
     url: {
       type: String,
     },
+
+    type: {
+      type: String,
+    },
+
+    contentID: {
+      type: String,
+    },
   },
 
   data() {
@@ -78,6 +86,8 @@ export default {
         message: this.message,
         url: this.dataUrl,
         userID: this.userID,
+        contentID: this.contentID,
+        type: this.type,
       };
       const timeout = setTimeout(() => {
         this.$emit('send', input);

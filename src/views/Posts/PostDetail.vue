@@ -55,9 +55,11 @@
 
     <report
       v-if="user"
+      type="post"
       :userID="user.id"
       :visible.sync="openReport"
       :url="$route.path"
+      :contentID="postID"
       @send="handleReport"
     ></report>
   </div>

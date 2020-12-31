@@ -108,7 +108,7 @@
         <el-form-item>
           <template #label>
             <i class=" el-icon-location"></i>
-            Country or region you know well
+            Your country
           </template>
           <select-country :value.sync="form.knowingCountry"></select-country>
         </el-form-item>
