@@ -85,6 +85,12 @@ export default {
 
               this.$router.push('/questions');
             });
+
+          // Log to api
+          this.$store.dispatch('api/log', {
+            userID: user.uid,
+            action: 'Login',
+          });
         })
         .catch((error) => {
           const errorMessage = error.message;

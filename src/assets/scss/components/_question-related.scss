@@ -12,6 +12,7 @@
   }
 
   &__box {
+    background-color: #fff;
     border-radius: 12px;
     border: 1px solid #eee;
     box-shadow: $border-shadow;
@@ -21,7 +22,9 @@
     &__title {
       padding: 10px 24px;
       margin-bottom: 0;
-      background-color: #f9fafa;
+      font-size: 1.1em;
+      background-color: #444;
+      color: #fff;
     }
   }
 }

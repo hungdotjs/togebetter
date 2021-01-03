@@ -2,6 +2,10 @@
   display: flex;
 }
 
+.d-inline-block {
+  display: inline-block;
+}
+
 .grow-1 {
   flex-grow: 1;
 }
@@ -231,7 +235,7 @@
 }
 
 .bg-primary {
-  background-color: $--color-primary;
+  background-color: $--color-primary !important;
   color: #fff;
 }
 
@@ -331,4 +335,14 @@
 .base-dialog {
   width: 90%;
   max-width: 400px;
+}
+
+.sticky-top {
+  position: sticky;
+  top: 56px;
+}
+
+.has-focus {
+  border-radius: 3px;
+  box-shadow: 0 0 0 2px #3ea4ffe6;
 }

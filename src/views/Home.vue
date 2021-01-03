@@ -55,13 +55,18 @@
           </div>
         </div>
       </el-col>
-      <el-col :xs="24" :md="8"> </el-col>
+      <el-col :xs="24" :md="8" class="sticky-top">
+        <div class="question-related mt-16 hidden-sm-and-down" v-if="user">
+          <add-more-language :user="user"></add-more-language>
+        </div>
+      </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
 import QuestionBubble from '@/components/molecules/QuestionBubble.vue';
+import AddMoreLanguage from '@/components/molecules/AddMoreLanguage.vue';
 import BaseSkeleton from '@/components/atoms/Skeleton/BaseSkeleton.vue';
 import savePosition from '@/mixins/savePosition';
 import { db } from '@/firebase';
@@ -72,6 +77,7 @@ export default {
   components: {
     QuestionBubble,
     BaseSkeleton,
+    AddMoreLanguage,
   },
 
   data() {

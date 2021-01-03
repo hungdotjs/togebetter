@@ -63,6 +63,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "posts" */ '@/views/Posts/index.vue'),
   },
   {
+    path: '/posts/create',
+    name: 'create-post',
+    component: () => import(/* webpackChunkName: "posts" */ '@/views/Posts/CreatePost.vue'),
+  },
+  {
     path: '/posts/:id',
     name: 'post-detail',
     component: () => import(/* webpackChunkName: "posts" */ '@/views/Posts/PostDetail.vue'),
@@ -71,11 +76,6 @@ const routes = [
     path: '/posts/edit/:id',
     name: 'edit-post',
     component: () => import(/* webpackChunkName: "posts" */ '@/views/Posts/EditPost.vue'),
-  },
-  {
-    path: '/posts/create',
-    name: 'create-post',
-    component: () => import(/* webpackChunkName: "posts" */ '@/views/Posts/CreatePost.vue'),
   },
   {
     path: '/search',

@@ -55,6 +55,12 @@ export default {
             if (doc.exists) {
               // Analytics
               this.$store.dispatch('analytics/login', 'Google');
+
+              // Log to api
+              this.$store.dispatch('api/log', {
+                userID: uid,
+                action: 'Login',
+              });
             } else {
               const user = {
                 photoURL,
@@ -105,6 +111,12 @@ export default {
               this.$store.dispatch('analytics/login', 'Facebook');
 
               this.$router.replace({ name: 'home' });
+
+              // Log to api
+              this.$store.dispatch('api/log', {
+                userID: uid,
+                action: 'Login',
+              });
             } else {
               const user = {
                 photoURL: `${photoURL}?access_token=${token}`,

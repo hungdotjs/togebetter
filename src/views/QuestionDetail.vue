@@ -333,6 +333,12 @@ export default {
           });
         this.question.status = 'closed';
       });
+
+      // Log to api
+      this.$store.dispatch('api/log', {
+        userID: this.user.id,
+        action: `Closed question ${this.id}`,
+      });
     },
 
     deleteComment(commentID) {
@@ -400,6 +406,12 @@ export default {
               message: 'Delete completed',
               type: 'success',
             });
+
+            // Log to api
+            this.$store.dispatch('api/log', {
+              userID: this.user.id,
+              action: `Delete question ${questionID}`,
+            });
           });
         await db
           .collection('users')
@@ -427,8 +439,9 @@ export default {
 
     async submit() {
       this.loadingSubmit = true;
+      const questionID = this.$route.params.id;
       const input = {
-        questionID: this.$route.params.id,
+        questionID,
         ownerID: this.user.id,
         content: this.answer,
         audioURL: this.audioURL,
@@ -443,8 +456,15 @@ export default {
         .update({
           comments: FieldValue.arrayUnion(comment.id),
         });
+
+      // Log to api
+      this.$store.dispatch('api/log', {
+        userID: this.user.id,
+        action: `Answer question ${questionID}`,
+      });
+
       questionsIndex.partialUpdateObject({
-        objectID: this.$route.params.id,
+        objectID: questionID,
         answers: {
           _operation: 'Increment',
           value: 1,
