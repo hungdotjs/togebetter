@@ -1,6 +1,7 @@
 .question-related {
   padding: 8px;
   margin-top: 24px;
+  font-size: 0.9em;
 
   @include res(lg) {
     margin-top: 0;
@@ -11,6 +12,7 @@
   }
 
   &__box {
+    background-color: #fff;
     border-radius: 12px;
     border: 1px solid #eee;
     box-shadow: $border-shadow;
@@ -20,7 +22,9 @@
     &__title {
       padding: 10px 24px;
       margin-bottom: 0;
-      background-color: #f9fafa;
+      font-size: 1.1em;
+      background-color: #444;
+      color: #fff;
     }
   }
 }

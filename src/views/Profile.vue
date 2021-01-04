@@ -180,6 +180,30 @@
             </el-button>
           </div>
         </el-tab-pane>
+
+        <!-- Tab Posts  -->
+        <el-tab-pane v-loading="loadingTab" label="Posts" name="posts" lazy>
+          <div v-if="!posts.length" class="profile__post--error">
+            <el-image
+              src="https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fhugo-292.png?alt=media&token=a02f5342-1704-4e81-ac7f-134feb83a105"
+              lazy
+            ></el-image>
+            You haven't any posts yet.
+          </div>
+          <post v-else v-for="post in posts" :key="post.id" :post="post"> </post>
+          <div class="text-center">
+            <el-button
+              v-if="!noMorePost"
+              type="primary"
+              size="small"
+              :loading="loadingTab"
+              plain
+              @click="loadMore('posts')"
+            >
+              Load more
+            </el-button>
+          </div>
+        </el-tab-pane>
       </el-tabs>
     </div>
   </div>
@@ -194,6 +218,7 @@ import { mapState } from 'vuex';
 import { db, FieldValue } from '@/firebase';
 import { questionsIndex } from '@/algolia';
 import timeago from '@/helpers/timeago';
+import Post from '@/components/atoms/Post.vue';
 
 export default {
   name: 'Profile',
@@ -202,6 +227,7 @@ export default {
     QuestionBubble,
     ChatBubble,
     InputInterestLanguage,
+    Post,
   },
 
   data() {
@@ -214,10 +240,13 @@ export default {
       limit: 5,
       questions: [],
       answers: [],
+      posts: [],
       noMoreQuestion: true,
       noMoreAnswer: true,
+      noMorePost: true,
       lastQuestionDoc: null,
       lastAnswerDoc: null,
+      lastPostDoc: null,
     };
   },
 
@@ -295,6 +324,35 @@ export default {
             this.answers = this.answers.concat(answers);
             this.loadingTab = false;
           });
+      } else if (value === 'posts') {
+        if (this.posts.length) return;
+
+        this.loadingTab = true;
+        // Get answers
+        db.collection('posts')
+          .where('author', '==', this.currentUser.id)
+          .orderBy('createdAt', 'desc')
+          .limit(this.limit)
+          .get()
+          .then((querySnapshot) => {
+            const posts = [];
+            querySnapshot.forEach((doc) => {
+              posts.push({
+                id: doc.id,
+                ...doc.data(),
+              });
+            });
+
+            this.lastPostDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
+            if (querySnapshot.docs.length < this.limit) {
+              this.noMorePost = true;
+            } else {
+              this.noMorePost = false;
+            }
+
+            this.posts = this.posts.concat(posts);
+            this.loadingTab = false;
+          });
       }
     },
   },
@@ -326,15 +384,36 @@ export default {
 
     async loadMore(collectionName) {
       this.loadingTab = true;
-      const lastDoc = collectionName === 'questions' ? this.lastQuestionDoc : this.lastAnswerDoc;
-
-      const querySnapshot = await db
-        .collection(collectionName)
-        .where('ownerID', '==', this.currentUser.id)
-        .orderBy('createdAt', 'desc')
-        .startAfter(lastDoc)
-        .limit(this.limit)
-        .get();
+      let lastDoc;
+      switch (collectionName) {
+        case 'questions':
+          lastDoc = this.lastQuestionDoc;
+          break;
+        case 'comments':
+          lastDoc = this.lastAnswerDoc;
+          break;
+        default:
+          lastDoc = this.lastPostDoc;
+          break;
+      }
+      let querySnapshot;
+      if (collectionName === 'posts') {
+        querySnapshot = await db
+          .collection(collectionName)
+          .where('author', '==', this.currentUser.id)
+          .orderBy('createdAt', 'desc')
+          .startAfter(lastDoc)
+          .limit(this.limit)
+          .get();
+      } else {
+        querySnapshot = await db
+          .collection(collectionName)
+          .where('ownerID', '==', this.currentUser.id)
+          .orderBy('createdAt', 'desc')
+          .startAfter(lastDoc)
+          .limit(this.limit)
+          .get();
+      }
 
       // Get the last visible document
       const data = [];
@@ -346,16 +425,31 @@ export default {
       });
 
       if (querySnapshot.docs.length < this.limit) {
-        if (collectionName === 'questions') this.noMoreQuestion = true;
-        else this.noMoreAnswer = true;
+        switch (collectionName) {
+          case 'questions':
+            this.noMoreQuestion = true;
+            break;
+          case 'comments':
+            this.noMoreAnswer = true;
+            break;
+          default:
+            this.noMorePost = true;
+            break;
+        }
       }
-
-      if (collectionName === 'questions') {
-        this.lastQuestionDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
-        this.questions = this.questions.concat(data);
-      } else {
-        this.lastAnswerDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
-        this.answers = this.answers.concat(data);
+      switch (collectionName) {
+        case 'questions':
+          this.lastQuestionDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
+          this.questions = this.questions.concat(data);
+          break;
+        case 'comments':
+          this.lastAnswerDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
+          this.answers = this.answers.concat(data);
+          break;
+        default:
+          this.lastPostDoc = querySnapshot.docs[querySnapshot.docs.length - 1];
+          this.posts = this.posts.concat(data);
+          break;
       }
 
       this.loadingTab = false;

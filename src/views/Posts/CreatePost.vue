@@ -70,9 +70,22 @@
             <i class="iconfont icon-underline"></i>
           </button>
 
-          <button class="editor-menubar__button" @click="showImagePrompt(commands.image)">
-            <i class="iconfont icon-image-fill"></i>
-          </button>
+          <el-upload
+            class="d-inline-block"
+            action="#"
+            accept="image/*"
+            :auto-upload="false"
+            :show-file-list="false"
+            :on-change="
+              (e) => {
+                handleChangeUploadEditor(e, commands.image);
+              }
+            "
+          >
+            <button class="editor-menubar__button">
+              <i class="iconfont icon-image-fill"></i>
+            </button>
+          </el-upload>
 
           <button
             class="editor-menubar__button"
@@ -162,7 +175,7 @@
 
       <editor-content class="editor__content" :editor="editor"></editor-content>
     </div>
-    <el-button class="mt-16" type="primary" @click="publishPost" :disabled="havedInput">
+    <el-button class="mt-16" type="primary" @click="publishPost" :disabled="!havedInput">
       Publish
     </el-button>
   </div>
@@ -191,13 +204,14 @@ import {
   Strike,
   Underline,
   History,
+  Focus,
   Placeholder,
 } from 'tiptap-extensions';
 import { db, FieldValue } from '@/firebase';
 import { mapState } from 'vuex';
 
 export default {
-  name: 'CreateDiscussion',
+  name: 'CreatePost',
   mixins: [upload],
   components: {
     EditorContent,
@@ -228,6 +242,10 @@ export default {
           new Strike(),
           new Underline(),
           new History(),
+          new Focus({
+            className: 'has-focus',
+            nested: true,
+          }),
           new Placeholder({
             emptyEditorClass: 'is-editor-empty',
             emptyNodeClass: 'is-empty',
@@ -250,14 +268,16 @@ export default {
     }),
 
     havedInput() {
-      return this.html && this.title;
+      return !!this.html && !!this.title;
     },
   },
 
   methods: {
     showImagePrompt(command) {
-      const src = prompt('Enter the url of your image here');
-      if (src !== null) {
+      if (this.photoURL !== null) {
+        const src = this.photoURL;
+        console.log(src);
+        this.photoURL = null;
         command({ src });
       }
     },

@@ -34,7 +34,9 @@
       <social-login></social-login>
       <div class="text-center">
         <div class="mb-16">
-          <el-link><i class="el-icon-question"></i> Forgot your password?</el-link>
+          <router-link tag="el-link" :to="{ name: 'account-recovery' }">
+            <i class="el-icon-question"></i> Forgot your password?
+          </router-link>
         </div>
         <div>
           <router-link to="/signup" tag="el-link">Sign up</router-link>
@@ -83,6 +85,12 @@ export default {
 
               this.$router.push('/questions');
             });
+
+          // Log to api
+          this.$store.dispatch('api/log', {
+            userID: user.uid,
+            action: 'Login',
+          });
         })
         .catch((error) => {
           const errorMessage = error.message;

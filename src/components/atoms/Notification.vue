@@ -92,6 +92,8 @@ export default {
           return 'answered your question.';
         case 'like':
           return 'liked your post.';
+        case 'mention':
+          return 'mentioned you in a comment.';
         default:
           return '';
       }
@@ -104,7 +106,7 @@ export default {
         case 'like':
           return 'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/icon%2Fheart.svg?alt=media&token=eb5b8b12-66eb-462f-b844-928275ebc047';
         default:
-          return '';
+          return 'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/icon%2Fchat.svg?alt=media&token=12714774-642c-4ca4-8010-7891f050af5b';
       }
     },
   },

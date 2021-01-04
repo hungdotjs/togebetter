@@ -25,9 +25,7 @@
 
         <div class="bubble__header text-small">
           <p class="bubble__name" @click="goTo">{{ username }}</p>
-          <div class="m-0">
-            {{ time }}
-          </div>
+          <div class="m-0"><i class="el-icon-time"></i> {{ time }}</div>
         </div>
         <div class="bubble__language">
           <div class="center-y">

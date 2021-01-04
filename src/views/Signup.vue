@@ -9,7 +9,7 @@
         <el-form-item prop="username">
           <template #label>
             <i class=" el-icon-user"></i>
-            Username
+            Name
             <p class="text-small">From <b>3 to 26</b> characters.</p>
           </template>
           <el-input
@@ -108,7 +108,7 @@
         <el-form-item>
           <template #label>
             <i class=" el-icon-location"></i>
-            Country or region you know well
+            Your country
           </template>
           <select-country :value.sync="form.knowingCountry"></select-country>
         </el-form-item>

@@ -1,5 +1,5 @@
 <template>
-  <div class="notifications">
+  <div class="notifications text-center">
     <div class="notifications__image">
       <el-image
         src="https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fhugo-page-not-found.png?alt=media&token=531c0b77-2678-4636-b19e-8556d782c6b9"

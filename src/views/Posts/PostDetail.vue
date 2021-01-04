@@ -54,9 +54,12 @@
     <post-skeleton v-else></post-skeleton>
 
     <report
+      v-if="user"
+      type="post"
       :userID="user.id"
       :visible.sync="openReport"
       :url="$route.path"
+      :contentID="postID"
       @send="handleReport"
     ></report>
   </div>
@@ -109,7 +112,10 @@ export default {
     },
 
     isOwner() {
-      return this.user.id === this.post.author;
+      if (this.user) {
+        return this.user.id === this.post.author;
+      }
+      return false;
     },
   },
 

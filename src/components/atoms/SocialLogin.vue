@@ -56,7 +56,11 @@ export default {
               // Analytics
               this.$store.dispatch('analytics/login', 'Google');
 
-              this.$router.replace({ name: 'home' });
+              // Log to api
+              this.$store.dispatch('api/log', {
+                userID: uid,
+                action: 'Login',
+              });
             } else {
               const user = {
                 photoURL,
@@ -78,12 +82,11 @@ export default {
                 createdAt: FieldValue.serverTimestamp(),
                 ...user,
               });
-
               // Analytics
               this.$store.dispatch('analytics/signUp', 'Google');
-
-              this.$router.replace({ name: 'home' });
             }
+
+            this.$router.replace({ name: 'home' });
           });
         })
         .catch((error) => {
@@ -97,7 +100,8 @@ export default {
       provider.addScope('email');
       auth.signInWithPopup(provider).then((result) => {
         const token = result.credential.accessToken;
-        const { uid, email, displayName, photoURL } = result.user;
+        const { email } = result.additionalUserInfo.profile;
+        const { uid, displayName, photoURL } = result.user;
         const userRef = db.collection('users').doc(uid);
         userRef
           .get()
@@ -107,6 +111,12 @@ export default {
               this.$store.dispatch('analytics/login', 'Facebook');
 
               this.$router.replace({ name: 'home' });
+
+              // Log to api
+              this.$store.dispatch('api/log', {
+                userID: uid,
+                action: 'Login',
+              });
             } else {
               const user = {
                 photoURL: `${photoURL}?access_token=${token}`,

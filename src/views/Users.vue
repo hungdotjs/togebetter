@@ -10,11 +10,11 @@
     </div>
     <div class="users__wrapper" v-loading="loading">
       <el-row v-if="users.length">
-        <el-col :xs="24" :md="12" :lg="8" v-for="(user, index) in users" :key="user.id">
+        <el-col :xs="24" :md="12" v-for="(user, index) in users" :key="user.id">
           <user-tag :user="user" :type="filter" :rank="index + 1"></user-tag>
         </el-col>
       </el-row>
-      <div class="text-center">
+      <div class="text-center my-16">
         <el-button
           v-if="!noMoreUser"
           type="primary"

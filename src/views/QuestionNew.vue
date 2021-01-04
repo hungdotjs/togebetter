@@ -75,7 +75,7 @@
         type="primary"
         size="medium"
         :loading="loadingSubmit"
-        :disabled="havedInput"
+        :disabled="!havedInput"
         round
         @click="submit"
       >
@@ -197,6 +197,9 @@ export default {
         lang: this.selectedLang,
         questionType: this.questionType,
       });
+
+      this.$store.dispatch('api/log', { userID: this.user.id, action: 'Ask a new question' });
+      this.$store.dispatch('api/ask', input);
 
       this.$router.push({ name: 'questions-detail', params: { id: res.id } });
     },

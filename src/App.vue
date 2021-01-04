@@ -30,7 +30,7 @@ export default {
 
   data() {
     return {
-      blackList: ['landing-page', 'login', 'signup'],
+      blackList: ['landing-page', 'login', 'signup', 'account-recovery'],
       loading: false,
       unsubcribe: null,
     };

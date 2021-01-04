@@ -63,6 +63,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "posts" */ '@/views/Posts/index.vue'),
   },
   {
+    path: '/posts/create',
+    name: 'create-post',
+    component: () => import(/* webpackChunkName: "posts" */ '@/views/Posts/CreatePost.vue'),
+  },
+  {
     path: '/posts/:id',
     name: 'post-detail',
     component: () => import(/* webpackChunkName: "posts" */ '@/views/Posts/PostDetail.vue'),
@@ -71,11 +76,6 @@ const routes = [
     path: '/posts/edit/:id',
     name: 'edit-post',
     component: () => import(/* webpackChunkName: "posts" */ '@/views/Posts/EditPost.vue'),
-  },
-  {
-    path: '/posts/create',
-    name: 'create-post',
-    component: () => import(/* webpackChunkName: "posts" */ '@/views/Posts/CreatePost.vue'),
   },
   {
     path: '/search',
@@ -103,12 +103,13 @@ const routes = [
     component: () => import(/* webpackChunkName: "users" */ '@/views/Users.vue'),
   },
   {
-    path: '/404',
-    name: '404',
-    component: () => import(/* webpackChunkName: "404" */ '@/views/404.vue'),
+    path: '/account-recovery',
+    name: 'account-recovery',
+    component: () => import(/* webpackChunkName: "users" */ '@/views/ForgotPassword.vue'),
   },
   {
-    path: '*',
+    path: '/404',
+    name: '404',
     component: () => import(/* webpackChunkName: "404" */ '@/views/404.vue'),
   },
   {
@@ -118,6 +119,10 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
+  },
+  {
+    path: '*',
+    component: () => import(/* webpackChunkName: "404" */ '@/views/404.vue'),
   },
 ];
 

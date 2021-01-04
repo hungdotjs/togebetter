@@ -39,6 +39,15 @@
           </form>
         </el-collapse-item>
 
+        <!-- <el-collapse-item title="Send feedback" name="3">
+          <form autocomplete="off">
+            <el-input class="mb-8" type="textarea"></el-input>
+            <el-button type="primary" size="mini" @click="changeTranslateLanguage">
+              Send
+            </el-button>
+          </form>
+        </el-collapse-item> -->
+
         <el-collapse-item title="Sign out" name="sign-out"> </el-collapse-item>
       </el-collapse>
     </div>
