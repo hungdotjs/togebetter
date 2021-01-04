@@ -194,6 +194,7 @@ import { mapState } from 'vuex';
 import uploadMixin from '@/mixins/upload';
 import savePosition from '@/mixins/savePosition';
 import notiMixin from '@/mixins/notification';
+import mentionedUser from '@/helpers/mentionedUser';
 
 export default {
   name: 'QuestionDetail',
@@ -430,8 +431,8 @@ export default {
 
     // eslint-disable-next-line no-unused-vars
     reply(ownerID) {
-      // const user = this.listUsersCached.find((item) => item.id === ownerID);
-      // this.answer = `@${user.username} `;
+      const user = this.listUsersCached.find((item) => item.id === ownerID);
+      this.answer = `@${user.username} `;
       const inputRef = this.$refs.answer;
       inputRef.focus();
       this.$refs.answerForm.scrollIntoView(false, { behavior: 'smooth' });
@@ -470,6 +471,7 @@ export default {
           value: 1,
         },
       });
+
       await db
         .collection('users')
         .doc(this.user.id)
@@ -477,12 +479,32 @@ export default {
           totalAnswers: FieldValue.increment(1),
         });
 
+      const mentions = mentionedUser(this.answer, this.listUsersCached);
+      if (mentions.length) {
+        mentions.forEach((item) => {
+          this.notifyMentionUser(comment.id, item.id);
+        });
+      } else {
+        this.notifyToUser(comment.id);
+      }
+
       this.loadingSubmit = false;
       this.photoURL = '';
       this.audioURL = '';
       this.answer = '';
+    },
 
-      this.notifyToUser(comment.id);
+    notifyMentionUser(id, userMentionedID) {
+      if (this.question.ownerID === this.user.id) return;
+
+      const noti = {
+        senderID: this.user.id,
+        receiveID: userMentionedID,
+        questionID: this.question.id,
+        detectID: `${this.user.id}_${id}`,
+        message: 'mention',
+      };
+      this.sendNotification(noti);
     },
 
     notifyToUser(id) {

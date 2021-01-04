@@ -179,6 +179,7 @@ import { db, FieldValue } from '@/firebase';
 import { questionsIndex } from '@/algolia';
 import translator from '@/translator';
 import urlDetect from '@/helpers/urlDetect';
+import detectMention from '@/helpers/detectMention';
 import detectLanguage from '@/helpers/detectLanguage';
 import filterWords from '@/helpers/filterWords';
 import notiMixins from '@/mixins/notification';
@@ -248,6 +249,7 @@ export default {
     ...mapState({
       user: (state) => state.auth.user,
       languageCode: (state) => state.ui.languageCode,
+      listUsers: (state) => state.ui.listUsers,
     }),
 
     isOwner() {
@@ -265,7 +267,8 @@ export default {
     },
 
     contentHTML() {
-      return urlDetect(this.content.content);
+      const content = detectMention(this.content.content, this.listUsers);
+      return urlDetect(content);
     },
 
     questionType() {

@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://test-deploy-express.herokuapp.com';
-axios.defaults.headers = { 'Access-Control-Allow-Origin': '*' };
+// axios.defaults.headers = { 'Access-Control-Allow-Origin': '*' };
 
 const actions = {
   log({ commit }, payload) {
