@@ -211,6 +211,12 @@ export default {
           ...this.form,
         });
 
+      // Log to api
+      this.$store.dispatch('api/log', {
+        userID: this.user.id,
+        action: 'Update profile',
+      });
+
       this.loading = false;
       this.$router.replace({ name: 'profile', params: { id: this.user.id } });
     },

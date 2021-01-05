@@ -20,6 +20,10 @@ const actions = {
   createPost(payload) {
     analytics.logEvent('create_post', payload);
   },
+
+  answer(payload) {
+    analytics.logEvent('answer', payload);
+  },
 };
 
 export default {

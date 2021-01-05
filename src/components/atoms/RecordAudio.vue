@@ -4,7 +4,7 @@
       <slot></slot>
     </div>
     <div class="record-audio__audio" v-if="!disablePreview">
-      <audio v-if="audioURL" :src="audioURL" controls>
+      <audio type="audio/mpeg" v-if="audioURL" :src="audioURL" controls>
         Your browser does not support the
         <code>audio</code> element.
       </audio>
@@ -88,7 +88,7 @@ export default {
     },
 
     handleStop() {
-      const audioBlob = new Blob(this.audioChunks, { type: 'audio/ogg; codecs=opus' });
+      const audioBlob = new Blob(this.audioChunks, { type: 'audio/mpeg' });
       this.audioChunks = [];
       this.audio = audioBlob;
       this.audioURL = URL.createObjectURL(audioBlob);

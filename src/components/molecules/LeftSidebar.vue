@@ -5,10 +5,11 @@
       tag="li"
       :to="`/users/${user.id}`"
       class="left-sidebar__item center-y"
+      style="overflow: hidden"
       active-class="left-sidebar__item--active"
       exact
     >
-      <el-avatar :src="user.photoURL" :size="32" class="mr-16"></el-avatar>
+      <el-avatar :src="user.photoURL" :size="32" class="mr-16" style="flex-shrink: 0"></el-avatar>
       <span>{{ user.username }}</span>
     </router-link>
 

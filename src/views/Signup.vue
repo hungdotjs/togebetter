@@ -259,28 +259,34 @@ export default {
         .createUserWithEmailAndPassword(email, password)
         .then(async (res) => {
           const userID = res.user.uid;
+          const data = {
+            ...profile,
+            email,
+            username,
+            photoURL:
+              'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fdefault-avatar.png?alt=media&token=a6ed8c16-5e60-4ca9-aaad-0ddaadd675b1',
+            interestLanguages,
+            points: 0,
+            totalQuestions: 0,
+            totalAnswers: 0,
+            bio: '',
+            status: 'active',
+            createdAt: FieldValue.serverTimestamp(),
+          };
           // Save to Firestore
           await db
             .collection('users')
             .doc(userID)
-            .set({
-              ...profile,
-              email,
-              username,
-              photoURL:
-                'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fdefault-avatar.png?alt=media&token=a6ed8c16-5e60-4ca9-aaad-0ddaadd675b1',
-              interestLanguages,
-              points: 0,
-              totalQuestions: 0,
-              totalAnswers: 0,
-              bio: '',
-              status: 'active',
-              createdAt: FieldValue.serverTimestamp(),
-            });
+            .set(data);
 
           this.loading = false;
 
           this.$store.dispatch('analytics/signUp', 'Togebetter');
+          this.$store.dispatch('api/createUser', {
+            id: userID,
+            country: this.form.knowingCountry,
+            ...data,
+          });
 
           this.$router.push('/questions');
         })

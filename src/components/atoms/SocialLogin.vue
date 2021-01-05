@@ -84,6 +84,17 @@ export default {
               });
               // Analytics
               this.$store.dispatch('analytics/signUp', 'Google');
+              this.$store.dispatch('api/createUser', {
+                id: uid,
+                email,
+                points: 0,
+                totalAnswers: 0,
+                totalQuestions: 0,
+                bio: '',
+                status: 'active',
+                country: user.knowingCountry,
+                ...user,
+              });
             }
 
             this.$router.replace({ name: 'home' });
@@ -141,6 +152,17 @@ export default {
 
               // Analytics
               this.$store.dispatch('analytics/signUp', 'Facebook');
+              this.$store.dispatch('api/createUser', {
+                id: uid,
+                email,
+                points: 0,
+                totalAnswers: 0,
+                totalQuestions: 0,
+                bio: '',
+                status: 'active',
+                country: user.knowingCountry,
+                ...user,
+              });
 
               // this.$router.replace({ name: 'home' });
               window.location.replace('/questions');

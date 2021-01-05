@@ -16,7 +16,12 @@
           <el-image :src="content.photoURL" class="chat-bubble__image"></el-image>
         </div>
         <div v-if="content.audioURL">
-          <audio :src="content.audioURL" class="chat-bubble__audio" controls></audio>
+          <audio
+            type="audio/mpeg"
+            :src="content.audioURL"
+            class="chat-bubble__audio"
+            controls
+          ></audio>
         </div>
       </div>
     </bubble>

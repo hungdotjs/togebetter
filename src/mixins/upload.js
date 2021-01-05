@@ -54,7 +54,7 @@ export default {
     async handleRecordAudio(file) {
       this.loadingUpload = true;
       const uid = generateUID();
-      const storageAudioRef = storage.ref(`assets/audio/${uid}`);
+      const storageAudioRef = storage.ref(`assets/audio/${uid}.mp3`);
       this.audioRef = storageAudioRef;
       await storageAudioRef.put(file);
       const downloadURL = await storageAudioRef.getDownloadURL();

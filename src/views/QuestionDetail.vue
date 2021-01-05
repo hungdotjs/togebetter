@@ -73,7 +73,7 @@
               </span>
             </div>
             <div class="answer-form__audio" v-if="audioURL">
-              <audio :src="audioURL" controls>
+              <audio type="audio/mpeg" :src="audioURL" controls>
                 Your browser does not support the
                 <code>audio</code> element.
               </audio>
