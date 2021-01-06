@@ -2,7 +2,7 @@
   <div class="landing-page__header hidden-xs-only" v-if="isLandingPage">
     <div>
       <label for="language">Interface language</label>
-      <select name="language" id="language">
+      <select v-model="interfaceLanguage" name="language" id="language">
         <option value="en">English</option>
         <option value="vi">Tiếng Việt</option>
       </select>
@@ -78,25 +78,25 @@
               <el-dropdown-item>
                 <router-link tag="span" :to="`/users/${user.id}`">
                   <i class="el-icon-user"></i>
-                  Profile
+                  {{ $t('navbar.profile') }}
                 </router-link>
               </el-dropdown-item>
               <el-dropdown-item>
                 <router-link tag="span" to="/bookmarks">
                   <i class="el-icon-collection-tag"></i>
-                  Bookmark
+                  {{ $t('navbar.bookmark') }}
                 </router-link>
               </el-dropdown-item>
               <el-dropdown-item>
                 <router-link tag="span" to="/settings">
                   <i class="el-icon-setting"></i>
-                  Settings
+                  {{ $t('navbar.settings') }}
                 </router-link>
               </el-dropdown-item>
               <el-dropdown-item divided>
                 <span @click="signOut">
                   <i class="el-icon-switch-button"></i>
-                  Sign out
+                  {{ $t('settings.signout') }}
                 </span>
               </el-dropdown-item>
             </el-dropdown-menu>
@@ -163,7 +163,7 @@
               >
                 <questions-type class="p-16" mode="component"></questions-type>
                 <el-button slot="reference" class="px-16" type="primary" size="small" round>
-                  Ask <i class="ml-8 el-icon-arrow-down"></i>
+                  {{ $t('ask') }} <i class="ml-8 el-icon-arrow-down"></i>
                 </el-button>
               </el-popover>
             </li>
@@ -176,25 +176,25 @@
                 <el-dropdown-item>
                   <router-link tag="span" :to="`/users/${user.id}`">
                     <i class="el-icon-user"></i>
-                    Profile
+                    {{ $t('navbar.profile') }}
                   </router-link>
                 </el-dropdown-item>
                 <el-dropdown-item>
                   <router-link tag="span" to="/bookmarks">
                     <i class="el-icon-collection-tag"></i>
-                    Bookmark
+                    {{ $t('navbar.bookmark') }}
                   </router-link>
                 </el-dropdown-item>
                 <el-dropdown-item>
                   <router-link tag="span" to="/settings">
                     <i class="el-icon-setting"></i>
-                    Settings
+                    {{ $t('navbar.settings') }}
                   </router-link>
                 </el-dropdown-item>
                 <el-dropdown-item divided>
                   <span @click="signOut">
                     <i class="el-icon-switch-button"></i>
-                    Sign out
+                    {{ $t('settings.signout') }}
                   </span>
                 </el-dropdown-item>
               </el-dropdown-menu>
@@ -239,6 +239,7 @@ export default {
       showSearch: false,
       showNotifications: false,
       showQuestionsType: false,
+      interfaceLanguage: 'en',
     };
   },
 
@@ -259,6 +260,15 @@ export default {
       this.showQuestionsType = false;
       this.openSidebar = false;
     },
+
+    interfaceLanguage(value) {
+      this.$store.dispatch('ui/changeInterfaceLanguage', value);
+      this.$i18n.locale = value;
+    },
+  },
+
+  created() {
+    this.interfaceLanguage = this.$store.state.ui.interfaceLanguage;
   },
 
   methods: {

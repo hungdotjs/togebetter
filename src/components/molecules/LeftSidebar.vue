@@ -25,7 +25,7 @@
         alt="#"
         class="left-sidebar__item__icon"
       />
-      <span>Questions</span>
+      <span>{{ $t('navbar.questions') }}</span>
     </router-link>
     <!-- <router-link
       tag="li"
@@ -54,7 +54,7 @@
       active-class="left-sidebar__item--active"
     >
       <img :src="require('@/assets/icons/ask.svg')" alt="#" class="left-sidebar__item__icon" />
-      <span>Ask </span>
+      <span>{{ $t('navbar.ask') }}</span>
     </router-link>
 
     <router-link
@@ -64,7 +64,7 @@
       active-class="left-sidebar__item--active"
     >
       <img :src="require('@/assets/icons/blog.svg')" alt="#" class="left-sidebar__item__icon" />
-      <span>Discussions</span>
+      <span>{{ $t('navbar.discussions') }}</span>
     </router-link>
 
     <router-link
@@ -79,7 +79,7 @@
         alt="#"
         class="left-sidebar__item__icon"
       />
-      <span>Bookmark</span>
+      <span>{{ $t('navbar.bookmark') }}</span>
     </router-link>
 
     <router-link
@@ -90,7 +90,7 @@
       exact
     >
       <img :src="require('@/assets/icons/ranking.svg')" alt="#" class="left-sidebar__item__icon" />
-      <span>Leaderboard</span>
+      <span>{{ $t('navbar.leaderboard') }}</span>
     </router-link>
 
     <li>

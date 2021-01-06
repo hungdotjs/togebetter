@@ -45,6 +45,7 @@ import {
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 import infiniteScroll from 'vue-infinite-scroll';
 import VueSocialSharing from 'vue-social-sharing';
+import VueI18n from 'vue-i18n';
 import languages from '@/data/languages';
 import countries from '@/data/countries';
 import App from './App.vue';
@@ -61,6 +62,7 @@ locale.use(lang);
 
 Vue.prototype.$ELEMENT = { size: 'medium', zIndex: 3000 };
 Vue.use(VueSocialSharing);
+Vue.use(VueI18n);
 Vue.use(infiniteScroll);
 
 Vue.use(Alert);
@@ -116,7 +118,17 @@ Vue.filter('languageName', (value) => {
   return languages.find((item) => item.code === value).name || '';
 });
 
+const i18n = new VueI18n({
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages: {
+    en: require('./locales/en.json'),
+    vi: require('./locales/vi.json'),
+  },
+});
+
 new Vue({
+  i18n,
   router,
   store,
   render: (h) => h(App),

@@ -4,7 +4,7 @@
       class="tb-search__input"
       popper-class="tb-search__popper"
       ref="input"
-      placeholder="Search questions"
+      :placeholder="$t('search.placeholder')"
       v-model="searchKey"
       prefix-icon="iconfont icon-search"
       clearable

@@ -3,7 +3,7 @@
     <div class="notifications__content" v-if="notifications.length">
       <div>
         <h1>
-          Notifications
+          {{ $t('navbar.notifications') }}
           <!-- <el-button icon="el-icon-check" class="ml-16 float-right" size="mini">
             Mark all as read
           </el-button> -->

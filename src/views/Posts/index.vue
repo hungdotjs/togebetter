@@ -10,8 +10,10 @@
     <el-row>
       <el-col :xs="24" :md="16">
         <div class="center-y justify-between">
-          <h1 class="pt-16">Discussions</h1>
-          <el-button type="primary" @click="createPost" size="small">Create a Post</el-button>
+          <h1 class="pt-16">{{ $t('navbar.discussions') }}</h1>
+          <el-button type="primary" @click="createPost" size="small">
+            {{ $t('discussions.create') }}
+          </el-button>
         </div>
         <div v-if="loading">
           <facebook-content-loader></facebook-content-loader>

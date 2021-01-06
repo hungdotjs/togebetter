@@ -1,0 +1,74 @@
+{
+    "save": "Save changes",
+    "ask": "Ask",
+    "cancel": "Cancel",
+    "question": "Question",
+    "points": "points",
+    "a": "answers",
+    "q": "questions",
+    "saved": "Save",
+    "share": "Share",
+    "report": "Report",
+    "reply": "Reply",
+    "edit": "Edit",
+    "delete": "Delete",
+
+    "navbar": {
+        "notifications": "Notifications",
+        "questions": "Questions",
+        "ask": "Ask",
+        "discussions": "Discussions",
+        "bookmark": "Bookmark",
+        "leaderboard": "Leaderboard",
+        "settings": "Settings",
+        "profile": "Profile",
+        "search": "Search"
+    },
+    "settings": {
+        "translateTo": "Language you'd like to have posts translated into",
+        "language": "Interface language",
+        "changePassword": "Change password",
+        "signout": "Sign out"
+    },
+    "search": {
+        "placeholder": "Search questions"
+    },
+    "home": {
+        "title": "Home",
+        "filter": "Filter",
+        "questionAbout": "Question about",
+        "questionFilters": "Question filters",
+        "filterUnanswer": "Only unanswered questions",
+        "filterVoice": "Only voice questions"
+    },
+    "questions": {
+        "template": {
+            "title":  "Choose a question template",
+            "subtitle1": "Ask about grammar/vocab",
+            "subtitle2": "Ask about pronunciation",
+            "subtitle3": "Ask freely",
+            "type1": "How do you say this?",
+            "type2": "Does this sound natural?",
+            "type3": "What does this mean?",
+            "type4": "What's the difference?",
+            "type5": "Please show me examples with~~",
+            "type6": "Please show me how to pronounce ~~.",
+            "type7": "How's my pronunciation?",
+            "type8": "Ask something else"
+        },
+        "related": "Related Questions",
+        "newest": "Newest Questions",
+        "seeTranslate": "See a translation",
+        "hideTranslate": "Hide translation"
+    },
+    "discussions": {
+        "create": "Create a post"
+    },
+    "profile": {
+        "edit": "Edit Profile",
+        "profile": "Profile",
+        "questions": "Questions",
+        "answers": "Answers",
+        "posts": "Posts"
+    }
+}

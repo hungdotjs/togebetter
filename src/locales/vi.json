@@ -1,0 +1,74 @@
+{
+    "save": "Lưu",
+    "ask": "Đặt câu hỏi",
+    "cancel": "Hủy",
+    "question": "Câu hỏi",
+    "points": "điểm",
+    "a": "câu trả lời",
+    "q": "câu hỏi",
+    "saved": "Lưu",
+    "share": "Chia sẻ",
+    "report": "Báo cáo",
+    "reply": "Trả lời",
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa",
+
+    "navbar": {
+        "notifications": "Thông báo",
+        "questions": "Câu hỏi",
+        "ask": "Đặt câu hỏi",
+        "discussions": "Thảo luận",
+        "bookmark": "Đã lưu",
+        "leaderboard": "Bảng xếp hạng",
+        "settings": "Cài đặt",
+        "profile": "Trang cá nhân",
+        "search": "Tìm kiếm"
+    },
+    "settings": {
+        "translateTo": "Ngôn ngữ mà bạn muốn nhận bản dịch cho các bài viết",
+        "language": "Ngôn ngữ",
+        "changePassword": "Đổi mật khẩu",
+        "signout": "Đăng xuất"
+    },
+    "search": {
+        "placeholder": "Tìm kiếm câu hỏi"
+    },
+    "home": {
+        "title": "Trang chủ",
+        "filter": "Bộ lọc",
+        "questionAbout": "Câu hỏi về",
+        "questionFilters": "Bộ lọc câu hỏi",
+        "filterUnanswer": "Câu hỏi chưa được trả lời",
+        "filterVoice": "Câu hỏi có ghi âm"
+    },
+    "questions": {
+        "template": {
+            "title": "Chọn mẫu câu hỏi",
+            "subtitle1": "Hỏi về ngữ pháp/từ vựng",
+            "subtitle2": "Hỏi về cách phát âm",
+            "subtitle3": "Hỏi tự do",
+            "type1": "Cái này nói như thế nào vậy?",
+            "type2": "Nghe có tự nhiên không?",
+            "type3": "Cái này có nghĩa là gì?",
+            "type4": "Sự khác biệt là gì?",
+            "type5": "Hãy chỉ cho tôi những ví dụ với~~",
+            "type6": "Hãy chỉ cho tôi cách phát âm của~~.",
+            "type7": "Phát âm của tôi như thế nào?",
+            "type8": "Hỏi gì đó khác"
+        },
+        "related": "Câu hỏi liên quan",
+        "newest": "Câu hỏi mới nhất",
+        "seeTranslate": "Xem bản dịch",
+        "hideTranslate": "Ẩn bản dịch"
+    },
+    "discussions": {
+        "create": "Tạo bài đăng"
+    },
+    "profile": {
+        "edit": "Chỉnh sửa",
+        "profile": "Hồ sơ cá nhân",
+        "questions": "Câu hỏi",
+        "answers": "Câu trả lời",
+        "posts": "Bài đăng"
+    }
+}

@@ -11,7 +11,7 @@
             :to="{ name: 'edit-profile', params: { id: user.id } }"
           >
             <el-button size="mini" icon="iconfont icon-edit" type="primary">
-              Edit Profile
+              {{ $t('profile.edit') }}
             </el-button>
           </router-link>
         </div>
@@ -25,21 +25,21 @@
                 <i class="iconfont icon-heart-solid"></i>
                 {{ currentUser.points }}
               </span>
-              <span> points </span>
+              <span> {{ $t('points') }} </span>
             </div>
             <p class="profile__stats__item profile__stats__item--question">
               <span class="text-bold">
                 <i class="iconfont icon-ask-question"></i>
                 {{ currentUser.totalQuestions }}
               </span>
-              <span> questions </span>
+              <span> {{ $t('q') }} </span>
             </p>
             <p class="profile__stats__item profile__stats__item--answer">
               <span class="text-bold">
                 <i class="iconfont icon-answer"></i>
                 {{ currentUser.totalAnswers }}
               </span>
-              <span> answers </span>
+              <span> {{ $t('a') }} </span>
             </p>
           </div>
         </div>
@@ -47,7 +47,7 @@
 
       <el-tabs v-model="activeName">
         <!-- Tab Profile  -->
-        <el-tab-pane label="Profile" name="profile">
+        <el-tab-pane :label="$t('profile.profile')" name="profile">
           <div>
             <div class="profile__bio">
               <p class="text-bold">About me</p>
@@ -122,7 +122,7 @@
         </el-tab-pane>
 
         <!-- Tab Questions  -->
-        <el-tab-pane v-loading="loadingTab" label="Questions" name="questions" lazy>
+        <el-tab-pane v-loading="loadingTab" :label="$t('profile.questions')" name="questions" lazy>
           <div v-if="!questions.length" class="profile__post--error">
             <el-image
               src="https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fhugo-292.png?alt=media&token=a02f5342-1704-4e81-ac7f-134feb83a105"
@@ -151,7 +151,7 @@
         </el-tab-pane>
 
         <!-- Tab Answers  -->
-        <el-tab-pane v-loading="loadingTab" label="Answers" name="answers" lazy>
+        <el-tab-pane v-loading="loadingTab" :label="$t('profile.answers')" name="answers" lazy>
           <div v-if="!answers.length" class="profile__post--error">
             <el-image
               src="https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fhugo-292.png?alt=media&token=a02f5342-1704-4e81-ac7f-134feb83a105"
@@ -182,7 +182,7 @@
         </el-tab-pane>
 
         <!-- Tab Posts  -->
-        <el-tab-pane v-loading="loadingTab" label="Posts" name="posts" lazy>
+        <el-tab-pane v-loading="loadingTab" :label="$t('profile.posts')" name="posts" lazy>
           <div v-if="!posts.length" class="profile__post--error">
             <el-image
               src="https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fhugo-292.png?alt=media&token=a02f5342-1704-4e81-ac7f-134feb83a105"

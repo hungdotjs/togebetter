@@ -17,6 +17,7 @@ module.exports = {
     'linebreak-style': 'off',
     'arrow-body-style': 'off',
     'operator-linebreak': 'off',
+    'global-require': 'off',
     'import/no-unresolved': 'off',
   },
 };

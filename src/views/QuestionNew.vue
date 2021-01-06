@@ -10,7 +10,7 @@
       <select-language :value.sync="selectedLang" style="max-width: 400px;"></select-language>
     </div>
     <div class="mb-16">
-      <p class="text-bold">Question</p>
+      <p class="text-bold">{{ $t('question') }}</p>
       <el-input
         type="textarea"
         v-model="question"

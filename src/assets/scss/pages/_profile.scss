@@ -45,17 +45,10 @@
   }
 
   &__stats {
-    @include res(md) {
-      display: flex;
-      justify-content: space-around;
-    }
-
     &__item {
       margin-bottom: 8px;
 
       @include res(md) {
-        display: flex;
-        flex-direction: column;
         padding-right: 24px;
       }
 

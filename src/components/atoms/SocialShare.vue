@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-tooltip content="Share">
+    <el-tooltip :content="$t('share')">
       <div class="chat-bubble__button" @click="visible = true">
         <p><i class="iconfont icon-share-fill"></i></p>
       </div>

@@ -21,17 +21,25 @@
           </el-select>
           <el-popover placement="bottom-end" trigger="click" v-model="popoverVisible">
             <div>
-              <p>Question filters</p>
+              <p>{{ $t('home.questionFilters') }}</p>
               <div class="home__filter__checkboxs">
-                <el-checkbox v-model="filterUnanswer">Only unanswered questions</el-checkbox>
-                <el-checkbox v-model="filterVoice">Only voice questions</el-checkbox>
+                <el-checkbox v-model="filterUnanswer">
+                  {{ $t('home.filterUnanswer') }}
+                </el-checkbox>
+                <el-checkbox v-model="filterVoice">
+                  {{ $t('home.filterVoice') }}
+                </el-checkbox>
                 <div class="p-8 text-right">
-                  <el-button size="mini" @click="popoverVisible = false">Cancel</el-button>
+                  <el-button size="mini" @click="popoverVisible = false">
+                    {{ $t('cancel') }}
+                  </el-button>
                   <el-button type="primary" size="mini" @click="getData">OK</el-button>
                 </div>
               </div>
             </div>
-            <el-button slot="reference" icon="el-icon-set-up" plain>Filter</el-button>
+            <el-button slot="reference" icon="el-icon-set-up" plain>
+              {{ $t('home.filter') }}
+            </el-button>
           </el-popover>
         </div>
 
@@ -224,7 +232,7 @@ export default {
     },
 
     filterLabel(lang) {
-      return `Question about ${this.$options.filters.languageName(lang)}`;
+      return `${this.$t('home.questionAbout')} ${this.$options.filters.languageName(lang)}`;
     },
 
     goTo(link) {
