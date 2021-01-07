@@ -6,6 +6,9 @@ const state = () => ({
   notifications: [],
   languageCode: localStorage.getItem('languageCode') ? localStorage.getItem('languageCode') : '',
   countryCode: 'US',
+  interfaceLanguage: localStorage.getItem('interfaceLanguage')
+    ? localStorage.getItem('interfaceLanguage')
+    : 'en',
 });
 
 const actions = {
@@ -27,6 +30,10 @@ const actions = {
       lang = lang.code;
       commit('changeLanguageCode', lang);
     }
+  },
+
+  changeInterfaceLanguage({ commit }, payload) {
+    commit('changeInterfaceLanguage', payload);
   },
 
   fetchNotifications({ commit }, payload) {
@@ -63,6 +70,11 @@ const mutations = {
   changeLanguageCode(state, lang) {
     localStorage.setItem('languageCode', lang);
     state.languageCode = lang;
+  },
+
+  changeInterfaceLanguage(state, lang) {
+    localStorage.setItem('interfaceLanguage', lang);
+    state.interfaceLanguage = lang;
   },
 
   changeCountryCode(state, countryCode) {

@@ -124,6 +124,13 @@ export default {
       if (doc.exists) {
         data = doc.data();
         this.$store.dispatch('ui/addUser', { id: this.userID, ...data });
+      } else {
+        data = {
+          username: 'Unknown user',
+          photoURL:
+            'https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fdefault-avatar.png?alt=media&token=a6ed8c16-5e60-4ca9-aaad-0ddaadd675b1',
+          interestLanguages: [],
+        };
       }
     }
 

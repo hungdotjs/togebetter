@@ -1,19 +1,35 @@
 <template>
   <div class="settings box-content">
     <div style="max-width: 500px">
-      <h1>Settings</h1>
+      <h1>{{ $t('navbar.settings') }}</h1>
 
       <el-collapse v-model="activeNames" accordion>
-        <el-collapse-item title="Language you'd like to have posts translated into" name="1">
+        <el-collapse-item :title="$t('settings.translateTo')" name="1">
           <form autocomplete="off">
             <select-language :value.sync="translateTo"></select-language>
             <el-button type="primary" size="mini" @click="changeTranslateLanguage">
-              Save changes
+              {{ $t('save') }}
             </el-button>
           </form>
         </el-collapse-item>
 
-        <el-collapse-item :disabled="!!user.loginBy" title="Change password" name="2">
+        <el-collapse-item :title="$t('settings.language')" name="2">
+          <form autocomplete="off">
+            <el-select v-model="interfaceLanguage" class="w-100 mb-16">
+              <el-option value="en" label="English"></el-option>
+              <el-option value="vi" label="Tiếng Việt"></el-option>
+            </el-select>
+            <el-button type="primary" size="mini" @click="changeInterfaceLanguage">
+              {{ $t('save') }}
+            </el-button>
+          </form>
+        </el-collapse-item>
+
+        <el-collapse-item
+          :disabled="!!user.loginBy"
+          :title="$t('settings.changePassword')"
+          name="3"
+        >
           <form autocomplete="off">
             <p>Old password</p>
             <el-input
@@ -39,16 +55,7 @@
           </form>
         </el-collapse-item>
 
-        <!-- <el-collapse-item title="Send feedback" name="3">
-          <form autocomplete="off">
-            <el-input class="mb-8" type="textarea"></el-input>
-            <el-button type="primary" size="mini" @click="changeTranslateLanguage">
-              Send
-            </el-button>
-          </form>
-        </el-collapse-item> -->
-
-        <el-collapse-item title="Sign out" name="sign-out"> </el-collapse-item>
+        <el-collapse-item :title="$t('settings.signout')" name="sign-out"> </el-collapse-item>
       </el-collapse>
     </div>
   </div>
@@ -71,6 +78,7 @@ export default {
       password: '',
       passwordOld: '',
       passwordConfirm: '',
+      interfaceLanguage: 'en',
     };
   },
 
@@ -96,6 +104,7 @@ export default {
 
   created() {
     this.translateTo = this.languageCode;
+    this.interfaceLanguage = this.$store.state.ui.interfaceLanguage;
   },
 
   methods: {
@@ -106,6 +115,11 @@ export default {
         message: 'Changed successfully!',
       });
       this.activeNames = '0';
+    },
+
+    changeInterfaceLanguage() {
+      this.$store.dispatch('ui/changeInterfaceLanguage', this.interfaceLanguage);
+      this.$i18n.locale = this.interfaceLanguage;
     },
 
     changePassword() {

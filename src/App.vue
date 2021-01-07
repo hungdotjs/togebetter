@@ -44,9 +44,15 @@ export default {
     notifications() {
       return this.$store.state.ui.notifications;
     },
+
+    interfaceLanguage() {
+      return this.$store.state.ui.interfaceLanguage;
+    },
   },
 
   created() {
+    this.$i18n.locale = this.interfaceLanguage;
+
     auth.onAuthStateChanged(async (user) => {
       if (user) {
         this.loading = true;

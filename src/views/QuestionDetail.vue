@@ -73,7 +73,7 @@
               </span>
             </div>
             <div class="answer-form__audio" v-if="audioURL">
-              <audio :src="audioURL" controls>
+              <audio type="audio/mpeg" :src="audioURL" controls>
                 Your browser does not support the
                 <code>audio</code> element.
               </audio>
@@ -151,13 +151,14 @@
         <div class="question-related">
           <question-related
             v-if="question"
+            :title="$t('questions.related')"
             :lang="question.lang"
             :questionType="question.questionType"
             :currentQuestionID="question.id"
           ></question-related>
           <question-newest
             v-if="question"
-            title="Newest Questions"
+            :title="$t('questions.newest')"
             :lang="question.lang"
             :currentQuestionID="question.id"
           ></question-newest>
@@ -495,8 +496,6 @@ export default {
     },
 
     notifyMentionUser(id, userMentionedID) {
-      if (this.question.ownerID === this.user.id) return;
-
       const noti = {
         senderID: this.user.id,
         receiveID: userMentionedID,

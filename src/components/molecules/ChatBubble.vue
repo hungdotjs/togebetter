@@ -50,13 +50,13 @@
                 />
               </el-divider>
               {{ translatedText }}
-              <br />
+              <br /><br />
               <span class="chat-bubble__translate-toggle" @click="showTranslate = false">
-                Hide translation
+                {{ $t('questions.hideTranslate') }}
               </span>
             </span>
             <span v-else class="chat-bubble__translate-toggle" @click="translate">
-              See a translation
+              {{ $t('questions.seeTranslate') }}
             </span>
           </p>
         </div>
@@ -70,7 +70,12 @@
         ></el-image>
       </div>
       <div v-if="content.audioURL">
-        <audio :src="content.audioURL" class="chat-bubble__audio" controls></audio>
+        <audio
+          type="audio/mpeg"
+          :src="content.audioURL"
+          class="chat-bubble__audio"
+          controls
+        ></audio>
       </div>
 
       <!-- Additional information  -->
@@ -90,7 +95,7 @@
             :disabled="isOwner"
           ></vote>
 
-          <el-tooltip content="Save">
+          <el-tooltip :content="$t('saved')">
             <bookmark
               v-if="!isOwner"
               :bookmarks="user.bookmarks"
@@ -100,7 +105,7 @@
             ></bookmark>
           </el-tooltip>
 
-          <el-tooltip content="Reply">
+          <el-tooltip :content="$t('reply')">
             <div class="chat-bubble__button" v-if="!isOwner && !isClosed" @click="handleReply">
               <p><i class="iconfont icon-reply"></i></p>
             </div>
@@ -142,13 +147,13 @@
                 v-if="isOwner && content.content"
                 command="edit"
               >
-                Edit
+                {{ $t('edit') }}
               </el-dropdown-item>
               <el-dropdown-item icon="el-icon-delete" v-if="isOwner" command="delete">
-                Delete
+                {{ $t('delete') }}
               </el-dropdown-item>
               <el-dropdown-item icon="el-icon-warning-outline" command="report">
-                Report
+                {{ $t('report') }}
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>

@@ -9,7 +9,7 @@
   >
     <el-row>
       <el-col :xs="24" :md="16">
-        <h1>Bookmarks</h1>
+        <h1>{{ $t('navbar.bookmark') }}</h1>
 
         <div v-if="loading" class="skeleton-wrapper">
           <base-skeleton></base-skeleton>

@@ -10,7 +10,7 @@
       <select-language :value.sync="selectedLang" style="max-width: 400px;"></select-language>
     </div>
     <div class="mb-16">
-      <p class="text-bold">Question</p>
+      <p class="text-bold">{{ $t('question') }}</p>
       <el-input
         type="textarea"
         v-model="question"
@@ -50,7 +50,7 @@
       <p class="color-secondary text-small">Click to record a voice answer</p>
     </div>
     <div class="answer-form__audio" v-if="audioURL">
-      <audio :src="audioURL" controls>
+      <audio type="audio/mpeg" :src="audioURL" controls>
         Your browser does not support the
         <code>audio</code> element.
       </audio>
@@ -170,6 +170,7 @@ export default {
         createdAt: FieldValue.serverTimestamp(),
         comments: [],
         votes: [],
+        status: 'active',
       };
       const res = await db.collection('questions').add(input);
       await db
@@ -199,7 +200,7 @@ export default {
       });
 
       this.$store.dispatch('api/log', { userID: this.user.id, action: 'Ask a new question' });
-      this.$store.dispatch('api/ask', input);
+      this.$store.dispatch('api/ask', { id: res.id, ...input, type: this.questionType });
 
       this.$router.push({ name: 'questions-detail', params: { id: res.id } });
     },
