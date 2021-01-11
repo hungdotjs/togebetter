@@ -5,6 +5,7 @@
     :createdAt="content.createdAt"
     :borderColor="borderColor"
     :checked="isFeatured"
+    :isAuthor="isAuthor"
   >
     <!-- Question type -->
     <p v-if="content.questionType">
@@ -44,7 +45,7 @@
             <span v-if="showTranslate">
               <el-divider>
                 <img
-                  :src="require('@/assets/img/translated-by-google.png')"
+                  :src="require('@/assets/img/translated-by-mymemory.svg')"
                   width="120"
                   alt="translated-by-google"
                 />
@@ -260,6 +261,10 @@ export default {
     isOwner() {
       if (this.user) return this.user.id === this.content.ownerID;
       return false;
+    },
+
+    isAuthor() {
+      return this.questionOwnerID === this.content.ownerID;
     },
 
     isQuestionOwner() {

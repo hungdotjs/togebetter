@@ -149,6 +149,12 @@
       <!-- Related post  -->
       <el-col :xs="24" :md="8" class="question-detail__right">
         <div class="question-related">
+          <question-need-your-help
+            v-if="question && user"
+            :title="$t('questions.needHelp')"
+            :user="user"
+            :currentQuestionID="question.id"
+          ></question-need-your-help>
           <question-related
             v-if="question"
             :title="$t('questions.related')"
@@ -185,6 +191,7 @@ import BaseSkeleton from '@/components/atoms/Skeleton/BaseSkeleton.vue';
 import ChatBubble from '@/components/molecules/ChatBubble.vue';
 import QuestionRelated from '@/components/molecules/QuestionRelated.vue';
 import QuestionNewest from '@/components/molecules/QuestionNewest.vue';
+import QuestionNeedYourHelp from '@/components/molecules/QuestionNeedYourHelp.vue';
 import RecordAudio from '@/components/atoms/RecordAudio.vue';
 import ChatSticker from '@/components/atoms/ChatSticker.vue';
 import QuestionEdit from '@/components/organisms/QuestionEdit.vue';
@@ -207,6 +214,7 @@ export default {
     BaseSkeleton,
     QuestionRelated,
     QuestionNewest,
+    QuestionNeedYourHelp,
     QuestionEdit,
   },
   mixins: [uploadMixin, savePosition, notiMixin],
@@ -458,6 +466,12 @@ export default {
         .update({
           comments: FieldValue.arrayUnion(comment.id),
         });
+
+      // Analytics
+      this.$store.dispatch('analytics/answer', {
+        questionID,
+        userID: this.user.id,
+      });
 
       // Log to api
       this.$store.dispatch('api/log', {

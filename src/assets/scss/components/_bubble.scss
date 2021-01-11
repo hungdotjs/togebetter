@@ -53,6 +53,12 @@
     }
   }
 
+  &__user-info {
+    display: grid;
+    grid-template-columns: 50px auto;
+    column-gap: 12px;
+  }
+
   &__featured-answer {
     margin: 0 -16px;
     margin-top: -12px;
