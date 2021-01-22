@@ -9,7 +9,7 @@
   >
     <!-- Question type -->
     <p v-if="content.questionType">
-      <el-tag type="success">
+      <el-tag type="success" effect="plain">
         Question about <b>{{ languageName }}</b>
       </el-tag>
     </p>

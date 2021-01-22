@@ -41,7 +41,7 @@
             <i class=" el-icon-lock"></i>
             Password
             <p class="text-small">
-              Passwords must be <b>8 or more characters</b>. Please choose a unique password that
+              Passwords must be <b>6 or more characters</b>. Please choose a unique password that
               isn't easy to guess.
             </p>
           </template>
@@ -221,7 +221,7 @@ export default {
         ],
         password: [
           { required: true, message: 'Please input the password', trigger: 'blur' },
-          { min: 8, message: 'Please enter at least 8 characters', trigger: 'blur' },
+          { min: 6, message: 'Please enter at least 6 characters', trigger: 'blur' },
         ],
       },
       dialogVisible: false,

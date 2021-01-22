@@ -17,8 +17,19 @@
             </div>
             <p>Search questions</p>
 
-            <el-input class="hero__search" placeholder="habit example" size="medium">
-              <el-button slot="append" type="primary" icon="el-icon-search"></el-button>
+            <el-input
+              class="hero__search"
+              placeholder="habit example"
+              size="medium"
+              v-model="query"
+              @keyup.enter.native="search"
+            >
+              <el-button
+                slot="append"
+                type="primary"
+                icon="el-icon-search"
+                @click="search"
+              ></el-button>
             </el-input>
             <router-link tag="div" to="/signup">
               <button class="hero__button btn-grad">Join us</button>
@@ -200,7 +211,14 @@ export default {
     return {
       loading: false,
       language: 'en_us',
+      query: '',
     };
+  },
+
+  methods: {
+    search() {
+      this.$router.push({ name: 'search', query: { q: this.query } });
+    },
   },
 };
 </script>

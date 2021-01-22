@@ -19,5 +19,6 @@ module.exports = {
     'operator-linebreak': 'off',
     'global-require': 'off',
     'import/no-unresolved': 'off',
+    'no-underscore-dangle': 'off',
   },
 };

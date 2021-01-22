@@ -115,7 +115,7 @@
     <div class="hidden-xs-only">
       <div class="tb-navbar__wrapper tb-navbar__wrapper--desktop">
         <div class="tb-navbar__item--desktop tb-navbar__logo">
-          <router-link tag="div" class="tb-navbar__item__anchor" to="/questions">
+          <router-link tag="div" class="tb-navbar__item__anchor" :to="isLogin ? '/questions' : '/'">
             <img :src="require('@/assets/img/logo-flat.png')" alt="#" class="tb-navbar__logo" />
           </router-link>
         </div>

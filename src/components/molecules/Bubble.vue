@@ -46,8 +46,11 @@
         </div>
 
         <div class="bubble__header text-small">
-          <p class="bubble__name" @click="goTo">
-            {{ username }}
+          <p class="m-0">
+            <span class="bubble__name" @click="goTo">{{ username }}</span>
+            <el-tag type="danger" size="mini" class="ml-8" effect="plain">
+              <i class="iconfont icon-heart-solid"></i> {{ points }}
+            </el-tag>
             <el-tag v-if="isAuthor" type="info" class="ml-8" size="small">📝 Author</el-tag>
           </p>
           <div class="m-0"><i class="el-icon-time"></i> {{ time }}</div>
