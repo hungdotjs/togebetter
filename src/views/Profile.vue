@@ -2,54 +2,47 @@
   <div class="profile" v-loading="loading">
     <div class="profile__wrapper" v-if="currentUser">
       <div class="profile__overview">
-        <div class="profile__avatar-wrapper">
-          <el-image class="profile__avatar" :src="currentUser.photoURL"></el-image>
-          <router-link
-            tag="div"
-            class="text-center"
-            v-if="isOwner"
-            :to="{ name: 'edit-profile', params: { id: user.id } }"
-          >
-            <el-button size="mini" icon="iconfont icon-edit" type="primary">
-              {{ $t('profile.edit') }}
-            </el-button>
-          </router-link>
-        </div>
-        <div class="p-16">
-          <div class="profile__username">
-            {{ currentUser.username }}
-          </div>
-          <div class="profile__stats">
-            <div class="profile__stats__item profile__stats__item--points">
-              <span class="text-bold">
-                <i class="iconfont icon-heart-solid"></i>
-                {{ currentUser.points }}
-              </span>
-              <span> {{ $t('points') }} </span>
+        <el-row>
+          <el-col :xs="24" :md="8">
+            <div class="profile__avatar-wrapper">
+              <el-image class="profile__avatar" :src="currentUser.photoURL"></el-image>
+              <div class="profile__username">
+                {{ currentUser.username }}
+              </div>
+              <router-link
+                tag="div"
+                class="text-center"
+                v-if="isOwner"
+                :to="{ name: 'edit-profile', params: { id: user.id } }"
+              >
+                <el-button size="mini" icon="iconfont icon-edit" plain>
+                  {{ $t('profile.edit') }}
+                </el-button>
+              </router-link>
+              <div v-else class="text-center">
+                <el-button size="mini" icon="el-icon-warning-outline" plain>
+                  {{ $t('report') }}
+                </el-button>
+              </div>
             </div>
-            <p class="profile__stats__item profile__stats__item--question">
-              <span class="text-bold">
-                <i class="iconfont icon-ask-question"></i>
-                {{ currentUser.totalQuestions }}
-              </span>
-              <span> {{ $t('q') }} </span>
-            </p>
-            <p class="profile__stats__item profile__stats__item--answer">
-              <span class="text-bold">
-                <i class="iconfont icon-answer"></i>
-                {{ currentUser.totalAnswers }}
-              </span>
-              <span> {{ $t('a') }} </span>
-            </p>
-          </div>
-        </div>
+          </el-col>
+          <el-col :xs="24" :md="16">
+            <apex-chart
+              type="bar"
+              height="300"
+              :options="chartOptions"
+              :series="series"
+            ></apex-chart>
+          </el-col>
+        </el-row>
       </div>
 
       <el-tabs v-model="activeName">
         <!-- Tab Profile  -->
         <el-tab-pane :label="$t('profile.profile')" name="profile">
           <div>
-            <div class="profile__bio">
+            <base-map :countryCode="currentUser.knowingCountry"></base-map>
+            <div class="profile__bio mt-8">
               <p class="text-bold">About me</p>
               <p class="profile__bio">
                 {{ currentUser.bio }}
@@ -122,8 +115,14 @@
         </el-tab-pane>
 
         <!-- Tab Questions  -->
-        <el-tab-pane v-loading="loadingTab" :label="$t('profile.questions')" name="questions" lazy>
-          <div v-if="!questions.length" class="profile__post--error">
+        <el-tab-pane
+          v-loading="loadingTab"
+          :label="$t('profile.questions')"
+          name="questions"
+          class="profile__post"
+          lazy
+        >
+          <div v-if="!loadingTab && !questions.length" class="profile__post--error">
             <el-image
               src="https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fhugo-292.png?alt=media&token=a02f5342-1704-4e81-ac7f-134feb83a105"
               lazy
@@ -151,8 +150,14 @@
         </el-tab-pane>
 
         <!-- Tab Answers  -->
-        <el-tab-pane v-loading="loadingTab" :label="$t('profile.answers')" name="answers" lazy>
-          <div v-if="!answers.length" class="profile__post--error">
+        <el-tab-pane
+          v-loading="loadingTab"
+          :label="$t('profile.answers')"
+          name="answers"
+          lazy
+          class="profile__post"
+        >
+          <div v-if="!loadingTab && !answers.length" class="profile__post--error">
             <el-image
               src="https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fhugo-292.png?alt=media&token=a02f5342-1704-4e81-ac7f-134feb83a105"
               lazy
@@ -182,8 +187,14 @@
         </el-tab-pane>
 
         <!-- Tab Posts  -->
-        <el-tab-pane v-loading="loadingTab" :label="$t('profile.posts')" name="posts" lazy>
-          <div v-if="!posts.length" class="profile__post--error">
+        <el-tab-pane
+          v-loading="loadingTab"
+          :label="$t('profile.posts')"
+          name="posts"
+          class="profile__post"
+          lazy
+        >
+          <div v-if="!loadingTab && !posts.length" class="profile__post--error">
             <el-image
               src="https://firebasestorage.googleapis.com/v0/b/togebetter.appspot.com/o/img%2Fhugo-292.png?alt=media&token=a02f5342-1704-4e81-ac7f-134feb83a105"
               lazy
@@ -211,6 +222,8 @@
 
 <script>
 import LevelIcon from '@/components/atoms/LevelIcon.vue';
+import BaseMap from '@/components/atoms/BaseMap.vue';
+import ApexChart from 'vue-apexcharts';
 import QuestionBubble from '@/components/molecules/QuestionBubble.vue';
 import ChatBubble from '@/components/molecules/ChatBubble.vue';
 import InputInterestLanguage from '@/components/molecules/InputInterestLanguage.vue';
@@ -227,7 +240,9 @@ export default {
     QuestionBubble,
     ChatBubble,
     InputInterestLanguage,
+    BaseMap,
     Post,
+    ApexChart,
   },
 
   data() {
@@ -247,6 +262,56 @@ export default {
       lastQuestionDoc: null,
       lastAnswerDoc: null,
       lastPostDoc: null,
+      coordinates: null,
+      series: [{ name: 'Amount', data: [21, 22, 10] }],
+      chartOptions: {
+        chart: {
+          height: 300,
+          type: 'bar',
+          toolbar: {
+            show: true,
+            tools: {
+              download: false,
+            },
+          },
+        },
+        plotOptions: {
+          bar: {
+            columnWidth: '45%',
+            distributed: true,
+            dataLabels: {
+              position: 'center',
+            },
+          },
+        },
+
+        colors: ['#f65e39', '#409eff', '#8bc34a'],
+        legend: {
+          position: 'right',
+          offsetY: 20,
+        },
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              legend: {
+                position: 'bottom',
+                offsetX: -10,
+                offsetY: 0,
+              },
+            },
+          },
+        ],
+        xaxis: {
+          categories: ['Points', 'Questions', 'Answers'],
+          labels: {
+            style: {
+              colors: ['#f65e39', '#409eff', '#8bc34a'],
+              fontSize: '12px',
+            },
+          },
+        },
+      },
     };
   },
 
@@ -375,6 +440,9 @@ export default {
           id: doc.id,
           ...doc.data(),
         };
+        this.series = [
+          { name: 'Amount', data: [user.points, user.totalAnswers, user.totalQuestions] },
+        ];
         this.currentUser = user;
         this.loading = false;
       } else {

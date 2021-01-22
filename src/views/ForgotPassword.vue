@@ -25,12 +25,28 @@
               },
             ]"
           >
-            <el-input type="email" v-model="email"></el-input>
+            <el-input type="email" v-model="email" placeholder="Enter your email"></el-input>
             <p v-if="error" class="text-small color-error mt-8">{{ error }}</p>
           </el-form-item>
-          <el-button type="primary" size="small" :loading="loading" @click="sendEmail">
-            Send recovery email
-          </el-button>
+          <div class="text-center">
+            <el-button
+              type="primary"
+              size="small"
+              :loading="loading"
+              @click="sendEmail"
+              class="mb-16"
+            >
+              Send recovery email
+            </el-button>
+            <p>
+              New user?
+              <router-link :to="{ name: 'signup' }" class="base-link">Sign up</router-link>
+            </p>
+            <p>
+              Already registered?
+              <router-link class="base-link" :to="{ name: 'login' }">Login</router-link>
+            </p>
+          </div>
         </el-form>
       </div>
     </div>

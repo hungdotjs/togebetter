@@ -1,27 +1,28 @@
+/* eslint-disable no-unused-vars */
 import { analytics } from '@/firebase';
 
 const actions = {
-  login(method) {
+  login({ commit }, method) {
     analytics.logEvent('login', {
       method,
     });
   },
 
-  signUp(method) {
+  signUp({ commit }, method) {
     analytics.logEvent('sign_up', {
       method,
     });
   },
 
-  ask(payload) {
+  ask({ commit }, payload) {
     analytics.logEvent('ask', payload);
   },
 
-  createPost(payload) {
+  createPost({ commit }, payload) {
     analytics.logEvent('create_post', payload);
   },
 
-  answer(payload) {
+  answer({ commit }, payload) {
     analytics.logEvent('answer', payload);
   },
 };

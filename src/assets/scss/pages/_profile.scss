@@ -14,8 +14,7 @@
 
   &__overview {
     padding: 16px 0;
-    display: flex;
-    margin-bottom: 16px;
+    // margin-bottom: 16px;
   }
 
   &__username {
@@ -30,7 +29,7 @@
     height: 110px;
     border-radius: 50%;
     cursor: pointer;
-    margin-bottom: 8px;
+    // margin-bottom: 8px;
     box-shadow: $light-shadow;
   }
 
@@ -71,6 +70,8 @@
   }
 
   &__post {
+    min-height: 200px;
+
     &--error {
       display: flex;
       flex-direction: column;

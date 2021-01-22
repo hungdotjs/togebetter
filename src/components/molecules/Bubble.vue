@@ -1,11 +1,33 @@
 <template>
   <div class="bubble">
     <div class="bubble__left">
-      <el-image class="bubble__avatar" :src="avatar" fit="cover">
-        <div slot="error" class="bubble__avatar--error">
-          <i class="el-icon-picture-outline"></i>
+      <el-popover placement="top" width="180" :open-delay="500" trigger="hover">
+        <div class="bubble__user-info">
+          <el-image class="bubble__avatar m-0" :src="avatar" fit="cover">
+            <div slot="error" class="bubble__avatar--error">
+              <i class="el-icon-picture-outline"></i>
+            </div>
+          </el-image>
+          <div>
+            <p class="bubble__name mb-8" @click="goTo">{{ username }}</p>
+            <p class="profile__stats__item--points">
+              <span class="text-bold"> {{ points }} </span> points
+            </p>
+            <p class="profile__stats__item--question">
+              <span class="text-bold"> {{ totalQuestions }} </span> questions
+            </p>
+            <p class="profile__stats__item--answer">
+              <span class="text-bold"> {{ totalAnswers }} </span> answers
+            </p>
+          </div>
         </div>
-      </el-image>
+        <el-image slot="reference" class="bubble__avatar" :src="avatar" fit="cover">
+          <div slot="error" class="bubble__avatar--error">
+            <i class="el-icon-picture-outline"></i>
+          </div>
+        </el-image>
+      </el-popover>
+
       <el-tooltip content="Featured answer" :open-delay="1000">
         <img
           v-if="checked"
@@ -24,7 +46,13 @@
         </div>
 
         <div class="bubble__header text-small">
-          <p class="bubble__name" @click="goTo">{{ username }}</p>
+          <p class="m-0">
+            <span class="bubble__name" @click="goTo">{{ username }}</span>
+            <el-tag type="danger" size="mini" class="ml-8" effect="plain">
+              <i class="iconfont icon-heart-solid"></i> {{ points }}
+            </el-tag>
+            <el-tag v-if="isAuthor" type="info" class="ml-8" size="small">📝 Author</el-tag>
+          </p>
           <div class="m-0"><i class="el-icon-time"></i> {{ time }}</div>
         </div>
         <div class="bubble__language">
@@ -73,6 +101,9 @@ export default {
     createdAt: {
       default: '',
     },
+    isAuthor: {
+      default: false,
+    },
     hideInterestLanguage: {
       type: Boolean,
       default: false,
@@ -108,6 +139,9 @@ export default {
       nativeLanguage: '',
       interestLanguages: [],
       knowingCountry: '',
+      points: 0,
+      totalAnswers: 0,
+      totalQuestions: 0,
     };
   },
 
@@ -139,6 +173,9 @@ export default {
     this.nativeLanguage = data.nativeLanguage;
     this.interestLanguages = data.interestLanguages;
     this.knowingCountry = data.knowingCountry;
+    this.points = data.points;
+    this.totalAnswers = data.totalAnswers;
+    this.totalQuestions = data.totalQuestions;
   },
 
   methods: {
