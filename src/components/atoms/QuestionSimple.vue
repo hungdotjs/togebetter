@@ -44,28 +44,5 @@ export default {
       return this.question.content;
     },
   },
-
-  filters: {
-    questionType(value) {
-      switch (value) {
-        case 'how-say':
-          return 'How do you say this?';
-        case 'what-mean':
-          return 'What does this mean?';
-        case 'sound-natural':
-          return 'Does this sound natural?';
-        case 'example':
-          return 'Please show me example sentences with?';
-        case 'difference':
-          return "What's the difference?";
-        case 'your-pronounce':
-          return 'Please show me how to pronounce?';
-        case 'my-pronounce':
-          return "How's my pronunciation? Please record yours too.";
-        default:
-          return '';
-      }
-    },
-  },
 };
 </script>

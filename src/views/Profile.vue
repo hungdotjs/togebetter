@@ -19,11 +19,7 @@
                   {{ $t('profile.edit') }}
                 </el-button>
               </router-link>
-              <div v-else class="text-center">
-                <el-button size="mini" icon="el-icon-warning-outline" plain>
-                  {{ $t('report') }}
-                </el-button>
-              </div>
+              <report-user v-else :userID="user.id"></report-user>
             </div>
           </el-col>
           <el-col :xs="24" :md="16">
@@ -223,6 +219,7 @@
 <script>
 import LevelIcon from '@/components/atoms/LevelIcon.vue';
 import BaseMap from '@/components/atoms/BaseMap.vue';
+import ReportUser from '@/components/atoms/ReportUser.vue';
 import ApexChart from 'vue-apexcharts';
 import QuestionBubble from '@/components/molecules/QuestionBubble.vue';
 import ChatBubble from '@/components/molecules/ChatBubble.vue';
@@ -243,6 +240,7 @@ export default {
     BaseMap,
     Post,
     ApexChart,
+    ReportUser,
   },
 
   data() {

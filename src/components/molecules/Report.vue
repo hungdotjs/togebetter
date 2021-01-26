@@ -82,12 +82,11 @@ export default {
     send() {
       this.loading = true;
       const input = {
-        value: this.value,
+        type: this.value,
+        senderID: this.userID,
+        targetID: this.contentID,
+        targetType: this.type,
         message: this.message,
-        url: this.dataUrl,
-        userID: this.userID,
-        contentID: this.contentID,
-        type: this.type,
       };
       const timeout = setTimeout(() => {
         this.$emit('send', input);

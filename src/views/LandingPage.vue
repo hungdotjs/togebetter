@@ -53,21 +53,33 @@
     <div class="landing-page__box">
       <h2 class="landing-page__box__title">Newest Questions</h2>
       <el-row :gutter="16">
-        <el-col v-for="i in 6" :key="i" :xs="24" :sm="12">
-          <div class="landing-page__box__question">
-            <p>
-              How do you say this in English (US)? 왜 니가 계산하는거야? 내가 낼게
-            </p>
-            <span type="danger" class="landing-page__box__answer">1</span>
-          </div>
+        <el-col v-for="item in questions" :key="item.id" :xs="24" :sm="12">
+          <router-link
+            tag="div"
+            :to="`/questions/${item.id}`"
+            class="landing-page__box__question cursor mb-16"
+          >
+            <div class="text-truncate">
+              <span class="color-secondary">{{ item.questionType | questionType }}</span>
+              {{ item.content }}
+            </div>
+            <el-button
+              class="question-bubble__number"
+              :class="!item.comments.length && 'question-bubble__number--active'"
+              :type="item.comments.length ? 'primary' : 'success'"
+              circle
+            >
+              {{ item.comments.length }}
+            </el-button>
+          </router-link>
         </el-col>
       </el-row>
       <div class="text-center mb-32">
-        <el-button type="primary" size="medium">Show more</el-button>
+        <el-button type="primary" size="medium" @click="goTo">Show more</el-button>
       </div>
 
       <!-- Question with language  -->
-      <h2 class="landing-page__box__title">Questions for Korean</h2>
+      <!-- <h2 class="landing-page__box__title">Questions for Korean</h2>
       <el-row :gutter="16">
         <el-col v-for="i in 6" :key="i" :xs="24" :sm="12">
           <div class="landing-page__box__question">
@@ -80,7 +92,7 @@
       </el-row>
       <div class="text-center">
         <el-button type="primary" size="medium">Show more</el-button>
-      </div>
+      </div> -->
     </div>
 
     <div class="landing-page__info">
@@ -199,6 +211,7 @@
 
 <script>
 import TbFooter from '@/components/organisms/Footer.vue';
+import { db } from '@/firebase';
 import '@lottiefiles/lottie-player';
 
 export default {
@@ -210,12 +223,38 @@ export default {
   data() {
     return {
       loading: false,
+      questions: [],
       language: 'en_us',
       query: '',
     };
   },
 
+  created() {
+    this.getData();
+  },
+
   methods: {
+    async getData() {
+      const querySnapshot = await db
+        .collection('questions')
+        .orderBy('createdAt', 'desc')
+        .limit(10)
+        .get();
+
+      const questions = [];
+      querySnapshot.forEach((doc) => {
+        questions.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      this.questions = questions;
+    },
+
+    goTo() {
+      this.$router.push({ name: 'home' });
+    },
+
     search() {
       this.$router.push({ name: 'search', query: { q: this.query } });
     },
