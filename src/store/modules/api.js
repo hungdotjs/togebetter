@@ -59,9 +59,8 @@ const actions = {
   },
 
   report({ commit }, payload) {
-    const { userID, message, postID } = payload;
     const uid = generateUID();
-    api.post('/report', { id: uid, message, userID, postID }).then((response) => {
+    api.post('/report', { id: uid, ...payload }).then((response) => {
       console.log(response);
     });
   },

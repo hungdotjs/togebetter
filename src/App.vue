@@ -64,6 +64,10 @@ export default {
               id: user.uid,
               ...doc.data(),
             };
+            if (userData.status === 'deactive') {
+              this.$store.dispatch('auth/signOut');
+              this.$router.push('/');
+            }
             this.$store.commit('auth/saveUser', { ...userData });
             localStorage.setItem('user', JSON.stringify(userData));
           });

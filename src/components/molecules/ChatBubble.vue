@@ -166,7 +166,7 @@
         :userID="user.id"
         :visible.sync="openReport"
         :url="type === 'question' ? $route.path : `${$route.path}/comments/${content.id}`"
-        :type="type"
+        :type="type === 'question' ? type : 'answer'"
         :contentID="type === 'question' ? content.id : content.questionID"
         @send="report"
       ></report>
