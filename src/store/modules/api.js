@@ -11,14 +11,14 @@ const actions = {
     const { userID, action } = payload;
     const uid = generateUID();
     api.post('/log', { id: uid, action, userId: userID }).then((response) => {
-      console.log(response);
+      console.log('log', response.status);
     });
   },
 
   createUser({ commit }, payload) {
     const data = payload;
     api.post('/user', data).then((response) => {
-      console.log(response);
+      console.log('create user', response.status);
     });
   },
 
@@ -54,14 +54,20 @@ const actions = {
     };
 
     api.post('/question', data).then((response) => {
-      console.log(response);
+      console.log('ask', response.status);
+    });
+  },
+
+  answer({ commit }, payload) {
+    api.put('/question', payload).then((response) => {
+      console.log('answer', response.status);
     });
   },
 
   report({ commit }, payload) {
     const uid = generateUID();
     api.post('/report', { id: uid, ...payload }).then((response) => {
-      console.log(response);
+      console.log('report', response.status);
     });
   },
 };

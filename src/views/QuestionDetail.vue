@@ -473,6 +473,12 @@ export default {
         userID: this.user.id,
       });
 
+      // Update question to api
+      this.$store.dispatch('api/answer', {
+        id: questionID,
+        comments: comment.id,
+      });
+
       // Log to api
       this.$store.dispatch('api/log', {
         userID: this.user.id,
