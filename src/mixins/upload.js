@@ -7,8 +7,10 @@ export default {
       loadingUpload: false,
       audioRef: null,
       photoRef: null,
+      videoRef: null,
       audioURL: '',
       photoURL: '',
+      videoURL: '',
     };
   },
 
@@ -41,6 +43,35 @@ export default {
       const downloadURL = await storagePhotoRef.getDownloadURL();
       this.photoURL = downloadURL;
       this.loadingUpload = false;
+    },
+
+    async handleUploadVideo(file) {
+      const isVideo = file.raw.type.includes('video/');
+
+      if (!isVideo) {
+        this.$message({
+          message: 'File must be an video!',
+          type: 'error',
+        });
+        return;
+      }
+
+      this.loadingUpload = true;
+      const uid = `${generateUID()}_${file.raw.uid}`;
+      const storageVideoRef = storage.ref(`assets/videos/${uid}`);
+      this.videoRef = storageVideoRef;
+      await storageVideoRef.put(file.raw);
+      const downloadURL = await storageVideoRef.getDownloadURL();
+      this.videoURL = downloadURL;
+      this.loadingUpload = false;
+    },
+
+    removeVideo() {
+      this.loadingUpload = true;
+      this.videoRef.delete().then(() => {
+        this.videoURL = '';
+        this.loadingUpload = false;
+      });
     },
 
     removePhoto() {
