@@ -108,6 +108,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "users" */ '@/views/ForgotPassword.vue'),
   },
   {
+    path: '/account-banned',
+    name: 'account-banned',
+    component: () => import(/* webpackChunkName: "users" */ '@/views/AccountBanned.vue'),
+  },
+  {
     path: '/404',
     name: '404',
     component: () => import(/* webpackChunkName: "404" */ '@/views/404.vue'),
@@ -137,14 +142,19 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (store.state.auth.user) {
-    switch (to.name) {
-      case 'login':
-      case 'signup':
-        next({ name: 'home' });
-        break;
-      default:
-        next();
+  const { user } = store.state.auth;
+  if (user) {
+    if (user.status === 'active') {
+      switch (to.name) {
+        case 'login':
+        case 'signup':
+          next({ name: 'home' });
+          break;
+        default:
+          next();
+      }
+    } else {
+      next({ name: 'account-banned' });
     }
   } else {
     next();

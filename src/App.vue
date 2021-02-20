@@ -30,7 +30,7 @@ export default {
 
   data() {
     return {
-      blackList: ['landing-page', 'login', 'signup', 'account-recovery'],
+      blackList: ['landing-page', 'login', 'signup', 'account-recovery', 'account-banned'],
       loading: false,
       unsubcribe: null,
     };
@@ -64,9 +64,9 @@ export default {
               id: user.uid,
               ...doc.data(),
             };
-            if (userData.status === 'deactive') {
+            if (userData.status !== 'active') {
               this.$store.dispatch('auth/signOut');
-              this.$router.push('/');
+              this.$router.push({ name: 'account-banned' });
             }
             this.$store.commit('auth/saveUser', { ...userData });
             localStorage.setItem('user', JSON.stringify(userData));

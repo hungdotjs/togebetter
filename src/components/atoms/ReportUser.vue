@@ -23,7 +23,7 @@
       <el-input type="textarea" v-model="message"></el-input>
       <div class="mt-16 text-right">
         <el-button size="mini" @click="visible = false">Cancel</el-button>
-        <el-button size="mini" type="primary">Submit</el-button>
+        <el-button size="mini" type="primary" @click="send">Submit</el-button>
       </div>
     </el-dialog>
   </div>
