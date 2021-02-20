@@ -20,7 +20,7 @@
         placeholder="word, phrase or sentence"
       ></el-input>
     </div>
-    <div class="mb-16 text-center">
+    <div class="mb-16  center">
       <el-upload
         action="#"
         accept="image/*"
@@ -28,18 +28,36 @@
         :show-file-list="false"
         :on-change="handleChangeUpload"
       >
-        <el-button icon="el-icon-camera-solid" plain>Upload Image</el-button>
+        <el-button icon="el-icon-camera-solid" :loading="loadingUpload" plain class="mr-8">
+          Upload Image
+        </el-button>
       </el-upload>
-      <div v-if="photoURL" style="position: relative; width: fit-content; margin: 8px auto;">
-        <el-image :src="photoURL" class="question-new__image" fit="cover">
-          <div slot="placeholder" class="text-center p-16">
-            <i class="el-icon-loading"></i>
-          </div>
-        </el-image>
-        <span @click="removePhoto" class="answer-form__image__remove">
-          <i class="el-icon-error"></i>
-        </span>
-      </div>
+
+      <el-upload
+        action="#"
+        accept="video/*"
+        :auto-upload="false"
+        :show-file-list="false"
+        :on-change="handleUploadVideo"
+      >
+        <el-button icon="el-icon-video-play" :loading="loadingUpload" plain>Upload Video</el-button>
+      </el-upload>
+    </div>
+    <div v-if="photoURL" style="position: relative; width: fit-content; margin: 8px auto;">
+      <el-image :src="photoURL" class="question-new__image" fit="cover">
+        <div slot="placeholder" class="text-center p-16">
+          <i class="el-icon-loading"></i>
+        </div>
+      </el-image>
+      <span @click="removePhoto" class="answer-form__image__remove">
+        <i class="el-icon-error"></i>
+      </span>
+    </div>
+    <div v-if="videoURL" style="position: relative; width: fit-content; margin: 8px auto;">
+      <video :src="videoURL" controls></video>
+      <span @click="removeVideo" class="answer-form__image__remove">
+        <i class="el-icon-error"></i>
+      </span>
     </div>
     <div class="text-center mb-16">
       <record-audio @done="handleRecordAudio" :disable-preview="true">
@@ -133,7 +151,7 @@ export default {
     },
 
     havedInput() {
-      return this.photoURL || this.audioURL || this.question;
+      return this.photoURL || this.audioURL || this.question || this.videoURL;
     },
 
     imageURL() {
@@ -165,6 +183,7 @@ export default {
         content: this.question,
         audioURL: this.audioURL,
         photoURL: this.photoURL,
+        videoURL: this.videoURL,
         additionalInformation: this.additionalInformation,
         questionType: this.questionType,
         createdAt: FieldValue.serverTimestamp(),
@@ -186,6 +205,7 @@ export default {
         content: this.question,
         audioURL: this.audioURL,
         photoURL: this.photoURL,
+        videoURL: this.videoURL,
         questionType: this.questionType,
         votes: 0,
         answers: 0,

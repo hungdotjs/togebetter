@@ -70,6 +70,9 @@
           lazy
         ></el-image>
       </div>
+      <div v-if="content.videoURL">
+        <video :src="content.videoURL" controls></video>
+      </div>
       <div v-if="content.audioURL">
         <audio
           type="audio/mpeg"

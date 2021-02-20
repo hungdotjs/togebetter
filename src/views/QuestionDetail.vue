@@ -49,7 +49,7 @@
           </template>
         </div>
 
-        <div ref="answerForm" class="answer-form" v-if="!isClosed">
+        <div ref="answerForm" class="answer-form" v-if="!isClosed" v-loading="loadingUpload">
           <div v-if="!user" class="text-center py-16">
             <p>
               Log in or sign up to leave a comment
@@ -69,6 +69,12 @@
                 </div>
               </el-image>
               <span @click="removePhoto" class="answer-form__image__remove">
+                <i class="el-icon-circle-close"></i>
+              </span>
+            </div>
+            <div v-if="videoURL" style="position: relative; width: fit-content;">
+              <video :src="videoURL" class="answer-form__image" controls></video>
+              <span @click="removeVideo" class="answer-form__image__remove">
                 <i class="el-icon-circle-close"></i>
               </span>
             </div>
@@ -133,12 +139,23 @@
                 :on-change="handleChangeUpload"
               >
                 <div class="button-group__item">
-                  <i class="iconfont icon-camera"></i>
+                  <i class="iconfont icon-photo"></i>
+                </div>
+              </el-upload>
+              <el-upload
+                action="#"
+                accept="video/*"
+                :auto-upload="false"
+                :show-file-list="false"
+                :on-change="handleUploadVideo"
+              >
+                <div class="button-group__item">
+                  <i class="iconfont icon-movie"></i>
                 </div>
               </el-upload>
               <chat-sticker @select="selectSticker">
                 <div class="button-group__item">
-                  <i class="iconfont icon-smile"></i>
+                  <i class="iconfont icon-emoji"></i>
                 </div>
               </chat-sticker>
             </div>
@@ -456,6 +473,7 @@ export default {
         content: this.answer,
         audioURL: this.audioURL,
         photoURL: this.photoURL,
+        videoURL: this.videoURL,
         votes: [],
         createdAt: FieldValue.serverTimestamp(),
       };
@@ -512,6 +530,7 @@ export default {
       this.loadingSubmit = false;
       this.photoURL = '';
       this.audioURL = '';
+      this.videoURL = '';
       this.answer = '';
     },
 
