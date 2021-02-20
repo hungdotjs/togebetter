@@ -105,3 +105,25 @@
     }
   }
 }
+
+.account-banned {
+  max-width: 600px;
+  padding: 16px;
+
+  .el-alert {
+    padding: 16px;
+  }
+
+  .el-alert__content {
+    padding-left: 16px;
+  }
+
+  .el-alert__title {
+    font-size: 20px;
+  }
+
+  .el-alert__description {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+}

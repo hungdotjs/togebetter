@@ -54,7 +54,15 @@
             "type5": "Please show me examples with~~",
             "type6": "Please show me how to pronounce ~~.",
             "type7": "How's my pronunciation?",
-            "type8": "Ask something else"
+            "type8": "Ask something else",
+            "title1": "How do you say this in ~?",
+            "title2": "Does this sound natural in ~?",
+            "title3": "What does this mean in ~?",
+            "title4": "What's the difference between ~ and ~ in ~?",
+            "title5": "Please show me example sentences with ~~",
+            "title6": "Please show me how to pronounce ~?",
+            "title7": "How's my pronunciation?",
+            "title8": "Ask about a country, culture or anything you want."
         },
         "related": "Related Questions",
         "newest": "Newest Questions",
