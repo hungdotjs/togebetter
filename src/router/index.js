@@ -113,6 +113,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "users" */ '@/views/AccountBanned.vue'),
   },
   {
+    path: '/privacy',
+    name: 'privacy',
+    component: () => import(/* webpackChunkName: "privacy" */ '@/views/Privacy.vue'),
+  },
+  {
     path: '/404',
     name: '404',
     component: () => import(/* webpackChunkName: "404" */ '@/views/404.vue'),

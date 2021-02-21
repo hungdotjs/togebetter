@@ -17,7 +17,7 @@ export default {
   methods: {
     async handleChangeUpload(file) {
       const isImage = file.raw.type.includes('image/');
-      const isLt2M = file.size / 1024 / 1024 < 2;
+      const isLt2M = file.size / 1024 / 1024 < 10;
 
       if (!isImage) {
         this.$message({
@@ -29,7 +29,7 @@ export default {
 
       if (!isLt2M) {
         this.$message({
-          message: 'Picture size can not exceed 2MB!',
+          message: 'Picture size can not exceed 10MB!',
           type: 'error',
         });
         return;
