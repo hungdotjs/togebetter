@@ -282,11 +282,6 @@ export default {
           this.loading = false;
 
           this.$store.dispatch('analytics/signUp', 'Togebetter');
-          this.$store.dispatch('api/createUser', {
-            id: userID,
-            country: this.form.knowingCountry,
-            ...data,
-          });
 
           this.$router.push('/questions');
         })

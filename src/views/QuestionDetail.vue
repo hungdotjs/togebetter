@@ -360,12 +360,6 @@ export default {
           });
         this.question.status = 'closed';
       });
-
-      // Log to api
-      this.$store.dispatch('api/log', {
-        userID: this.user.id,
-        action: `Closed question ${this.id}`,
-      });
     },
 
     deleteComment(commentID) {
@@ -433,12 +427,6 @@ export default {
               message: 'Delete completed',
               type: 'success',
             });
-
-            // Log to api
-            this.$store.dispatch('api/log', {
-              userID: this.user.id,
-              action: `Delete question ${questionID}`,
-            });
           });
         await db
           .collection('users')
@@ -489,18 +477,6 @@ export default {
       this.$store.dispatch('analytics/answer', {
         questionID,
         userID: this.user.id,
-      });
-
-      // Update question to api
-      this.$store.dispatch('api/answer', {
-        id: questionID,
-        comments: comment.id,
-      });
-
-      // Log to api
-      this.$store.dispatch('api/log', {
-        userID: this.user.id,
-        action: `Answer question ${questionID}`,
       });
 
       questionsIndex.partialUpdateObject({

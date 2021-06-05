@@ -55,12 +55,6 @@ export default {
             if (doc.exists) {
               // Analytics
               this.$store.dispatch('analytics/login', 'Google');
-
-              // Log to api
-              this.$store.dispatch('api/log', {
-                userID: uid,
-                action: 'Login',
-              });
             } else {
               const user = {
                 photoURL,
@@ -84,17 +78,6 @@ export default {
               });
               // Analytics
               this.$store.dispatch('analytics/signUp', 'Google');
-              this.$store.dispatch('api/createUser', {
-                id: uid,
-                email,
-                points: 0,
-                totalAnswers: 0,
-                totalQuestions: 0,
-                bio: '',
-                status: 'active',
-                country: user.knowingCountry,
-                ...user,
-              });
             }
 
             this.$router.replace({ name: 'home' });
@@ -122,12 +105,6 @@ export default {
               this.$store.dispatch('analytics/login', 'Facebook');
 
               this.$router.replace({ name: 'home' });
-
-              // Log to api
-              this.$store.dispatch('api/log', {
-                userID: uid,
-                action: 'Login',
-              });
             } else {
               const user = {
                 photoURL: `${photoURL}?access_token=${token}`,
@@ -152,17 +129,6 @@ export default {
 
               // Analytics
               this.$store.dispatch('analytics/signUp', 'Facebook');
-              this.$store.dispatch('api/createUser', {
-                id: uid,
-                email,
-                points: 0,
-                totalAnswers: 0,
-                totalQuestions: 0,
-                bio: '',
-                status: 'active',
-                country: user.knowingCountry,
-                ...user,
-              });
 
               // this.$router.replace({ name: 'home' });
               window.location.replace('/questions');

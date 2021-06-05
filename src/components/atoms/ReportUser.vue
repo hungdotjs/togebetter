@@ -12,12 +12,8 @@
       <el-radio-group v-model="type" class="mb-16">
         <el-radio label="Harassment">Harassment</el-radio>
         <el-radio label="Content is spam">Content is spam</el-radio>
-        <el-radio label="Question Policy">
-          Question Policy
-        </el-radio>
-        <el-radio label="Other">
-          Other
-        </el-radio>
+        <el-radio label="Question Policy"> Question Policy </el-radio>
+        <el-radio label="Other"> Other </el-radio>
       </el-radio-group>
       <p>Message</p>
       <el-input type="textarea" v-model="message"></el-input>
@@ -62,15 +58,14 @@ export default {
 
     send() {
       this.loading = true;
-      const input = {
-        type: this.type,
-        senderID: this.user.id,
-        targetID: this.userID,
-        targetType: 'user',
-        message: this.message,
-      };
-
-      this.$store.dispatch('api/report', input);
+      // TODO: Report
+      // const input = {
+      //   type: this.type,
+      //   senderID: this.user.id,
+      //   targetID: this.userID,
+      //   targetType: 'user',
+      //   message: this.message,
+      // };
 
       const timeout = setTimeout(() => {
         this.visible = false;

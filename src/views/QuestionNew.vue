@@ -219,9 +219,6 @@ export default {
         questionType: this.questionType,
       });
 
-      this.$store.dispatch('api/log', { userID: this.user.id, action: 'Ask a new question' });
-      this.$store.dispatch('api/ask', { id: res.id, ...input, type: this.questionType });
-
       this.$router.push({ name: 'questions-detail', params: { id: res.id } });
     },
   },
